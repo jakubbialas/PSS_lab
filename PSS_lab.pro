@@ -11,8 +11,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    discreteobject.cpp \
+    objectsiso.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    discreteobject.h \
+    objectsiso.h
 
 FORMS    += mainwindow.ui
