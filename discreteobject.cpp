@@ -18,3 +18,11 @@ void DiscreteObject::setAB(vector<double> n_A, vector<double> n_B){
     A = n_A;
     B = n_B;
 }
+
+vector<double> DiscreteObject::getA(){
+    return A;
+}
+
+vector<double> DiscreteObject::getB(){
+    return B;
+}

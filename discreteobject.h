@@ -14,6 +14,8 @@ private:
     vector<double> A; //wielomian A
     vector<double> B; //wielomian B
 
+    vector<double> C;
+
     deque<double> stat; //kolejka stanu (poprzednie wartości)
 
 public:
@@ -21,6 +23,10 @@ public:
     DiscreteObject(vector<double>, vector<double>);
 
     void setAB(vector<double>, vector<double>);
+
+    vector<double> getA();
+    vector<double> getB();
+
 
     double Symuluj(double);
 };
