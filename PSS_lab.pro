@@ -20,3 +20,4 @@ HEADERS  += mainwindow.h \
     objectsiso.h
 
 FORMS    += mainwindow.ui
+

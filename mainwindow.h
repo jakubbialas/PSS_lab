@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <string>
 
+using namespace std;
 namespace Ui {
     class MainWindow;
 }
@@ -13,6 +15,8 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void setLabelText(const QString str);
+    void setPlotData(double *x, double *y);
     ~MainWindow();
 
 private:
