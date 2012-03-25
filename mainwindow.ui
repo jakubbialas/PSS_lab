@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>724</width>
-    <height>454</height>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QwtPlot" name="coercePlot">
+   <widget class="LivePlot" name="coercePlot" native="true">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -249,6 +249,11 @@
    <class>QwtPlot</class>
    <extends>QFrame</extends>
    <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LivePlot</class>
+   <extends>QWidget</extends>
+   <header>liveplot.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

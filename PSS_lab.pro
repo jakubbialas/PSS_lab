@@ -13,11 +13,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     discreteobject.cpp \
-    objectsiso.cpp
+    objectsiso.cpp \
+    liveplot.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
-    objectsiso.h
+    objectsiso.h \
+    liveplot.h
 
 FORMS    += mainwindow.ui
 
+
+unix: LIBS += -L$$PWD/../../../../usr/local/qwt-6.0.2-svn/lib/ -lqwt
+
+INCLUDEPATH += $$PWD/../../../../usr/local/qwt-6.0.2-svn/include
+DEPENDPATH += $$PWD/../../../../usr/local/qwt-6.0.2-svn/include

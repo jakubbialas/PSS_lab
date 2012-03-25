@@ -16,7 +16,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void setLabelText(const QString str);
-    void setPlotData(double *x, double *y);
+    void setPlot1aData(double x, double y);
+    void setPlot1bData(double x, double y);
     ~MainWindow();
 
 private:

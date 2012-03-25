@@ -12,29 +12,27 @@ using namespace std;
 class DiscreteObject : public ObjectSISO
 {
 private:
-    vector<double> A; //wielomian A
-    vector<double> Ap; //wielomian A pomocniczy, tworzony po to by obiekt przechowywał jego nie przekształconą wersję
-    vector<double> B; //wielomian B
-    vector<double> U; //wektor wymuszeń
-    vector<double> C;
+    vector<double> A; //wielomian A - ten na dole...
+    vector<double> B; //wielomian B - ten na gorze
+    deque<double> U;  //kolejka wymuszeń
+    deque<double> Y;  //kolejka stanu (poprzednie wartości)
+    int k;            //opoznienie wejscia
 
-    deque<double> state; //kolejka stanu (poprzednie wartości)
-
-    double counter; //aktualny numer próbki
+    //double counter; //aktualny numer próbki // niepotrzebny
 
 public:
     DiscreteObject();
-    DiscreteObject(vector<double>, vector<double>);
+    DiscreteObject(vector<double>, vector<double>, int);
 
-    void setAB(vector<double>, vector<double>);
-    void setU(vector<double>); //ustaw wektor wymuszeń
+    void setBAk(vector<double>, vector<double>, int);
+    //void setY(deque<double>); //niepotrzebne
+    //void setU(deque<double>); //ustaw wektor wymuszeń
 
-    vector<double> getA();
     vector<double> getB();
-
+    vector<double> getA();
+    int getk();
 
     double Symuluj(double);
-    double Symuluj();
 
 };
 

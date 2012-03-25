@@ -14,61 +14,52 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow window;// = new MainWindow();
 
+    window.show();
+
+    vector<double> B(2) ; //wielomian B
     vector<double> A(3) ; //wielomian A
-    vector<double> B(1) ; //wielomian B
 
-    A[0] =1;
-    A[1] =-0.5;
-    A[2] = -1;
+    int k = 0; //opoznienie
+    double D; //D = e^(-h/T)
 
-    B[0] = 1;
-
-    DiscreteObject *obiekt = new DiscreteObject(A, B);
-
-    //Sprawdziłem dla kilku przypadków i śmiga;
-    //Wymuszeniem jest aktulanie skok
-    for(int i = 0; i < 10; i++){
-        obiekt->Symuluj();
-    }
-
-
+    //calka:
 /*
-    cout << "Wchodze || Ap.size = " << Ap.size() << " || B.size = " << B.size() << endl;
+    B[0] = 1;
+    A[0] = 1;
+    A[1] = -1;
+    k=1;
+//*/
+    //inercja:
 
-    multi = 1/Ap[0];
-    cout << "Multi : "<<multi << endl;
+/*    D = 0.95; //D = e^(-h/T)
+    B[0] = D;
+    A[0] = 1;
+    A[1] = -D;
+    k=1;
+//*/
+    //inercja z calka:
 
-    for(int i = 0; i < Ap.size(); i++){
-        Ap[i] = Ap[i]*(-multi);
-        Y[i] = 0;
-    }
+    D = 0.95; //D = e^(-h/T)
+    B[0] = 1-D;
+    A[0] = 1;
+    A[1] = -1-D;
+    A[2] = D;
+    k = 1;
+//*/
 
-    for(int i = 0; i < 10; i++){
-        Y[i] = 0;
-        cout << "Y["<<i<<"] = ";
+    DiscreteObject obiekt = DiscreteObject(B, A, k);
+    double y;
 
-        for(int j = 1; j < Ap.size(); j++){
-            if(i-j >= 0){
-                cout<<"(if)" ;
-                Y[i] += Ap[j]*Y[i-j];
-                cout << Ap[j] << " * " << Y[i-j];
-            }else{
-                cout << "(else)";
-                Y[i] += Ap[j]*0;
-                cout << Ap[j] << " * 0";
-            }
-
+    //sprawdzone dla tych przypadkow co my na TS robili na 1 zajeciach
+    for(int i = 0; i < 50; i++){
+        if(i==0){
+            y = obiekt.Symuluj(1); //impuls w 1
+        }else{
+            y = obiekt.Symuluj(0); //potem 0
         }
-
-        for(int j = 0; j < B.size(); j++){
-            Y[i] += B[j]*U;
-            cout << " + " << B[j] << " * " << U << endl;
-
-        }
-        cout << "Y["<<i <<"]= " << Y[i] << endl;
+        window.setPlot1aData(i, y);
+        window.setPlot1bData(i, 0);
     }
-*/
-
 
     return a.exec();
 }
