@@ -1,14 +1,23 @@
 #include "discreteobject.h"
 
 DiscreteObject::DiscreteObject(){
-    B = vector<double>(0);
-    A = vector<double>(0);
+    counter = 0;
+}
+
+DiscreteObject::DiscreteObject(ObjectData n_data){
+    data = n_data;
+    ModelData *model = data.models.at(0);
+    B = model->B;
+    A = model->A;
+    k = model->k;
+    counter = 0;
 }
 
 DiscreteObject::DiscreteObject(vector<double> n_B, vector<double> n_A, int n_k){
     B = n_B;
     A = n_A;
     k = n_k;
+    counter = 0;
 
     /* TODO:
     if(k < 0){
@@ -46,8 +55,24 @@ int DiscreteObject::getk(){
     return k;
 }
 
+void DiscreteObject::updateModel(){
+    if(data.models.size()>1){
+         ModelData *model;
+         for(int i=0; i<data.models.size(); i++){
+            model = data.models.at(i);
+            if(model->t == counter){
+                B = model->B;
+                A = model->A;
+                k = model->k;
+             }
+         }
+     }
+}
+
 double DiscreteObject::Symuluj(double input){
         double out = 0;
+
+        updateModel();
 
         U.push_front(input);
 
@@ -80,6 +105,8 @@ double DiscreteObject::Symuluj(double input){
         if(U.size() > B.size()+k-1){
             U.pop_back();
         }
+
+        counter++;
 
         return out;
 }

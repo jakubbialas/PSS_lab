@@ -89,9 +89,7 @@ void MainWindow::on_getConfigBtn_clicked()
     std::string name("niestacjonarny1");
 
     if(ymp.hasKey(name)){
-        ObjectData *od = ymp.getObject(name);
-        ModelData *md = od->models.at(1);
-        Object = new DiscreteObject(md->B, md->A, md->k);
+        object = new DiscreteObject(*ymp.getObject(name));
         cout << "dodano obiekt" << endl;
     }else{
         cout << "nie dodano obiektu" << endl;

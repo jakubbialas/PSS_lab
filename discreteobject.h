@@ -6,6 +6,7 @@
 #include <vector>
 #include <deque>
 #include <iostream>
+#include "objectdata.h"
 
 using namespace std;
 
@@ -18,15 +19,19 @@ private:
     deque<double> Y;  //kolejka stanu (poprzednie wartości)
     int k;            //opoznienie wejscia
 
-    //double counter; //aktualny numer próbki // niepotrzebny
+    ObjectData data;
+    int counter; //aktualny numer próbki
+
+    void updateModel();
 
 public:
     DiscreteObject();
+    DiscreteObject(ObjectData);
     DiscreteObject(vector<double>, vector<double>, int);
 
     void setBAk(vector<double>, vector<double>, int);
-    //void setY(deque<double>); //niepotrzebne
-    //void setU(deque<double>); //ustaw wektor wymuszeń
+    void setModel(ModelData);
+    void setData(ObjectData);
 
     vector<double> getB();
     vector<double> getA();
