@@ -14,12 +14,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     discreteobject.cpp \
     objectsiso.cpp \
-    liveplot.cpp
+    liveplot.cpp \
+    coerce.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
     objectsiso.h \
-    liveplot.h
+    liveplot.h \
+    coerce.h
 
 FORMS    += mainwindow.ui
 

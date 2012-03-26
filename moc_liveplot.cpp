@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'liveplot.h'
 **
-** Created: Mon Mar 26 12:42:27 2012
+** Created: Mon Mar 26 18:06:37 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_LivePlot[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,8 +32,9 @@ static const uint qt_meta_data_LivePlot[] = {
 
  // slots: signature, parameters, type, tag, flags
       18,   10,    9,    9, 0x0a,
-      57,   55,    9,    9, 0x0a,
-      88,    9,    9,    9, 0x0a,
+      61,   55,    9,    9, 0x0a,
+      93,   91,    9,    9, 0x0a,
+     124,    9,    9,    9, 0x0a,
 
        0        // eod
 };
@@ -41,6 +42,7 @@ static const uint qt_meta_data_LivePlot[] = {
 static const char qt_meta_stringdata_LivePlot[] = {
     "LivePlot\0\0x,y,pen\0"
     "drawPoint(double,double,std::string)\0"
+    "y,pen\0drawPoint(double,std::string)\0"
     ",\0addPen(std::string,QwtSymbol*)\0"
     "removePen(std::string)\0"
 };
@@ -75,11 +77,12 @@ int LivePlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: drawPoint((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< std::string(*)>(_a[3]))); break;
-        case 1: addPen((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QwtSymbol*(*)>(_a[2]))); break;
-        case 2: removePen((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 1: drawPoint((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
+        case 2: addPen((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QwtSymbol*(*)>(_a[2]))); break;
+        case 3: removePen((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

@@ -15,11 +15,13 @@ class LivePlot : public QwtPlot
     Q_OBJECT
 public:
     explicit LivePlot(QWidget *parent = 0);
+    double getLastX();
 
 signals:
 
 public slots:
     void drawPoint(double x, double y, std::string pen);
+    void drawPoint(double y, std::string pen);
     void addPen(std::string, QwtSymbol*);
     void removePen(std::string);
 

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon Mar 26 12:54:44 2012
+** Created: Mon Mar 26 17:19:35 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -48,9 +48,12 @@ public:
     QLineEdit *coerceEdit;
     QSlider *coerceSilder;
     QFrame *setCoercionFrame;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
+    QRadioButton *stepCoerceRadio;
+    QRadioButton *manualCoerceRadio;
+    QRadioButton *impCoerceRadio;
+    QRadioButton *nonCoercionRadio;
     QPushButton *simBtn;
+    QPushButton *getConfigBtn;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -59,7 +62,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(724, 332);
+        MainWindow->resize(724, 465);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         coercePlot = new LivePlot(centralWidget);
@@ -82,7 +85,7 @@ public:
         stepFrame = new QFrame(centralWidget);
         stepFrame->setObjectName(QString::fromUtf8("stepFrame"));
         stepFrame->setEnabled(false);
-        stepFrame->setGeometry(QRect(350, 110, 181, 80));
+        stepFrame->setGeometry(QRect(540, 10, 181, 80));
         stepFrame->setFrameShape(QFrame::StyledPanel);
         stepFrame->setFrameShadow(QFrame::Raised);
         label = new QLabel(stepFrame);
@@ -93,7 +96,7 @@ public:
         stepNoEdit->setGeometry(QRect(10, 40, 111, 27));
         coerceFrame = new QFrame(centralWidget);
         coerceFrame->setObjectName(QString::fromUtf8("coerceFrame"));
-        coerceFrame->setGeometry(QRect(540, 110, 171, 151));
+        coerceFrame->setGeometry(QRect(540, 100, 171, 151));
         coerceFrame->setFrameShape(QFrame::StyledPanel);
         coerceFrame->setFrameShadow(QFrame::Raised);
         label_2 = new QLabel(coerceFrame);
@@ -108,18 +111,27 @@ public:
         coerceSilder->setOrientation(Qt::Vertical);
         setCoercionFrame = new QFrame(centralWidget);
         setCoercionFrame->setObjectName(QString::fromUtf8("setCoercionFrame"));
-        setCoercionFrame->setGeometry(QRect(540, 10, 171, 80));
+        setCoercionFrame->setGeometry(QRect(350, 100, 181, 151));
         setCoercionFrame->setFrameShape(QFrame::StyledPanel);
         setCoercionFrame->setFrameShadow(QFrame::Raised);
-        radioButton = new QRadioButton(setCoercionFrame);
-        radioButton->setObjectName(QString::fromUtf8("radioButton"));
-        radioButton->setGeometry(QRect(10, 10, 141, 22));
-        radioButton_2 = new QRadioButton(setCoercionFrame);
-        radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
-        radioButton_2->setGeometry(QRect(10, 40, 151, 22));
+        stepCoerceRadio = new QRadioButton(setCoercionFrame);
+        stepCoerceRadio->setObjectName(QString::fromUtf8("stepCoerceRadio"));
+        stepCoerceRadio->setGeometry(QRect(10, 10, 141, 22));
+        manualCoerceRadio = new QRadioButton(setCoercionFrame);
+        manualCoerceRadio->setObjectName(QString::fromUtf8("manualCoerceRadio"));
+        manualCoerceRadio->setGeometry(QRect(10, 100, 151, 22));
+        impCoerceRadio = new QRadioButton(setCoercionFrame);
+        impCoerceRadio->setObjectName(QString::fromUtf8("impCoerceRadio"));
+        impCoerceRadio->setGeometry(QRect(10, 40, 151, 22));
+        nonCoercionRadio = new QRadioButton(setCoercionFrame);
+        nonCoercionRadio->setObjectName(QString::fromUtf8("nonCoercionRadio"));
+        nonCoercionRadio->setGeometry(QRect(10, 70, 151, 22));
         simBtn = new QPushButton(centralWidget);
         simBtn->setObjectName(QString::fromUtf8("simBtn"));
-        simBtn->setGeometry(QRect(350, 200, 181, 61));
+        simBtn->setGeometry(QRect(450, 270, 181, 21));
+        getConfigBtn = new QPushButton(centralWidget);
+        getConfigBtn->setObjectName(QString::fromUtf8("getConfigBtn"));
+        getConfigBtn->setGeometry(QRect(350, 270, 97, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -144,9 +156,12 @@ public:
         stepSimRadio->setText(QApplication::translate("MainWindow", "Step Simulation", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Number of steps", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("MainWindow", "Set coerce", 0, QApplication::UnicodeUTF8));
-        radioButton->setText(QApplication::translate("MainWindow", "Step coercion", 0, QApplication::UnicodeUTF8));
-        radioButton_2->setText(QApplication::translate("MainWindow", "Manual Coercion", 0, QApplication::UnicodeUTF8));
+        stepCoerceRadio->setText(QApplication::translate("MainWindow", "Step coercion", 0, QApplication::UnicodeUTF8));
+        manualCoerceRadio->setText(QApplication::translate("MainWindow", "Manual Coercion", 0, QApplication::UnicodeUTF8));
+        impCoerceRadio->setText(QApplication::translate("MainWindow", "Impuls coercion", 0, QApplication::UnicodeUTF8));
+        nonCoercionRadio->setText(QApplication::translate("MainWindow", "None coercion", 0, QApplication::UnicodeUTF8));
         simBtn->setText(QApplication::translate("MainWindow", "Simulate", 0, QApplication::UnicodeUTF8));
+        getConfigBtn->setText(QApplication::translate("MainWindow", "Get Config", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

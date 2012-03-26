@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
         }else{
             y = obiekt.Symuluj(0); //potem 0
         }
-        window.setPlot1aData(i, y);
-        window.setPlot1bData(i, 0);
+       // window.setPlot1aData(i, y);
+        //window.setPlot1bData(i, 0);
     }
 
     return a.exec();
