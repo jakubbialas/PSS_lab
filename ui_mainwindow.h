@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Mar 25 22:46:36 2012
+** Created: Mon Mar 26 12:54:44 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -81,6 +81,7 @@ public:
         stepSimRadio->setGeometry(QRect(10, 40, 141, 22));
         stepFrame = new QFrame(centralWidget);
         stepFrame->setObjectName(QString::fromUtf8("stepFrame"));
+        stepFrame->setEnabled(false);
         stepFrame->setGeometry(QRect(350, 110, 181, 80));
         stepFrame->setFrameShape(QFrame::StyledPanel);
         stepFrame->setFrameShadow(QFrame::Raised);
