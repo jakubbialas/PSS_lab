@@ -26,3 +26,23 @@ void MainWindow::setPlot1aData(double x, double y){
 void MainWindow::setPlot1bData(double x, double y){
     ui->coercePlot->drawPoint(x, y, "blue");
 }
+
+void MainWindow::on_stepSimRadio_clicked()
+{
+
+}
+
+void MainWindow::on_stepSimRadio_toggled(bool checked)
+{
+    ui->stepFrame->setEnabled(ui->stepSimRadio->isChecked());
+}
+
+void MainWindow::on_simBtn_clicked()
+{
+    if(ui->stepSimRadio->isChecked()){
+        int steps = ui->stepNoEdit->text().toInt();
+        for(int i = 0; i <steps; i++){
+           // ui->coercePlot->drawPoint(x, Object->Symuluj(), "red");
+        }
+    }
+}

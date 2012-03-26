@@ -20,6 +20,15 @@ public:
     void setPlot1bData(double x, double y);
     ~MainWindow();
 
+private slots:
+    DiscreteObject Object;
+
+    void on_stepSimRadio_clicked();
+
+    void on_stepSimRadio_toggled(bool checked);
+
+    void on_simBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
