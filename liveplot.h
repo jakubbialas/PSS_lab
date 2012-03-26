@@ -15,7 +15,6 @@ class LivePlot : public QwtPlot
     Q_OBJECT
 public:
     explicit LivePlot(QWidget *parent = 0);
-    double getLastX();
 
 signals:
 

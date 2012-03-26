@@ -10,6 +10,7 @@
 #include <QTimer>
 #include "coerce.h"
 #include "discreteobject.h"
+#include "yamlconfigparser.h"
 
 using namespace std;
 namespace Ui {

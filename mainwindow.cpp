@@ -80,22 +80,23 @@ void MainWindow::on_simBtn_clicked()
 
 void MainWindow::on_getConfigBtn_clicked()
 {
-    vector<double> B(2) ; //wielomian B
-    vector<double> A(3) ; //wielomian A
+    YamlConfigParser ymp;
+    ymp.parseFile("model.yaml");
 
-    int k = 0; //opoznienie
-    double D; //D = e^(-h/T)
-    D = 0.95; //D = e^(-h/T)
-    B[0] = 1-D;
-    A[0] = 1;
-    A[1] = -1-D;
-    A[2] = D;
-    k = 1;
-//*/
+    //std::string name("inercja");
+    //std::string name("calka");
+    //std::string name("inercja z calka");
+    std::string name("niestacjonarny1");
 
-    object = new DiscreteObject(B, A, k);
+    if(ymp.hasKey(name)){
+        ObjectData *od = ymp.getObject(name);
+        ModelData *md = od->models.at(1);
+        Object = new DiscreteObject(md->B, md->A, md->k);
+        cout << "dodano obiekt" << endl;
+    }else{
+        cout << "nie dodano obiektu" << endl;
+    }
     coerce = new Coerce();
-    cout << "stworzono obiekt" << endl;
 }
 
 void MainWindow::on_manualCoerceRadio_toggled(bool checked)

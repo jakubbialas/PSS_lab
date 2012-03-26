@@ -35,12 +35,12 @@ void LivePlot::drawPoint(double x, double y, std::string pen){
 }
 
 void LivePlot::drawPoint(double y, std::string pen){
-    double x = m_X[pen]->last() + 1;
+    double x;
+    if(m_X[pen]->empty()){
+        x = 0;
+    }else{
+        x = m_X[pen]->last() + 1;
+    }
     drawPoint(x, y, pen);
 }
 
-
-double LivePlot::getLastX(){
-    //return m_X.at()
-return 1;
-}
