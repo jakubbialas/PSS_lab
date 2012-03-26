@@ -1,0 +1,28 @@
+- name: calka
+  models:
+  - t: 0
+    B: [1]
+    A: [1,-1]
+    k: 1
+- name: inercja
+  models:
+  - t: 0
+    B: [0.95]
+    A: [1,-0.95]
+    k: 1
+- name: inercja z calka
+  models:
+  - t: 0
+    B: [0.05]
+    A: [1,-1.95,0.95]
+    k: 1
+- name: niestacjonarny1
+  models:
+  - t: 0
+    B: [0.05]
+    A: [1,-1.95,0.95]
+    k: 1
+  - t: 20
+    B: [0.95]
+    A: [1,-0.95]
+    k: 1

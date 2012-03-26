@@ -2,8 +2,10 @@
 #include <iostream>
 #include <stdlib.h>
 #include <QLabel>
-#include "mainwindow.h"
 #include <QTimer>
+#include "mainwindow.h"
+#include "discreteobject.h"
+#include "yamlconfigparser.h"
 
 using namespace std;
 

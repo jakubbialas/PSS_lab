@@ -77,7 +77,7 @@ double DiscreteObject::Symuluj(double input){
         if(Y.size() > A.size()-1){
             Y.pop_back();
         }
-        if(U.size() > B.size()+k-2){
+        if(U.size() > B.size()+k-1){
             U.pop_back();
         }
 
