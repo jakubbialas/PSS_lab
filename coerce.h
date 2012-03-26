@@ -1,6 +1,5 @@
 #ifndef COERCE_H
 #define COERCE_H
-#include "discreteobject.h"
 
 class Coerce
 {

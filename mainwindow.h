@@ -7,6 +7,7 @@
 #include <QtGui/QApplication>
 #include <QMessageBox>
 #include <sstream>
+#include <QTimer>
 #include "coerce.h"
 #include "discreteobject.h"
 
@@ -41,8 +42,12 @@ private slots:
 
     void on_coerceSilder_valueChanged(int value);
 
+public Q_SLOTS:
+    void addingNewPoint();
+
 private:
-    DiscreteObject * Object;
+    QTimer *timer;
+    DiscreteObject * object;
     Coerce * coerce;
     Ui::MainWindow *ui;
 };

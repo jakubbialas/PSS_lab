@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->coercePlot->addPen("red", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
     ui->coercePlot->addPen("blue", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ));
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(addingNewPoint()));
 }
 
 MainWindow::~MainWindow()
@@ -39,7 +41,7 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
 
 void MainWindow::on_simBtn_clicked()
 {
-    if(&Object == NULL) return;
+    if(&object == NULL) return;
 
     double input = 0;
 
@@ -58,11 +60,22 @@ void MainWindow::on_simBtn_clicked()
 
     if( ui->stepSimRadio->isChecked() ){
         int steps = ui->stepNoEdit->text().toInt();
-        double y;
+
         for(int i = 0; i <steps; i++){
-           setPlot1aData(Object->Symuluj(  coerce->nextSample(input)));
+           setPlot1aData(object->Symuluj(  coerce->nextSample(input)));
+        }
+
+    }else{
+        if(!timer->isActive()){
+            ui->simBtn->setText("Stop simulation");
+            timer->start(1000);
+
+        }else{
+            ui->simBtn->setText("Simulate");
+            timer->stop();
         }
     }
+
 }
 
 void MainWindow::on_getConfigBtn_clicked()
@@ -80,7 +93,7 @@ void MainWindow::on_getConfigBtn_clicked()
     k = 1;
 //*/
 
-    Object = new DiscreteObject(B, A, k);
+    object = new DiscreteObject(B, A, k);
     coerce = new Coerce();
     cout << "stworzono obiekt" << endl;
 }
@@ -100,4 +113,17 @@ void MainWindow::on_coerceSilder_valueChanged(int value)
     std::stringstream convert;
     convert << ui->coerceSilder->value();
     ui->coerceEdit->setText((convert.str().c_str()));
+}
+
+void MainWindow::addingNewPoint(){
+     double input = 0;
+    if( ui->stepCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->STEP);
+    else if( ui->impCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->IMP);
+    else if( ui->nonCoercionRadio->isChecked() ) coerce->setCoercionType(coerce->NONE);
+    else if( ui->manualCoerceRadio->isChecked() ){
+        input = ui->coerceEdit->text().toInt();
+        coerce->setCoercionType(coerce->CUSTOM);
+    }
+
+    setPlot1aData(object->Symuluj(  coerce->nextSample(input)));
 }

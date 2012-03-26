@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Mon Mar 26 22:05:42 2012
+** Created: Mon Mar 26 23:55:57 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,6 +38,7 @@ static const uint qt_meta_data_MainWindow[] = {
      122,   38,   11,   11, 0x08,
      162,  157,   11,   11, 0x08,
      203,  197,   11,   11, 0x08,
+     237,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -49,6 +50,7 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_manualCoerceRadio_toggled(bool)\0"
     "arg1\0on_coerceEdit_textChanged(QString)\0"
     "value\0on_coerceSilder_valueChanged(int)\0"
+    "addingNewPoint()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -87,9 +89,10 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 4: on_manualCoerceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: on_coerceEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 6: on_coerceSilder_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: addingNewPoint(); break;
         default: ;
         }
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

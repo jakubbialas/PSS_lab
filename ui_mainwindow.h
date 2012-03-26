@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon Mar 26 17:19:35 2012
+** Created: Mon Mar 26 23:44:26 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -85,7 +85,7 @@ public:
         stepFrame = new QFrame(centralWidget);
         stepFrame->setObjectName(QString::fromUtf8("stepFrame"));
         stepFrame->setEnabled(false);
-        stepFrame->setGeometry(QRect(540, 10, 181, 80));
+        stepFrame->setGeometry(QRect(540, 10, 171, 80));
         stepFrame->setFrameShape(QFrame::StyledPanel);
         stepFrame->setFrameShadow(QFrame::Raised);
         label = new QLabel(stepFrame);
@@ -128,10 +128,10 @@ public:
         nonCoercionRadio->setGeometry(QRect(10, 70, 151, 22));
         simBtn = new QPushButton(centralWidget);
         simBtn->setObjectName(QString::fromUtf8("simBtn"));
-        simBtn->setGeometry(QRect(450, 270, 181, 21));
+        simBtn->setGeometry(QRect(540, 260, 171, 51));
         getConfigBtn = new QPushButton(centralWidget);
         getConfigBtn->setObjectName(QString::fromUtf8("getConfigBtn"));
-        getConfigBtn->setGeometry(QRect(350, 270, 97, 27));
+        getConfigBtn->setGeometry(QRect(350, 260, 181, 51));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));

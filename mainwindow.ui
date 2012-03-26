@@ -84,7 +84,7 @@
      <rect>
       <x>540</x>
       <y>10</y>
-      <width>181</width>
+      <width>171</width>
       <height>80</height>
      </rect>
     </property>
@@ -241,10 +241,10 @@
    <widget class="QPushButton" name="simBtn">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>270</y>
-      <width>181</width>
-      <height>21</height>
+      <x>540</x>
+      <y>260</y>
+      <width>171</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -255,9 +255,9 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>270</y>
-      <width>97</width>
-      <height>27</height>
+      <y>260</y>
+      <width>181</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
