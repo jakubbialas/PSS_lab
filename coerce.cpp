@@ -20,7 +20,7 @@ double Coerce::nextSample(double input = 0){
         case STEP:
             return 1;
         case IMP:
-            if(impFlag) return 0;
+            if(impFlag){ return 0;}
             else { impFlag = true; return 1;}
         case NONE:
             return 0;

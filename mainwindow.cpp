@@ -54,7 +54,7 @@ void MainWindow::on_simBtn_clicked()
         int steps = ui->stepNoEdit->text().toInt();
 
         for(int i = 0; i <steps; i++){
-           setPlot1aData(object->Symuluj(  coerce->nextSample(input)));
+           setPlot1aData(object->Symuluj( coerce->nextSample(input)));
         }
 
     }else{
@@ -86,7 +86,6 @@ void MainWindow::on_getConfigBtn_clicked()
     }else{
         cout << "nie dodano obiektu" << endl;
     }
-    coerce = new Coerce();
 
 }
 
@@ -112,8 +111,9 @@ void MainWindow::addingNewPoint(){
      if( ui->manualCoerceRadio->isChecked() ){
          input = ui->coerceEdit->text().toDouble();
      }
-
-    setPlot1aData(object->Symuluj(  coerce->nextSample(input)));
+    double x= coerce->nextSample(input);
+    setPlot1aData(object->Symuluj(  x));
+    cout << x << endl;
 }
 
 void MainWindow::on_contSimRadio_toggled(bool checked)
