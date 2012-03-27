@@ -3,7 +3,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    samplingTime(10),
+    coerce(new Coerce())
 {
     ui->setupUi(this);
 
@@ -44,18 +46,8 @@ void MainWindow::on_simBtn_clicked()
     if(&object == NULL) return;
 
     double input = 0;
-
-    if( ui->stepCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->STEP);
-    else if( ui->impCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->IMP);
-    else if( ui->nonCoercionRadio->isChecked() ) coerce->setCoercionType(coerce->NONE);
-    else if( ui->manualCoerceRadio->isChecked() ){
+    if( ui->manualCoerceRadio->isChecked() ){
         input = ui->coerceEdit->text().toInt();
-        coerce->setCoercionType(coerce->CUSTOM);
-    }else{
-        QMessageBox msgBox;
-        msgBox.setText("Choose coercion type!");
-        msgBox.exec();
-        return;
     }
 
     if( ui->stepSimRadio->isChecked() ){
@@ -68,7 +60,7 @@ void MainWindow::on_simBtn_clicked()
     }else{
         if(!timer->isActive()){
             ui->simBtn->setText("Stop simulation");
-            timer->start(1000);
+            timer->start(samplingTime);
 
         }else{
             ui->simBtn->setText("Simulate");
@@ -95,6 +87,7 @@ void MainWindow::on_getConfigBtn_clicked()
         cout << "nie dodano obiektu" << endl;
     }
     coerce = new Coerce();
+
 }
 
 void MainWindow::on_manualCoerceRadio_toggled(bool checked)
@@ -116,13 +109,51 @@ void MainWindow::on_coerceSilder_valueChanged(int value)
 
 void MainWindow::addingNewPoint(){
      double input = 0;
-    if( ui->stepCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->STEP);
-    else if( ui->impCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->IMP);
-    else if( ui->nonCoercionRadio->isChecked() ) coerce->setCoercionType(coerce->NONE);
-    else if( ui->manualCoerceRadio->isChecked() ){
-        input = ui->coerceEdit->text().toInt();
-        coerce->setCoercionType(coerce->CUSTOM);
-    }
+     if( ui->manualCoerceRadio->isChecked() ){
+         input = ui->coerceEdit->text().toDouble();
+     }
 
     setPlot1aData(object->Symuluj(  coerce->nextSample(input)));
+}
+
+void MainWindow::on_contSimRadio_toggled(bool checked)
+{
+    ui->samplingFrame->setEnabled(ui->contSimRadio->isChecked());
+}
+
+void MainWindow::on_samplingSlider_valueChanged(int value)
+{
+    std::stringstream convert;
+    samplingTime = ui->samplingSlider->value();
+    convert << ui->samplingSlider->value();
+    ui->samplingLabel->setText((convert.str().c_str()));
+    timer->setInterval(samplingTime);
+
+}
+
+void MainWindow::on_stepCoerceRadio_clicked()
+{
+    if( ui->stepCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->STEP);
+}
+
+void MainWindow::on_impCoerceRadio_clicked()
+{
+     if( ui->impCoerceRadio->isChecked() ) coerce->setCoercionType(coerce->IMP);
+}
+
+void MainWindow::on_nonCoercionRadio_clicked()
+{
+    if( ui->nonCoercionRadio->isChecked() ) coerce->setCoercionType(coerce->NONE);
+}
+
+void MainWindow::on_manualCoerceRadio_clicked()
+{
+    if( ui->manualCoerceRadio->isChecked() ){
+            coerce->setCoercionType(coerce->CUSTOM);
+    }
+}
+
+void MainWindow::on_stepCoerceRadio_toggled(bool checked)
+{
+
 }

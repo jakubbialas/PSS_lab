@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Mon Mar 26 23:55:57 2012
+** Created: Tue Mar 27 11:17:31 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      15,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,7 +38,14 @@ static const uint qt_meta_data_MainWindow[] = {
      122,   38,   11,   11, 0x08,
      162,  157,   11,   11, 0x08,
      203,  197,   11,   11, 0x08,
-     237,   11,   11,   11, 0x0a,
+     237,   38,   11,   11, 0x08,
+     267,  197,   11,   11, 0x08,
+     303,   38,   11,   11, 0x08,
+     336,   11,   11,   11, 0x08,
+     365,   11,   11,   11, 0x08,
+     393,   11,   11,   11, 0x08,
+     423,   11,   11,   11, 0x08,
+     454,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -50,6 +57,13 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_manualCoerceRadio_toggled(bool)\0"
     "arg1\0on_coerceEdit_textChanged(QString)\0"
     "value\0on_coerceSilder_valueChanged(int)\0"
+    "on_contSimRadio_toggled(bool)\0"
+    "on_samplingSlider_valueChanged(int)\0"
+    "on_stepCoerceRadio_toggled(bool)\0"
+    "on_stepCoerceRadio_clicked()\0"
+    "on_impCoerceRadio_clicked()\0"
+    "on_nonCoercionRadio_clicked()\0"
+    "on_manualCoerceRadio_clicked()\0"
     "addingNewPoint()\0"
 };
 
@@ -89,10 +103,17 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 4: on_manualCoerceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: on_coerceEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 6: on_coerceSilder_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 7: addingNewPoint(); break;
+        case 7: on_contSimRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: on_samplingSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: on_stepCoerceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: on_stepCoerceRadio_clicked(); break;
+        case 11: on_impCoerceRadio_clicked(); break;
+        case 12: on_nonCoercionRadio_clicked(); break;
+        case 13: on_manualCoerceRadio_clicked(); break;
+        case 14: addingNewPoint(); break;
         default: ;
         }
-        _id -= 8;
+        _id -= 15;
     }
     return _id;
 }

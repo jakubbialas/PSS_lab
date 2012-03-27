@@ -43,10 +43,25 @@ private slots:
 
     void on_coerceSilder_valueChanged(int value);
 
+    void on_contSimRadio_toggled(bool checked);
+
+    void on_samplingSlider_valueChanged(int value);
+
+    void on_stepCoerceRadio_toggled(bool checked);
+
+    void on_stepCoerceRadio_clicked();
+
+    void on_impCoerceRadio_clicked();
+
+    void on_nonCoercionRadio_clicked();
+
+    void on_manualCoerceRadio_clicked();
+
 public Q_SLOTS:
     void addingNewPoint();
 
 private:
+    int samplingTime;
     QTimer *timer;
     DiscreteObject * object;
     Coerce * coerce;
