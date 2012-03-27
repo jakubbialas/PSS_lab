@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     coerce.cpp \
     modeldata.cpp \
     objectdata.cpp \
-    yamlconfigparser.cpp
+    yamlconfigparser.cpp \
+    simulation.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     coerce.h \
     modeldata.h \
     objectdata.h \
-    yamlconfigparser.h
+    yamlconfigparser.h \
+    simulation.h
 
 FORMS    += mainwindow.ui
 

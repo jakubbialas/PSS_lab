@@ -2,31 +2,45 @@
 
 Coerce::Coerce(){
     type = STEP;
-    impFlag = false;
+    time = 0;
 }
 
 Coerce::Coerce(CoercionType n_Type){
     type = n_Type;
-    impFlag = false;
+    time = 0;
 }
 
 void Coerce::setCoercionType(CoercionType n_Type){
     type = n_Type;
-    impFlag = false;
 }
 
-double Coerce::nextSample(double input = 0){
+void Coerce::setCoercionValue(double n_value){
+    value = n_value;
+}
+
+void Coerce::reset(){
+    time = 0;
+}
+
+double Coerce::nextSample(){
+    double v;
     switch(type){
         case STEP:
-            return 1;
+            v = 1;
+            break;
         case IMP:
-            if(impFlag){ return 0;}
-            else { impFlag = true; return 1;}
+            if(time == 0 ){ v = 1; }
+            else { v = 0; }
+            break;
         case NONE:
-            return 0;
+            v = 0;
+            break;
         case CUSTOM:
-            return input;
+            v = value;
+            break;
         default:
-            return 0;
+            v = 0;
     }
+    time++;
+    return v;
 }

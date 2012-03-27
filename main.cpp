@@ -6,6 +6,7 @@
 #include "mainwindow.h"
 #include "discreteobject.h"
 #include "yamlconfigparser.h"
+#include "simulation.h"
 
 using namespace std;
 
@@ -15,6 +16,36 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     MainWindow window;
+
+    Simulation simulation;
+
+    QObject::connect(&window, SIGNAL(loadConfig(const char * )),
+                     &simulation, SLOT(loadConfig(const char * )));
+    QObject::connect(&window, SIGNAL(setCoercionType(Coerce::CoercionType)),
+                     &simulation, SLOT(setCoercionType(Coerce::CoercionType)));
+    QObject::connect(&window, SIGNAL(setCoercionValue(double)),
+                     &simulation, SLOT(setCoercionValue(double)));
+    QObject::connect(&window, SIGNAL(setSamplingTime(int)),
+                     &simulation, SLOT(setSamplingTime(int)));
+
+    QObject::connect(&window, SIGNAL(startSimulation()),
+                     &simulation, SLOT(startSimulation()));
+    QObject::connect(&window, SIGNAL(stopSimulation()),
+                     &simulation, SLOT(stopSimulation()));
+    QObject::connect(&window, SIGNAL(resetSimulation()),
+                     &simulation, SLOT(resetSimulation()));
+    QObject::connect(&window, SIGNAL(stepSimulation(int)),
+                     &simulation, SLOT(stepSimulation(int)));
+
+    QObject::connect(&simulation, SIGNAL(drawInput(double)),
+                     &window, SLOT(drawInput(double)));
+    QObject::connect(&simulation, SIGNAL(drawOutput(double)),
+                     &window, SLOT(drawOutput(double)));
+    QObject::connect(&simulation, SIGNAL(drawError(double)),
+                     &window, SLOT(drawError(double)));
+    QObject::connect(&simulation, SIGNAL(drawControl(double)),
+                     &window, SLOT(drawControl(double)));
+
 
     window.show();
 

@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QwtPlot" name="responsePlot">
+   <widget class="LivePlot" name="responsePlot" native="true">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -177,8 +177,23 @@
        <height>111</height>
       </rect>
      </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="sliderPosition">
+      <number>1</number>
+     </property>
+     <property name="tracking">
+      <bool>true</bool>
+     </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
+     </property>
+     <property name="invertedAppearance">
+      <bool>false</bool>
+     </property>
+     <property name="invertedControls">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -252,6 +267,10 @@
       <string>None coercion</string>
      </property>
     </widget>
+    <zorder>stepCoerceRadio</zorder>
+    <zorder>manualCoerceRadio</zorder>
+    <zorder>nonCoercionRadio</zorder>
+    <zorder>impCoerceRadio</zorder>
    </widget>
    <widget class="QPushButton" name="simBtn">
     <property name="geometry">
@@ -366,11 +385,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>QwtPlot</class>
-   <extends>QFrame</extends>
-   <header>qwt_plot.h</header>
-  </customwidget>
   <customwidget>
    <class>LivePlot</class>
    <extends>QWidget</extends>

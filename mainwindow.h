@@ -23,49 +23,53 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void setLabelText(const QString str);
-    void setPlot1aData( double y);
-    void setPlot1bData( double y);
     ~MainWindow();
 
+signals:
+
+//signals to simulation object (setings):
+    void loadConfig(const char *);
+    void setCoercionType(Coerce::CoercionType);
+    void setCoercionValue(double);
+    void setSamplingTime(int);
+
+//signals to simulation object (simulate):
+    void startSimulation();
+    void stopSimulation();
+    void resetSimulation();
+    void stepSimulation(int);
+
 private slots:
-    void on_stepSimRadio_clicked();
 
-    void on_stepSimRadio_toggled(bool checked);
+//signals from simulation object:
+    void drawInput(double y);
+    void drawOutput(double y);
+    void drawError(double y);
+    void drawControl(double y);
 
+//buttons:
     void on_simBtn_clicked();
-
     void on_getConfigBtn_clicked();
 
-    void on_manualCoerceRadio_toggled(bool checked);
-
+//sliders:
+    void on_samplingSlider_valueChanged(int value);
+    void on_coerceSilder_valueChanged(int value);
     void on_coerceEdit_textChanged(const QString &arg1);
 
-    void on_coerceSilder_valueChanged(int value);
-
+//radios simulation:
     void on_contSimRadio_toggled(bool checked);
+    void on_stepSimRadio_toggled(bool checked);
 
-    void on_samplingSlider_valueChanged(int value);
-
+//radios coerce:
     void on_stepCoerceRadio_toggled(bool checked);
-
-    void on_stepCoerceRadio_clicked();
-
-    void on_impCoerceRadio_clicked();
-
-    void on_nonCoercionRadio_clicked();
-
-    void on_manualCoerceRadio_clicked();
-
-public Q_SLOTS:
-    void addingNewPoint();
+    void on_impCoerceRadio_toggled(bool checked);
+    void on_nonCoercionRadio_toggled(bool checked);
+    void on_manualCoerceRadio_toggled(bool checked);
 
 private:
-    int samplingTime;
-    QTimer *timer;
-    DiscreteObject * object;
-    Coerce * coerce;
     Ui::MainWindow *ui;
+
+    bool isSimulationStarted;
 };
 
 #endif // MAINWINDOW_H

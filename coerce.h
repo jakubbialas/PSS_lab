@@ -10,11 +10,14 @@ public:
     Coerce(CoercionType n_Type);
 
     void setCoercionType(CoercionType);
-    double nextSample(double);
+    void setCoercionValue(double);
+    void reset();
+    double nextSample();
 
 private:
     CoercionType type;
-    bool impFlag;
+    double value; //value for custom coerce;
+    int time;
 };
 
 #endif // COERCE_H
