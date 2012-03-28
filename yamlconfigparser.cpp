@@ -9,10 +9,8 @@ void operator >> (const YAML::Node& node, std::vector<double> &v) {
     v.resize(node.size());
     for(int i=0; i<node.size(); i++){
         node[i] >> a;
-        std::cout << a << " ";
         v[i] = a;
     }
-    std::cout << "\n";
 }
 
 void operator >> (const YAML::Node& node, ModelData &md) {
@@ -51,7 +49,6 @@ void YamlConfigParser::parseFile(const char * filename){
     parser.GetNextDocument(doc);
 
     doc["objects"] >> objects;
-
 }
 
 ObjectData YamlConfigParser::getObject(std::string name){

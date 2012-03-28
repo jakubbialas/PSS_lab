@@ -28,7 +28,6 @@ public:
  * @param n_Type Typ wymuszenia
  */
     Coerce(CoercionType n_Type);
-
     /**
      * @brief
      *

@@ -2,6 +2,7 @@
 
 DiscreteObject::DiscreteObject(){
     counter = 0;
+    std::srand ( time(NULL) );
 }
 
 DiscreteObject::DiscreteObject(ObjectData n_data){
@@ -11,6 +12,7 @@ DiscreteObject::DiscreteObject(ObjectData n_data){
     A = model.A;
     k = model.k;
     counter = 0;
+    srand ( time(NULL) );
 }
 
 DiscreteObject::DiscreteObject(vector<double> n_B, vector<double> n_A, int n_k){
@@ -18,6 +20,7 @@ DiscreteObject::DiscreteObject(vector<double> n_B, vector<double> n_A, int n_k){
     A = n_A;
     k = n_k;
     counter = 0;
+    srand ( time(NULL) );
 
     /* TODO:
     if(k < 0){
@@ -85,35 +88,48 @@ void DiscreteObject::reset(){
 }
 
 double DiscreteObject::Symuluj(double input){
-        double out = 0;
+        double out;
 
         updateModel();
 
         U.push_front(input);
 
-        for(int i=1; i<A.size(); i++){
+        /*for(int i=1; i<A.size(); i++){
             if(Y.size() > i-1 ){
                 out -= Y[i-1]*A[i];
             }else{
                 //wstawiamy wartosc poczatkowa y(t=0-) = 0;
             }
+        }*/
+        if(Y.size() >= A.size()-1){
+            out = -std::inner_product(A.begin() + 1, A.end(), Y.begin(), 0.0);
+        }else{
+            out = -std::inner_product(Y.begin(), Y.end(), A.begin() + 1, 0.0);
         }
-        for(int i=0; i<B.size(); i++){
+
+        /*for(int i=0; i<B.size(); i++){
             if(U.size() > i+k ){
                 out += U[i+k]*B[i];
             }else{
                 //wstawiamy wartosc poczatkowa u(t=0-) = 0;
             }
+        }*/
+        if(U.size()+k >= B.size()){
+            out = std::inner_product(B.begin(), B.end(), U.begin()+k, out);
+        }else{
+            out = std::inner_product(U.begin()+k, U.end(), B.begin(), out);
         }
-        //out += e; TODO: e = random ale z jakiego przedziału ??
+
+        int r = std::rand();
+        double e = r%32767; //0-32767
+        e = (e/32767)*2 - 1; //(-1) - 1
+        e = e*0.005*out; //+-5 promili outa;
+        out += e;
 
         out /= A[0]; //dzielimy y przez A[0] gdyby bylo rozne od 1
 
         Y.push_front(out);
 
-        //usowanie ostatnich nieptrzebnych probek:
-        //metoda prob i bledów wyszlo ze tyle probek potrzeba
-        //mozna ustawic ich wiecej jezeli uklad ma byc niestacjonarny i moze zwiekszyc się jego rząd
         if(Y.size() > A.size()-1){
             Y.pop_back();
         }

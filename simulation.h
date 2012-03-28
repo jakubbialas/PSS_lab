@@ -119,7 +119,6 @@ public slots:
     void nextStep();
 
 private:
-
     QTimer * timer; /**< Timer generujacy nowe punkty na wykresie co okreslony czas probkowania */
 
     YamlConfigParser ymp; /**< Parser plikow Yaml */

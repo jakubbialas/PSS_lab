@@ -6,6 +6,8 @@
 #include <vector>
 #include <deque>
 #include <iostream>
+#include <cstdlib>
+#include <numeric>
 #include "objectdata.h"
 
 using namespace std;

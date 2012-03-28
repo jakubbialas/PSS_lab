@@ -31,9 +31,8 @@ void Simulation::setCoercionValue(double value){
 void Simulation::setObject(std::string name){
     if(ymp.hasKey(name)){
         object.setData(ymp.getObject(name));
-        cout << "dodano obiekt" << endl;
     }else{
-        cout << "nie dodano obiektu" << endl;
+        //
     }
 }
 
