@@ -70,12 +70,12 @@ void MainWindow::on_samplingSlider_valueChanged(int value)
 
 void MainWindow::on_contSimRadio_toggled(bool checked)
 {
-    ui->samplingFrame->setEnabled(ui->contSimRadio->isChecked());
+    ui->samplingFrame->setEnabled(checked);
 }
 
 void MainWindow::on_stepSimRadio_toggled(bool checked)
 {
-    ui->stepFrame->setEnabled(ui->stepSimRadio->isChecked());
+    ui->stepFrame->setEnabled(checked);
     if(checked){
 
     }
