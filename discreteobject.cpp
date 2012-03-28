@@ -6,10 +6,10 @@ DiscreteObject::DiscreteObject(){
 
 DiscreteObject::DiscreteObject(ObjectData n_data){
     data = n_data;
-    ModelData *model = data.models.at(0);
-    B = model->B;
-    A = model->A;
-    k = model->k;
+    ModelData model = data.models.at(0);
+    B = model.B;
+    A = model.A;
+    k = model.k;
     counter = 0;
 }
 
@@ -43,6 +43,15 @@ void DiscreteObject::setBAk(vector<double> n_B, vector<double> n_A, int n_k){
     //TODO: sprawdz to samo co w konstruktorze...
 }
 
+void DiscreteObject::setData(ObjectData n_data){
+    data = n_data;
+    ModelData model = data.models.at(0);
+    B = model.B;
+    A = model.A;
+    k = model.k;
+    counter = 0;
+}
+
 vector<double> DiscreteObject::getA(){
     return A;
 }
@@ -57,16 +66,23 @@ int DiscreteObject::getk(){
 
 void DiscreteObject::updateModel(){
     if(data.models.size()>1){
-         ModelData *model;
+         ModelData model;
          for(int i=0; i<data.models.size(); i++){
             model = data.models.at(i);
-            if(model->t == counter){
-                B = model->B;
-                A = model->A;
-                k = model->k;
+            if(model.t == counter){
+                B = model.B;
+                A = model.A;
+                k = model.k;
              }
          }
      }
+}
+
+void DiscreteObject::reset(){
+    counter = 0;
+    U.clear();
+    Y.clear();
+    updateModel();
 }
 
 double DiscreteObject::Symuluj(double input){

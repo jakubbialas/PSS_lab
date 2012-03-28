@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue Mar 27 11:20:31 2012
+** Created: Wed Mar 28 11:48:20 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QComboBox>
 #include <QtGui/QFrame>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -24,10 +25,10 @@
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QStatusBar>
+#include <QtGui/QTabWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 #include "liveplot.h"
-#include "qwt_plot.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -36,28 +37,37 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     LivePlot *coercePlot;
-    QwtPlot *responsePlot;
+    LivePlot *responsePlot;
+    QTabWidget *tabWidget;
+    QWidget *tab_simulation;
     QFrame *simFrame;
     QRadioButton *contSimRadio;
     QRadioButton *stepSimRadio;
     QFrame *stepFrame;
     QLabel *label;
     QLineEdit *stepNoEdit;
-    QFrame *coerceFrame;
-    QLabel *label_2;
-    QLineEdit *coerceEdit;
-    QSlider *coerceSilder;
-    QFrame *setCoercionFrame;
-    QRadioButton *stepCoerceRadio;
-    QRadioButton *manualCoerceRadio;
-    QRadioButton *impCoerceRadio;
-    QRadioButton *nonCoercionRadio;
-    QPushButton *simBtn;
-    QPushButton *getConfigBtn;
     QFrame *samplingFrame;
     QLabel *label_3;
     QSlider *samplingSlider;
     QLabel *samplingLabel;
+    QWidget *tab_coerce;
+    QFrame *setCoercionFrame;
+    QRadioButton *stepCoerceRadio;
+    QRadioButton *manualCoerceRadio;
+    QRadioButton *impCoerceRadio;
+    QRadioButton *nonCoerceRadio;
+    QFrame *coerceFrame;
+    QLabel *label_2;
+    QLineEdit *coerceEdit;
+    QSlider *coerceSilder;
+    QWidget *tab_object;
+    QPushButton *getConfigBtn;
+    QComboBox *comboBoxObject;
+    QLabel *label_4;
+    QWidget *tab_controller;
+    QWidget *tab_feedback;
+    QPushButton *simBtn;
+    QPushButton *resetBtn;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -66,18 +76,23 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(724, 465);
+        MainWindow->resize(768, 340);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         coercePlot = new LivePlot(centralWidget);
         coercePlot->setObjectName(QString::fromUtf8("coercePlot"));
-        coercePlot->setGeometry(QRect(20, 10, 311, 121));
-        responsePlot = new QwtPlot(centralWidget);
+        coercePlot->setGeometry(QRect(10, 10, 311, 121));
+        responsePlot = new LivePlot(centralWidget);
         responsePlot->setObjectName(QString::fromUtf8("responsePlot"));
-        responsePlot->setGeometry(QRect(20, 140, 311, 121));
-        simFrame = new QFrame(centralWidget);
+        responsePlot->setGeometry(QRect(10, 140, 311, 121));
+        tabWidget = new QTabWidget(centralWidget);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabWidget->setGeometry(QRect(340, 0, 416, 211));
+        tab_simulation = new QWidget();
+        tab_simulation->setObjectName(QString::fromUtf8("tab_simulation"));
+        simFrame = new QFrame(tab_simulation);
         simFrame->setObjectName(QString::fromUtf8("simFrame"));
-        simFrame->setGeometry(QRect(350, 10, 181, 80));
+        simFrame->setGeometry(QRect(10, 10, 191, 81));
         simFrame->setFrameShape(QFrame::StyledPanel);
         simFrame->setFrameShadow(QFrame::Raised);
         contSimRadio = new QRadioButton(simFrame);
@@ -86,38 +101,43 @@ public:
         contSimRadio->setChecked(true);
         stepSimRadio = new QRadioButton(simFrame);
         stepSimRadio->setObjectName(QString::fromUtf8("stepSimRadio"));
-        stepSimRadio->setGeometry(QRect(10, 40, 141, 22));
-        stepFrame = new QFrame(centralWidget);
+        stepSimRadio->setGeometry(QRect(10, 41, 141, 21));
+        stepFrame = new QFrame(tab_simulation);
         stepFrame->setObjectName(QString::fromUtf8("stepFrame"));
         stepFrame->setEnabled(false);
-        stepFrame->setGeometry(QRect(540, 10, 171, 80));
+        stepFrame->setGeometry(QRect(210, 10, 191, 81));
         stepFrame->setFrameShape(QFrame::StyledPanel);
         stepFrame->setFrameShadow(QFrame::Raised);
         label = new QLabel(stepFrame);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(10, 10, 121, 17));
+        label->setGeometry(QRect(10, 10, 121, 21));
         stepNoEdit = new QLineEdit(stepFrame);
         stepNoEdit->setObjectName(QString::fromUtf8("stepNoEdit"));
-        stepNoEdit->setGeometry(QRect(10, 40, 111, 27));
-        coerceFrame = new QFrame(centralWidget);
-        coerceFrame->setObjectName(QString::fromUtf8("coerceFrame"));
-        coerceFrame->setEnabled(false);
-        coerceFrame->setGeometry(QRect(540, 100, 171, 151));
-        coerceFrame->setFrameShape(QFrame::StyledPanel);
-        coerceFrame->setFrameShadow(QFrame::Raised);
-        label_2 = new QLabel(coerceFrame);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(10, 10, 81, 17));
-        coerceEdit = new QLineEdit(coerceFrame);
-        coerceEdit->setObjectName(QString::fromUtf8("coerceEdit"));
-        coerceEdit->setGeometry(QRect(10, 40, 71, 27));
-        coerceSilder = new QSlider(coerceFrame);
-        coerceSilder->setObjectName(QString::fromUtf8("coerceSilder"));
-        coerceSilder->setGeometry(QRect(110, 20, 29, 111));
-        coerceSilder->setOrientation(Qt::Vertical);
-        setCoercionFrame = new QFrame(centralWidget);
+        stepNoEdit->setGeometry(QRect(10, 40, 121, 31));
+        samplingFrame = new QFrame(tab_simulation);
+        samplingFrame->setObjectName(QString::fromUtf8("samplingFrame"));
+        samplingFrame->setEnabled(true);
+        samplingFrame->setGeometry(QRect(10, 100, 391, 61));
+        samplingFrame->setFrameShape(QFrame::StyledPanel);
+        samplingFrame->setFrameShadow(QFrame::Raised);
+        label_3 = new QLabel(samplingFrame);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(10, 10, 141, 21));
+        samplingSlider = new QSlider(samplingFrame);
+        samplingSlider->setObjectName(QString::fromUtf8("samplingSlider"));
+        samplingSlider->setGeometry(QRect(10, 30, 371, 31));
+        samplingSlider->setMinimum(10);
+        samplingSlider->setMaximum(1000);
+        samplingSlider->setOrientation(Qt::Horizontal);
+        samplingLabel = new QLabel(samplingFrame);
+        samplingLabel->setObjectName(QString::fromUtf8("samplingLabel"));
+        samplingLabel->setGeometry(QRect(160, 10, 67, 21));
+        tabWidget->addTab(tab_simulation, QString());
+        tab_coerce = new QWidget();
+        tab_coerce->setObjectName(QString::fromUtf8("tab_coerce"));
+        setCoercionFrame = new QFrame(tab_coerce);
         setCoercionFrame->setObjectName(QString::fromUtf8("setCoercionFrame"));
-        setCoercionFrame->setGeometry(QRect(350, 100, 181, 151));
+        setCoercionFrame->setGeometry(QRect(10, 10, 191, 131));
         setCoercionFrame->setFrameShape(QFrame::StyledPanel);
         setCoercionFrame->setFrameShadow(QFrame::Raised);
         stepCoerceRadio = new QRadioButton(setCoercionFrame);
@@ -130,37 +150,63 @@ public:
         impCoerceRadio = new QRadioButton(setCoercionFrame);
         impCoerceRadio->setObjectName(QString::fromUtf8("impCoerceRadio"));
         impCoerceRadio->setGeometry(QRect(10, 40, 151, 22));
-        nonCoercionRadio = new QRadioButton(setCoercionFrame);
-        nonCoercionRadio->setObjectName(QString::fromUtf8("nonCoercionRadio"));
-        nonCoercionRadio->setGeometry(QRect(10, 70, 151, 22));
+        nonCoerceRadio = new QRadioButton(setCoercionFrame);
+        nonCoerceRadio->setObjectName(QString::fromUtf8("nonCoerceRadio"));
+        nonCoerceRadio->setGeometry(QRect(10, 70, 151, 22));
+        stepCoerceRadio->raise();
+        manualCoerceRadio->raise();
+        nonCoerceRadio->raise();
+        impCoerceRadio->raise();
+        coerceFrame = new QFrame(tab_coerce);
+        coerceFrame->setObjectName(QString::fromUtf8("coerceFrame"));
+        coerceFrame->setEnabled(false);
+        coerceFrame->setGeometry(QRect(210, 10, 191, 131));
+        coerceFrame->setFrameShape(QFrame::StyledPanel);
+        coerceFrame->setFrameShadow(QFrame::Raised);
+        label_2 = new QLabel(coerceFrame);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setGeometry(QRect(10, 10, 81, 21));
+        coerceEdit = new QLineEdit(coerceFrame);
+        coerceEdit->setObjectName(QString::fromUtf8("coerceEdit"));
+        coerceEdit->setGeometry(QRect(10, 40, 91, 31));
+        coerceSilder = new QSlider(coerceFrame);
+        coerceSilder->setObjectName(QString::fromUtf8("coerceSilder"));
+        coerceSilder->setGeometry(QRect(140, 10, 31, 111));
+        coerceSilder->setMaximum(100);
+        coerceSilder->setSliderPosition(1);
+        coerceSilder->setTracking(true);
+        coerceSilder->setOrientation(Qt::Vertical);
+        coerceSilder->setInvertedAppearance(false);
+        coerceSilder->setInvertedControls(false);
+        tabWidget->addTab(tab_coerce, QString());
+        tab_object = new QWidget();
+        tab_object->setObjectName(QString::fromUtf8("tab_object"));
+        getConfigBtn = new QPushButton(tab_object);
+        getConfigBtn->setObjectName(QString::fromUtf8("getConfigBtn"));
+        getConfigBtn->setGeometry(QRect(10, 10, 191, 41));
+        comboBoxObject = new QComboBox(tab_object);
+        comboBoxObject->setObjectName(QString::fromUtf8("comboBoxObject"));
+        comboBoxObject->setGeometry(QRect(10, 90, 191, 41));
+        label_4 = new QLabel(tab_object);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setGeometry(QRect(10, 60, 191, 21));
+        tabWidget->addTab(tab_object, QString());
+        tab_controller = new QWidget();
+        tab_controller->setObjectName(QString::fromUtf8("tab_controller"));
+        tabWidget->addTab(tab_controller, QString());
+        tab_feedback = new QWidget();
+        tab_feedback->setObjectName(QString::fromUtf8("tab_feedback"));
+        tabWidget->addTab(tab_feedback, QString());
         simBtn = new QPushButton(centralWidget);
         simBtn->setObjectName(QString::fromUtf8("simBtn"));
-        simBtn->setGeometry(QRect(540, 260, 171, 51));
-        getConfigBtn = new QPushButton(centralWidget);
-        getConfigBtn->setObjectName(QString::fromUtf8("getConfigBtn"));
-        getConfigBtn->setGeometry(QRect(350, 260, 181, 51));
-        samplingFrame = new QFrame(centralWidget);
-        samplingFrame->setObjectName(QString::fromUtf8("samplingFrame"));
-        samplingFrame->setEnabled(true);
-        samplingFrame->setGeometry(QRect(10, 260, 321, 51));
-        samplingFrame->setFrameShape(QFrame::StyledPanel);
-        samplingFrame->setFrameShadow(QFrame::Raised);
-        label_3 = new QLabel(samplingFrame);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(10, 0, 141, 17));
-        samplingSlider = new QSlider(samplingFrame);
-        samplingSlider->setObjectName(QString::fromUtf8("samplingSlider"));
-        samplingSlider->setGeometry(QRect(10, 20, 301, 29));
-        samplingSlider->setMinimum(10);
-        samplingSlider->setMaximum(1000);
-        samplingSlider->setOrientation(Qt::Horizontal);
-        samplingLabel = new QLabel(samplingFrame);
-        samplingLabel->setObjectName(QString::fromUtf8("samplingLabel"));
-        samplingLabel->setGeometry(QRect(160, 0, 67, 17));
+        simBtn->setGeometry(QRect(350, 220, 191, 41));
+        resetBtn = new QPushButton(centralWidget);
+        resetBtn->setObjectName(QString::fromUtf8("resetBtn"));
+        resetBtn->setGeometry(QRect(550, 220, 191, 41));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 724, 25));
+        menuBar->setGeometry(QRect(0, 0, 768, 25));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -170,6 +216,9 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
+
+        tabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -181,16 +230,23 @@ public:
         stepSimRadio->setText(QApplication::translate("MainWindow", "Step Simulation", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Number of steps", 0, QApplication::UnicodeUTF8));
         stepNoEdit->setText(QApplication::translate("MainWindow", "1", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("MainWindow", "Set coerce", 0, QApplication::UnicodeUTF8));
-        coerceEdit->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("MainWindow", "Sampling speed(ms):", 0, QApplication::UnicodeUTF8));
+        samplingLabel->setText(QApplication::translate("MainWindow", "10", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_simulation), QApplication::translate("MainWindow", "Simulation", 0, QApplication::UnicodeUTF8));
         stepCoerceRadio->setText(QApplication::translate("MainWindow", "Step coercion", 0, QApplication::UnicodeUTF8));
         manualCoerceRadio->setText(QApplication::translate("MainWindow", "Manual Coercion", 0, QApplication::UnicodeUTF8));
         impCoerceRadio->setText(QApplication::translate("MainWindow", "Impuls coercion", 0, QApplication::UnicodeUTF8));
-        nonCoercionRadio->setText(QApplication::translate("MainWindow", "None coercion", 0, QApplication::UnicodeUTF8));
-        simBtn->setText(QApplication::translate("MainWindow", "Simulate", 0, QApplication::UnicodeUTF8));
+        nonCoerceRadio->setText(QApplication::translate("MainWindow", "None coercion", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("MainWindow", "Set coerce", 0, QApplication::UnicodeUTF8));
+        coerceEdit->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_coerce), QApplication::translate("MainWindow", "Coerce", 0, QApplication::UnicodeUTF8));
         getConfigBtn->setText(QApplication::translate("MainWindow", "Get Config", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("MainWindow", "Sampling speed(ms):", 0, QApplication::UnicodeUTF8));
-        samplingLabel->setText(QApplication::translate("MainWindow", "10", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("MainWindow", "Chose object:", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_object), QApplication::translate("MainWindow", "Object", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_controller), QApplication::translate("MainWindow", "Controller", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_feedback), QApplication::translate("MainWindow", "Feedback", 0, QApplication::UnicodeUTF8));
+        simBtn->setText(QApplication::translate("MainWindow", "Start Simulation", 0, QApplication::UnicodeUTF8));
+        resetBtn->setText(QApplication::translate("MainWindow", "Reset Simulation", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

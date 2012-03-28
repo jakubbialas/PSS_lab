@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
                      &simulation, SLOT(setCoercionValue(double)));
     QObject::connect(&window, SIGNAL(setSamplingTime(int)),
                      &simulation, SLOT(setSamplingTime(int)));
+    QObject::connect(&window, SIGNAL(setObject(std::string)),
+                     &simulation, SLOT(setObject(std::string)));
 
     QObject::connect(&window, SIGNAL(startSimulation()),
                      &simulation, SLOT(startSimulation()));
@@ -46,6 +48,8 @@ int main(int argc, char *argv[])
     QObject::connect(&simulation, SIGNAL(drawControl(double)),
                      &window, SLOT(drawControl(double)));
 
+    QObject::connect(&simulation, SIGNAL(setObjectsList(std::vector<std::string>)),
+                     &window, SLOT(setObjectsList(std::vector<std::string>)));
 
     window.show();
 

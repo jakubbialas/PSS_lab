@@ -28,12 +28,29 @@ void MainWindow::on_simBtn_clicked()
             emit stopSimulation();
             isSimulationStarted = false;
             ui->simBtn->setText("Start simulation");
+            ui->setCoercionFrame->setEnabled(true);
+            ui->simFrame->setEnabled(true);
+            ui->getConfigBtn->setEnabled(true);
+            ui->comboBoxObject->setEnabled(true);
+            ui->resetBtn->setEnabled(true);
         }else{
             emit startSimulation();
             isSimulationStarted = true;
-            ui->simBtn->setText("Stop simulation");
+            ui->simBtn->setText("Pause simulation");
+            ui->setCoercionFrame->setEnabled(false);
+            ui->simFrame->setEnabled(false);
+            ui->getConfigBtn->setEnabled(false);
+            ui->comboBoxObject->setEnabled(false);
+            ui->resetBtn->setEnabled(false);
         }
     }
+}
+
+void MainWindow::on_resetBtn_clicked()
+{
+    emit resetSimulation();
+    ui->coercePlot->resetPen("input");
+    ui->coercePlot->resetPen("output");
 }
 
 void MainWindow::on_getConfigBtn_clicked()
@@ -96,7 +113,7 @@ void MainWindow::on_impCoerceRadio_toggled(bool checked)
     }
 }
 
-void MainWindow::on_nonCoercionRadio_toggled(bool checked)
+void MainWindow::on_nonCoerceRadio_toggled(bool checked)
 {
     if(checked){
         emit setCoercionType(Coerce::NONE);
@@ -127,3 +144,16 @@ void MainWindow::drawError(double y){
 void MainWindow::drawControl(double y){
 
 }
+
+void MainWindow::on_comboBoxObject_currentIndexChanged(const QString &arg1){
+    setObject(arg1.toStdString());
+}
+
+void MainWindow::setObjectsList(std::vector<std::string> names){
+    ui->comboBoxObject->clear();
+    std::vector<std::string>::iterator it;
+    for(it = names.begin(); it < names.end(); it++){
+        ui->comboBoxObject->addItem(QString((*it).c_str()));
+    }
+}
+

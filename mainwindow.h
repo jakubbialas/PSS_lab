@@ -31,6 +31,7 @@ signals:
     void loadConfig(const char *);
     void setCoercionType(Coerce::CoercionType);
     void setCoercionValue(double);
+    void setObject(std::string);
     void setSamplingTime(int);
 
 //signals to simulation object (simulate):
@@ -42,14 +43,18 @@ signals:
 private slots:
 
 //signals from simulation object:
+  //draw:
     void drawInput(double y);
     void drawOutput(double y);
     void drawError(double y);
     void drawControl(double y);
+  //infos:
+    void setObjectsList(std::vector<std::string>);
 
 //buttons:
     void on_simBtn_clicked();
     void on_getConfigBtn_clicked();
+    void on_resetBtn_clicked();
 
 //sliders:
     void on_samplingSlider_valueChanged(int value);
@@ -63,8 +68,12 @@ private slots:
 //radios coerce:
     void on_stepCoerceRadio_toggled(bool checked);
     void on_impCoerceRadio_toggled(bool checked);
-    void on_nonCoercionRadio_toggled(bool checked);
+    void on_nonCoerceRadio_toggled(bool checked);
     void on_manualCoerceRadio_toggled(bool checked);
+
+//object set:
+    void on_comboBoxObject_currentIndexChanged(const QString &arg1);
+
 
 private:
     Ui::MainWindow *ui;

@@ -16,11 +16,12 @@ public:
 
     void parseFile(const char * filename);
 
-    ObjectData* getObject(std::string);
+    ObjectData getObject(std::string);
+    std::vector<std::string> getKeys();
     bool hasKey(std::string);
 
 private:
-    std::map<std::string, ObjectData*> objects;
+    std::map<std::string, ObjectData> objects;
 };
 
 #endif // YAMLMODELPARSER_H

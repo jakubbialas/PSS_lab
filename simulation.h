@@ -19,6 +19,8 @@ signals:
     void drawOutput(double y);
     void drawError(double y);
     void drawControl(double y);
+  //settings:
+    void setObjectsList(std::vector<std::string>);
 
 public slots:
 //slots to set config:
@@ -26,6 +28,7 @@ public slots:
     void setCoercionType(Coerce::CoercionType);
     void setCoercionValue(double);
     void setSamplingTime(int);
+    void setObject(std::string);
 
 //slots to simulate:
     void startSimulation();
@@ -37,12 +40,12 @@ public slots:
 
 private:
 
-    QTimer *timer;
+    QTimer * timer;
 
     YamlConfigParser ymp;
 
-    DiscreteObject * object;
-    Coerce * coerce;
+    DiscreteObject object;
+    Coerce coerce;
 
     int samplingTime;
 };

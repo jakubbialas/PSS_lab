@@ -32,6 +32,7 @@ public:
     void setBAk(vector<double>, vector<double>, int);
     void setModel(ModelData);
     void setData(ObjectData);
+    void reset();
 
     vector<double> getB();
     vector<double> getA();

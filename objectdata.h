@@ -8,7 +8,7 @@ class ObjectData
 {
 public:
     ObjectData();
-    std::vector<ModelData*> models;
+    std::vector<ModelData> models;
 
     std::string name;
 };

@@ -26,6 +26,14 @@ void LivePlot::removePen(std::string name){
 
 }
 
+void LivePlot::resetPen(std::string pen){
+    m_X[pen]->clear();
+    m_Y[pen]->clear();
+
+    m_curves[pen]->setSamples(*m_X[pen], *m_Y[pen]);
+    this->replot();
+}
+
 void LivePlot::drawPoint(double x, double y, std::string pen){
     m_X[pen]->push_back(x);
     m_Y[pen]->push_back(y);

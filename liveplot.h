@@ -23,6 +23,7 @@ public slots:
     void drawPoint(double y, std::string pen);
     void addPen(std::string, QwtSymbol*);
     void removePen(std::string);
+    void resetPen(std::string);
 
 private:
     std::map<std::string, QVector<double>*> m_X;
