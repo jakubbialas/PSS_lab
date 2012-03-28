@@ -11,10 +11,10 @@
 class ObjectData
 {
 public:
-/**
- * @brief Konstruktor
- *
- */
+    /**
+     * @brief Konstruktor
+     *
+     */
     ObjectData();
     std::vector<ModelData> models; /**< Vector obiektow ModelData(parametrow obiektu) */
 

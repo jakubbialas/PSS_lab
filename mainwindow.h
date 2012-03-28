@@ -60,17 +60,17 @@ signals:
      */
     void setSamplingTime(int);
     /**
-      * @brief Sygnał emitowany po wyborze typu wymuszenia
-      *
-      * @param Source::SourceType Typ wymuszenia
-      */
-     void setSourceType(Source::SourceType);
-     /**
-      * @brief Sygnał emitowany przy zmianie wartosci wymuszenia
-      *
-      * @param double Wartosc wymuszenia
-      */
-     void setSourceValue(double);
+     * @brief Sygnał emitowany po wyborze typu wymuszenia
+     *
+     * @param Source::SourceType Typ wymuszenia
+     */
+    void setSourceType(Source::SourceType);
+    /**
+     * @brief Sygnał emitowany przy zmianie wartosci wymuszenia
+     *
+     * @param double Wartosc wymuszenia
+     */
+    void setSourceValue(double);
 
 //signals to simulation object (simulate):
     /**

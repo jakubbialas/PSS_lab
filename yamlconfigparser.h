@@ -16,10 +16,10 @@
 class YamlConfigParser
 {
 public:
-/**
- * @brief Konstruktor
- *
- */
+    /**
+     * @brief Konstruktor
+     *
+     */
     YamlConfigParser();
 
     /**

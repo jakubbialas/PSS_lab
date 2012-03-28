@@ -2,5 +2,4 @@
 
 ObjectSISO::ObjectSISO()
 {
-
 }

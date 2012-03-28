@@ -8,10 +8,10 @@
 class ObjectSISO
 {
 public:
-/**
- * @brief Konstruktor
- *
- */
+    /**
+     * @brief Konstruktor
+     *
+     */
     ObjectSISO();
 
     /**

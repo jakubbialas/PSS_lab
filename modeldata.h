@@ -11,10 +11,10 @@
 class ModelData
 {
 public:
-/**
- * @brief Konstruktor
- *
- */
+    /**
+     * @brief Konstruktor
+     *
+     */
     ModelData();
 
     std::vector<double> B; /**< Wielomian B */

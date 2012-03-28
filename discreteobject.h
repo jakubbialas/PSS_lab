@@ -35,24 +35,24 @@ private:
     void updateModel();
 
 public:
-/**
- * @brief Konstruktor bez parametrowy, parametry obiektu nie sa ustawione
- *
- */
+    /**
+     * @brief Konstruktor bez parametrowy, parametry obiektu nie sa ustawione
+     *
+     */
     DiscreteObject();
-/**
- * @brief Konstruktor tworzacy obiekt
- *
- * @param ObjectData Wprowadzany obiekt
- */
+    /**
+     * @brief Konstruktor tworzacy obiekt
+     *
+     * @param ObjectData Wprowadzany obiekt
+     */
     DiscreteObject(ObjectData);
-/**
- * @brief Konstruktor tworzący obiekt
- *
- * @param vector<double> Wielomian A
- * @param vector<double> Wielomian B
- * @param int Parametr k
- */
+    /**
+     * @brief Konstruktor tworzący obiekt
+     *
+     * @param vector<double> Wielomian A
+     * @param vector<double> Wielomian B
+     * @param int Parametr k
+     */
     DiscreteObject(vector<double>, vector<double>, int);
 
     /**

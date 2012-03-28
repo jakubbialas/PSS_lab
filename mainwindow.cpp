@@ -28,7 +28,7 @@ void MainWindow::on_simBtn_clicked()
             emit stopSimulation();
             isSimulationStarted = false;
             ui->simBtn->setText("Start simulation");
-//            ui->setCoercionFrame->setEnabled(true);
+            ui->sourceTypeFrame->setEnabled(true);
             ui->simFrame->setEnabled(true);
             ui->getConfigBtn->setEnabled(true);
             ui->comboBoxObject->setEnabled(true);
@@ -37,7 +37,7 @@ void MainWindow::on_simBtn_clicked()
             emit startSimulation();
             isSimulationStarted = true;
             ui->simBtn->setText("Pause simulation");
-//            ui->setCoercionFrame->setEnabled(false);
+            ui->sourceTypeFrame->setEnabled(false);
             ui->simFrame->setEnabled(false);
             ui->getConfigBtn->setEnabled(false);
             ui->comboBoxObject->setEnabled(false);

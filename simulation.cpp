@@ -15,7 +15,6 @@ Simulation::Simulation(QObject *parent) :
 void Simulation::loadConfig(const char * filename)
 {
     ymp.parseFile(filename);
-
     setObjectsList(ymp.getKeys());
 }
 
