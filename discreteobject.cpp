@@ -40,7 +40,6 @@ void DiscreteObject::setBAk(vector<double> n_B, vector<double> n_A, int n_k){
     A = n_A;
     k = n_k;
 
-    //TODO: sprawdz to samo co w konstruktorze...
 }
 
 void DiscreteObject::setData(ObjectData n_data){
