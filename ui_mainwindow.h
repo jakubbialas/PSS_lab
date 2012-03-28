@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Mar 28 11:48:20 2012
+** Created: Wed Mar 28 22:12:30 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -36,8 +36,8 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    LivePlot *coercePlot;
-    LivePlot *responsePlot;
+    LivePlot *plot1;
+    LivePlot *plot2;
     QTabWidget *tabWidget;
     QWidget *tab_simulation;
     QFrame *simFrame;
@@ -50,16 +50,16 @@ public:
     QLabel *label_3;
     QSlider *samplingSlider;
     QLabel *samplingLabel;
-    QWidget *tab_coerce;
-    QFrame *setCoercionFrame;
-    QRadioButton *stepCoerceRadio;
-    QRadioButton *manualCoerceRadio;
-    QRadioButton *impCoerceRadio;
-    QRadioButton *nonCoerceRadio;
-    QFrame *coerceFrame;
+    QWidget *tab_source;
+    QFrame *sourceTypeFrame;
+    QRadioButton *stepSourceRadio;
+    QRadioButton *manualSourceRadio;
+    QRadioButton *impSourceRadio;
+    QRadioButton *nonSourceRadio;
+    QFrame *sourceValueFrame;
     QLabel *label_2;
-    QLineEdit *coerceEdit;
-    QSlider *coerceSilder;
+    QLineEdit *sourceValueEdit;
+    QSlider *sourceValueSilder;
     QWidget *tab_object;
     QPushButton *getConfigBtn;
     QComboBox *comboBoxObject;
@@ -79,12 +79,12 @@ public:
         MainWindow->resize(768, 340);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        coercePlot = new LivePlot(centralWidget);
-        coercePlot->setObjectName(QString::fromUtf8("coercePlot"));
-        coercePlot->setGeometry(QRect(10, 10, 311, 121));
-        responsePlot = new LivePlot(centralWidget);
-        responsePlot->setObjectName(QString::fromUtf8("responsePlot"));
-        responsePlot->setGeometry(QRect(10, 140, 311, 121));
+        plot1 = new LivePlot(centralWidget);
+        plot1->setObjectName(QString::fromUtf8("plot1"));
+        plot1->setGeometry(QRect(10, 10, 311, 121));
+        plot2 = new LivePlot(centralWidget);
+        plot2->setObjectName(QString::fromUtf8("plot2"));
+        plot2->setGeometry(QRect(10, 140, 311, 121));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setGeometry(QRect(340, 0, 416, 211));
@@ -133,52 +133,52 @@ public:
         samplingLabel->setObjectName(QString::fromUtf8("samplingLabel"));
         samplingLabel->setGeometry(QRect(160, 10, 67, 21));
         tabWidget->addTab(tab_simulation, QString());
-        tab_coerce = new QWidget();
-        tab_coerce->setObjectName(QString::fromUtf8("tab_coerce"));
-        setCoercionFrame = new QFrame(tab_coerce);
-        setCoercionFrame->setObjectName(QString::fromUtf8("setCoercionFrame"));
-        setCoercionFrame->setGeometry(QRect(10, 10, 191, 131));
-        setCoercionFrame->setFrameShape(QFrame::StyledPanel);
-        setCoercionFrame->setFrameShadow(QFrame::Raised);
-        stepCoerceRadio = new QRadioButton(setCoercionFrame);
-        stepCoerceRadio->setObjectName(QString::fromUtf8("stepCoerceRadio"));
-        stepCoerceRadio->setGeometry(QRect(10, 10, 141, 22));
-        stepCoerceRadio->setChecked(true);
-        manualCoerceRadio = new QRadioButton(setCoercionFrame);
-        manualCoerceRadio->setObjectName(QString::fromUtf8("manualCoerceRadio"));
-        manualCoerceRadio->setGeometry(QRect(10, 100, 151, 22));
-        impCoerceRadio = new QRadioButton(setCoercionFrame);
-        impCoerceRadio->setObjectName(QString::fromUtf8("impCoerceRadio"));
-        impCoerceRadio->setGeometry(QRect(10, 40, 151, 22));
-        nonCoerceRadio = new QRadioButton(setCoercionFrame);
-        nonCoerceRadio->setObjectName(QString::fromUtf8("nonCoerceRadio"));
-        nonCoerceRadio->setGeometry(QRect(10, 70, 151, 22));
-        stepCoerceRadio->raise();
-        manualCoerceRadio->raise();
-        nonCoerceRadio->raise();
-        impCoerceRadio->raise();
-        coerceFrame = new QFrame(tab_coerce);
-        coerceFrame->setObjectName(QString::fromUtf8("coerceFrame"));
-        coerceFrame->setEnabled(false);
-        coerceFrame->setGeometry(QRect(210, 10, 191, 131));
-        coerceFrame->setFrameShape(QFrame::StyledPanel);
-        coerceFrame->setFrameShadow(QFrame::Raised);
-        label_2 = new QLabel(coerceFrame);
+        tab_source = new QWidget();
+        tab_source->setObjectName(QString::fromUtf8("tab_source"));
+        sourceTypeFrame = new QFrame(tab_source);
+        sourceTypeFrame->setObjectName(QString::fromUtf8("sourceTypeFrame"));
+        sourceTypeFrame->setGeometry(QRect(10, 10, 191, 131));
+        sourceTypeFrame->setFrameShape(QFrame::StyledPanel);
+        sourceTypeFrame->setFrameShadow(QFrame::Raised);
+        stepSourceRadio = new QRadioButton(sourceTypeFrame);
+        stepSourceRadio->setObjectName(QString::fromUtf8("stepSourceRadio"));
+        stepSourceRadio->setGeometry(QRect(10, 10, 141, 22));
+        stepSourceRadio->setChecked(true);
+        manualSourceRadio = new QRadioButton(sourceTypeFrame);
+        manualSourceRadio->setObjectName(QString::fromUtf8("manualSourceRadio"));
+        manualSourceRadio->setGeometry(QRect(10, 100, 151, 22));
+        impSourceRadio = new QRadioButton(sourceTypeFrame);
+        impSourceRadio->setObjectName(QString::fromUtf8("impSourceRadio"));
+        impSourceRadio->setGeometry(QRect(10, 40, 151, 22));
+        nonSourceRadio = new QRadioButton(sourceTypeFrame);
+        nonSourceRadio->setObjectName(QString::fromUtf8("nonSourceRadio"));
+        nonSourceRadio->setGeometry(QRect(10, 70, 151, 22));
+        stepSourceRadio->raise();
+        manualSourceRadio->raise();
+        nonSourceRadio->raise();
+        impSourceRadio->raise();
+        sourceValueFrame = new QFrame(tab_source);
+        sourceValueFrame->setObjectName(QString::fromUtf8("sourceValueFrame"));
+        sourceValueFrame->setEnabled(false);
+        sourceValueFrame->setGeometry(QRect(210, 10, 191, 131));
+        sourceValueFrame->setFrameShape(QFrame::StyledPanel);
+        sourceValueFrame->setFrameShadow(QFrame::Raised);
+        label_2 = new QLabel(sourceValueFrame);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(10, 10, 81, 21));
-        coerceEdit = new QLineEdit(coerceFrame);
-        coerceEdit->setObjectName(QString::fromUtf8("coerceEdit"));
-        coerceEdit->setGeometry(QRect(10, 40, 91, 31));
-        coerceSilder = new QSlider(coerceFrame);
-        coerceSilder->setObjectName(QString::fromUtf8("coerceSilder"));
-        coerceSilder->setGeometry(QRect(140, 10, 31, 111));
-        coerceSilder->setMaximum(100);
-        coerceSilder->setSliderPosition(1);
-        coerceSilder->setTracking(true);
-        coerceSilder->setOrientation(Qt::Vertical);
-        coerceSilder->setInvertedAppearance(false);
-        coerceSilder->setInvertedControls(false);
-        tabWidget->addTab(tab_coerce, QString());
+        label_2->setGeometry(QRect(10, 10, 121, 21));
+        sourceValueEdit = new QLineEdit(sourceValueFrame);
+        sourceValueEdit->setObjectName(QString::fromUtf8("sourceValueEdit"));
+        sourceValueEdit->setGeometry(QRect(10, 40, 91, 31));
+        sourceValueSilder = new QSlider(sourceValueFrame);
+        sourceValueSilder->setObjectName(QString::fromUtf8("sourceValueSilder"));
+        sourceValueSilder->setGeometry(QRect(140, 10, 31, 111));
+        sourceValueSilder->setMaximum(100);
+        sourceValueSilder->setSliderPosition(1);
+        sourceValueSilder->setTracking(true);
+        sourceValueSilder->setOrientation(Qt::Vertical);
+        sourceValueSilder->setInvertedAppearance(false);
+        sourceValueSilder->setInvertedControls(false);
+        tabWidget->addTab(tab_source, QString());
         tab_object = new QWidget();
         tab_object->setObjectName(QString::fromUtf8("tab_object"));
         getConfigBtn = new QPushButton(tab_object);
@@ -217,7 +217,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -233,13 +233,13 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "Sampling speed(ms):", 0, QApplication::UnicodeUTF8));
         samplingLabel->setText(QApplication::translate("MainWindow", "10", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_simulation), QApplication::translate("MainWindow", "Simulation", 0, QApplication::UnicodeUTF8));
-        stepCoerceRadio->setText(QApplication::translate("MainWindow", "Step coercion", 0, QApplication::UnicodeUTF8));
-        manualCoerceRadio->setText(QApplication::translate("MainWindow", "Manual Coercion", 0, QApplication::UnicodeUTF8));
-        impCoerceRadio->setText(QApplication::translate("MainWindow", "Impuls coercion", 0, QApplication::UnicodeUTF8));
-        nonCoerceRadio->setText(QApplication::translate("MainWindow", "None coercion", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("MainWindow", "Set coerce", 0, QApplication::UnicodeUTF8));
-        coerceEdit->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_coerce), QApplication::translate("MainWindow", "Coerce", 0, QApplication::UnicodeUTF8));
+        stepSourceRadio->setText(QApplication::translate("MainWindow", "Step to 1", 0, QApplication::UnicodeUTF8));
+        manualSourceRadio->setText(QApplication::translate("MainWindow", "Manual", 0, QApplication::UnicodeUTF8));
+        impSourceRadio->setText(QApplication::translate("MainWindow", "Impuls", 0, QApplication::UnicodeUTF8));
+        nonSourceRadio->setText(QApplication::translate("MainWindow", "Step to 0", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("MainWindow", "Set source value", 0, QApplication::UnicodeUTF8));
+        sourceValueEdit->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_source), QApplication::translate("MainWindow", "Source", 0, QApplication::UnicodeUTF8));
         getConfigBtn->setText(QApplication::translate("MainWindow", "Get Config", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("MainWindow", "Chose object:", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_object), QApplication::translate("MainWindow", "Object", 0, QApplication::UnicodeUTF8));

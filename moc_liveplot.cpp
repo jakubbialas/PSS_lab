@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'liveplot.h'
 **
-** Created: Tue Mar 27 11:17:31 2012
+** Created: Wed Mar 28 22:14:14 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_LivePlot[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,6 +35,7 @@ static const uint qt_meta_data_LivePlot[] = {
       61,   55,    9,    9, 0x0a,
       93,   91,    9,    9, 0x0a,
      124,    9,    9,    9, 0x0a,
+     147,    9,    9,    9, 0x0a,
 
        0        // eod
 };
@@ -44,7 +45,7 @@ static const char qt_meta_stringdata_LivePlot[] = {
     "drawPoint(double,double,std::string)\0"
     "y,pen\0drawPoint(double,std::string)\0"
     ",\0addPen(std::string,QwtSymbol*)\0"
-    "removePen(std::string)\0"
+    "removePen(std::string)\0resetPen(std::string)\0"
 };
 
 const QMetaObject LivePlot::staticMetaObject = {
@@ -80,9 +81,10 @@ int LivePlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: drawPoint((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< std::string(*)>(_a[2]))); break;
         case 2: addPen((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< QwtSymbol*(*)>(_a[2]))); break;
         case 3: removePen((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 4: resetPen((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

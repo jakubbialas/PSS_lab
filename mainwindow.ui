@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="LivePlot" name="coercePlot" native="true">
+   <widget class="LivePlot" name="plot1" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="LivePlot" name="responsePlot" native="true">
+   <widget class="LivePlot" name="plot2" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -44,7 +44,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_simulation">
      <attribute name="title">
@@ -205,11 +205,11 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_coerce">
+    <widget class="QWidget" name="tab_source">
      <attribute name="title">
-      <string>Coerce</string>
+      <string>Source</string>
      </attribute>
-     <widget class="QFrame" name="setCoercionFrame">
+     <widget class="QFrame" name="sourceTypeFrame">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -224,7 +224,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QRadioButton" name="stepCoerceRadio">
+      <widget class="QRadioButton" name="stepSourceRadio">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -234,13 +234,13 @@
         </rect>
        </property>
        <property name="text">
-        <string>Step coercion</string>
+        <string>Step to 1</string>
        </property>
        <property name="checked">
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QRadioButton" name="manualCoerceRadio">
+      <widget class="QRadioButton" name="manualSourceRadio">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -250,10 +250,10 @@
         </rect>
        </property>
        <property name="text">
-        <string>Manual Coercion</string>
+        <string>Manual</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="impCoerceRadio">
+      <widget class="QRadioButton" name="impSourceRadio">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -263,10 +263,10 @@
         </rect>
        </property>
        <property name="text">
-        <string>Impuls coercion</string>
+        <string>Impuls</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="nonCoerceRadio">
+      <widget class="QRadioButton" name="nonSourceRadio">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -276,15 +276,15 @@
         </rect>
        </property>
        <property name="text">
-        <string>None coercion</string>
+        <string>Step to 0</string>
        </property>
       </widget>
-      <zorder>stepCoerceRadio</zorder>
-      <zorder>manualCoerceRadio</zorder>
-      <zorder>nonCoerceRadio</zorder>
-      <zorder>impCoerceRadio</zorder>
+      <zorder>stepSourceRadio</zorder>
+      <zorder>manualSourceRadio</zorder>
+      <zorder>nonSourceRadio</zorder>
+      <zorder>impSourceRadio</zorder>
      </widget>
-     <widget class="QFrame" name="coerceFrame">
+     <widget class="QFrame" name="sourceValueFrame">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -307,15 +307,15 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>81</width>
+         <width>121</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>Set coerce</string>
+        <string>Set source value</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="coerceEdit">
+      <widget class="QLineEdit" name="sourceValueEdit">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -328,7 +328,7 @@
         <string>0</string>
        </property>
       </widget>
-      <widget class="QSlider" name="coerceSilder">
+      <widget class="QSlider" name="sourceValueSilder">
        <property name="geometry">
         <rect>
          <x>140</x>

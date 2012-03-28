@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
 
     QObject::connect(&window, SIGNAL(loadConfig(const char * )),
                      &simulation, SLOT(loadConfig(const char * )));
-    QObject::connect(&window, SIGNAL(setCoercionType(Coerce::CoercionType)),
-                     &simulation, SLOT(setCoercionType(Coerce::CoercionType)));
-    QObject::connect(&window, SIGNAL(setCoercionValue(double)),
-                     &simulation, SLOT(setCoercionValue(double)));
+    QObject::connect(&window, SIGNAL(setSourceType(Source::SourceType)),
+                     &simulation, SLOT(setSourceType(Source::SourceType)));
+    QObject::connect(&window, SIGNAL(setSourceValue(double)),
+                     &simulation, SLOT(setSourceValue(double)));
     QObject::connect(&window, SIGNAL(setSamplingTime(int)),
                      &simulation, SLOT(setSamplingTime(int)));
     QObject::connect(&window, SIGNAL(setObject(std::string)),

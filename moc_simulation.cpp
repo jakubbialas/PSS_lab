@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'simulation.h'
 **
-** Created: Wed Mar 28 11:33:51 2012
+** Created: Wed Mar 28 22:14:16 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -40,14 +40,14 @@ static const uint qt_meta_data_Simulation[] = {
  // slots: signature, parameters, type, tag, flags
      139,  130,   11,   11, 0x0a,
      163,   11,   11,   11, 0x0a,
-     201,   11,   11,   11, 0x0a,
-     226,   11,   11,   11, 0x0a,
-     247,   11,   11,   11, 0x0a,
-     270,   11,   11,   11, 0x0a,
-     288,   11,   11,   11, 0x0a,
-     305,   11,   11,   11, 0x0a,
-     323,   11,   11,   11, 0x0a,
-     343,   11,   11,   11, 0x0a,
+     197,   11,   11,   11, 0x0a,
+     220,   11,   11,   11, 0x0a,
+     241,   11,   11,   11, 0x0a,
+     264,   11,   11,   11, 0x0a,
+     282,   11,   11,   11, 0x0a,
+     299,   11,   11,   11, 0x0a,
+     317,   11,   11,   11, 0x0a,
+     337,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -58,8 +58,8 @@ static const char qt_meta_stringdata_Simulation[] = {
     "drawControl(double)\0"
     "setObjectsList(std::vector<std::string>)\0"
     "filename\0loadConfig(const char*)\0"
-    "setCoercionType(Coerce::CoercionType)\0"
-    "setCoercionValue(double)\0setSamplingTime(int)\0"
+    "setSourceType(Source::SourceType)\0"
+    "setSourceValue(double)\0setSamplingTime(int)\0"
     "setObject(std::string)\0startSimulation()\0"
     "stopSimulation()\0resetSimulation()\0"
     "stepSimulation(int)\0nextStep()\0"
@@ -100,8 +100,8 @@ int Simulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 3: drawControl((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 4: setObjectsList((*reinterpret_cast< std::vector<std::string>(*)>(_a[1]))); break;
         case 5: loadConfig((*reinterpret_cast< const char*(*)>(_a[1]))); break;
-        case 6: setCoercionType((*reinterpret_cast< Coerce::CoercionType(*)>(_a[1]))); break;
-        case 7: setCoercionValue((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 6: setSourceType((*reinterpret_cast< Source::SourceType(*)>(_a[1]))); break;
+        case 7: setSourceValue((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 8: setSamplingTime((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 9: setObject((*reinterpret_cast< std::string(*)>(_a[1]))); break;
         case 10: startSimulation(); break;

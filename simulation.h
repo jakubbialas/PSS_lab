@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include "discreteobject.h"
-#include "coerce.h"
+#include "source.h"
 #include "yamlconfigparser.h"
 
 /**
@@ -67,15 +67,15 @@ public slots:
     /**
      * @brief Gniazdo odbierajace sygnal  by ustawic typ wymuszenia
      *
-     * @param Coerce::CoercionType Typ wymuszenia
+     * @param Source::SourceType Typ wymuszenia
      */
-    void setCoercionType(Coerce::CoercionType);
+    void setSourceType(Source::SourceType);
     /**
      * @brief Gniazdo odbierajace sygnal by ustawic wartosc wymuszenia
      *
      * @param double Wartosc wymuszenia
      */
-    void setCoercionValue(double);
+    void setSourceValue(double);
     /**
      * @brief Gniazdo odbierajace sygnal by ustawic nowy czas probkowania wykresu
      *
@@ -124,7 +124,7 @@ private:
     YamlConfigParser ymp; /**< Parser plikow Yaml */
 
     DiscreteObject object; /**< Symulowany obiekt  */
-    Coerce coerce; /**< Obiekt odpowiedzialny za wymuszenie */
+    Source source; /**< Obiekt odpowiedzialny za wymuszenie */
 
     int samplingTime; /**< Czas probkowania wykresu */
 };

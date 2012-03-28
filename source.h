@@ -1,11 +1,11 @@
-#ifndef COERCE_H
-#define COERCE_H
+#ifndef SOURCE_H
+#define SOURCE_H
 
 /**
  * @brief Klasa odpowiedzialnia za dobor wymuszenia
  *
  */
-class Coerce
+class Source
 {
 public:
     /**
@@ -15,31 +15,31 @@ public:
      *NONE - wymuszenie zerowe
      *CUSTOM - wymuszenie dobrane ręcznie jako parametr
      */
-    enum CoercionType { STEP, IMP, NONE, CUSTOM };
+    enum SourceType { STEP, IMP, NONE, CUSTOM };
 
-/**
- * @brief Konstruktor bezparametrowy klasy Coerce
- *
- */
-    Coerce();
-/**
- * @brief Ustaw typ aktualnego wymuszenia
- *
- * @param n_Type Typ wymuszenia
- */
-    Coerce(CoercionType n_Type);
+    /**
+     * @brief Konstruktor bezparametrowy klasy Coerce
+     *
+     */
+    Source();
+    /**
+     * @brief Ustaw typ aktualnego wymuszenia
+     *
+     * @param n_Type Typ wymuszenia
+    */
+    Source(SourceType n_Type);
     /**
      * @brief
      *
-     * @param CoercionType typ wymuszenia
+     * @param SourceType typ wymuszenia
      */
-    void setCoercionType(CoercionType);
+    void setSourceType(SourceType);
     /**
      * @brief Dla typu wymuszenia custom ustala wartosc wymuszenia
      *
      * @param double Wartosc wymuszenia
      */
-    void setCoercionValue(double);
+    void setSourceValue(double);
     /**
      * @brief resetuj czas wymuszenia(głownie gdy wymuszeniem jest impuls, by jedynka pojawila sie ponownie)
      *
@@ -52,9 +52,9 @@ public:
     double nextSample();
 
 private:
-    CoercionType type; /**< Zmienna przechowujaca aktualny typ wymuszenia */
+    SourceType type; /**< Zmienna przechowujaca aktualny typ wymuszenia */
     double value; /**< Wartosc wymuszenia dla sterowania CUSTOM */
     int time; /**< Aktualna probka czasu */
 };
 
-#endif // COERCE_H
+#endif // SOURCE_H

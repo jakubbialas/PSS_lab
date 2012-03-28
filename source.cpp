@@ -1,28 +1,28 @@
-#include "coerce.h"
+#include "source.h"
 
-Coerce::Coerce(){
+Source::Source(){
     type = STEP;
     time = 0;
 }
 
-Coerce::Coerce(CoercionType n_Type){
+Source::Source(SourceType n_Type){
     type = n_Type;
     time = 0;
 }
 
-void Coerce::setCoercionType(CoercionType n_Type){
+void Source::setSourceType(SourceType n_Type){
     type = n_Type;
 }
 
-void Coerce::setCoercionValue(double n_value){
+void Source::setSourceValue(double n_value){
     value = n_value;
 }
 
-void Coerce::reset(){
+void Source::reset(){
     time = 0;
 }
 
-double Coerce::nextSample(){
+double Source::nextSample(){
     double v;
     switch(type){
         case STEP:

@@ -49,6 +49,7 @@ public:
 
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
+
 };
 
 #endif // YAMLMODELPARSER_H

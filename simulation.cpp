@@ -7,7 +7,7 @@ Simulation::Simulation(QObject *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
 
     samplingTime = 100;
-    coerce = Coerce();
+    source = Source();
     object = DiscreteObject();
 }
 
@@ -19,12 +19,12 @@ void Simulation::loadConfig(const char * filename)
     setObjectsList(ymp.getKeys());
 }
 
-void Simulation::setCoercionType(Coerce::CoercionType type){
-    coerce.setCoercionType(type);
+void Simulation::setSourceType(Source::SourceType type){
+    source.setSourceType(type);
 }
 
-void Simulation::setCoercionValue(double value){
-    coerce.setCoercionValue(value);
+void Simulation::setSourceValue(double value){
+    source.setSourceValue(value);
 }
 
 
@@ -50,7 +50,7 @@ void Simulation::stopSimulation(){
 }
 
 void Simulation::resetSimulation(){
-    coerce.reset();
+    source.reset();
     object.reset();
 }
 
@@ -61,7 +61,7 @@ void Simulation::stepSimulation(int i){
 }
 
 void Simulation::nextStep(){
-    double x = coerce.nextSample();
+    double x = source.nextSample();
     emit drawInput(x);
     emit drawOutput(object.Symuluj(x));
     //emit drawError();

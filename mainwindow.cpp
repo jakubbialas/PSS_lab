@@ -7,8 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->coercePlot->addPen("input", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
-    ui->coercePlot->addPen("output", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ) );
+    ui->plot1->addPen("input", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
+    ui->plot1->addPen("output", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ) );
 
     isSimulationStarted = false;
 }
@@ -28,7 +28,7 @@ void MainWindow::on_simBtn_clicked()
             emit stopSimulation();
             isSimulationStarted = false;
             ui->simBtn->setText("Start simulation");
-            ui->setCoercionFrame->setEnabled(true);
+//            ui->setCoercionFrame->setEnabled(true);
             ui->simFrame->setEnabled(true);
             ui->getConfigBtn->setEnabled(true);
             ui->comboBoxObject->setEnabled(true);
@@ -37,7 +37,7 @@ void MainWindow::on_simBtn_clicked()
             emit startSimulation();
             isSimulationStarted = true;
             ui->simBtn->setText("Pause simulation");
-            ui->setCoercionFrame->setEnabled(false);
+//            ui->setCoercionFrame->setEnabled(false);
             ui->simFrame->setEnabled(false);
             ui->getConfigBtn->setEnabled(false);
             ui->comboBoxObject->setEnabled(false);
@@ -49,27 +49,13 @@ void MainWindow::on_simBtn_clicked()
 void MainWindow::on_resetBtn_clicked()
 {
     emit resetSimulation();
-    ui->coercePlot->resetPen("input");
-    ui->coercePlot->resetPen("output");
+    ui->plot1->resetPen("input");
+    ui->plot1->resetPen("output");
 }
 
 void MainWindow::on_getConfigBtn_clicked()
 {
     emit loadConfig("model.yaml");
-}
-
-void MainWindow::on_coerceSilder_valueChanged(int value)
-{
-    double v2 = 0.1 * value;
-    std::stringstream convert;
-    convert << v2;
-    ui->coerceEdit->setText((convert.str().c_str()));
-}
-
-void MainWindow::on_coerceEdit_textChanged(const QString &arg1)
-{
-    ui->coerceSilder->setValue(ui->coerceEdit->text().toDouble() * 10);
-    emit setCoercionValue(ui->coerceEdit->text().toDouble());
 }
 
 
@@ -81,7 +67,6 @@ void MainWindow::on_samplingSlider_valueChanged(int value)
 
     emit setSamplingTime(value);
 }
-
 
 void MainWindow::on_contSimRadio_toggled(bool checked)
 {
@@ -96,42 +81,12 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
     }
 }
 
-void MainWindow::on_stepCoerceRadio_toggled(bool checked)
-{
-    if(checked){
-        emit setCoercionType(Coerce::STEP);
-    }
-}
-
-void MainWindow::on_impCoerceRadio_toggled(bool checked)
-{
-    if(checked){
-        emit setCoercionType(Coerce::IMP);
-    }
-}
-
-void MainWindow::on_nonCoerceRadio_toggled(bool checked)
-{
-    if(checked){
-        emit setCoercionType(Coerce::NONE);
-    }
-}
-
-void MainWindow::on_manualCoerceRadio_toggled(bool checked)
-{
-    ui->coerceFrame->setEnabled(ui->manualCoerceRadio->isChecked());
-    if(checked){
-        emit setCoercionType(Coerce::CUSTOM);
-        emit setCoercionValue(ui->coerceEdit->text().toDouble());
-    }
-}
-
 void MainWindow::drawInput(double y){
-    ui->coercePlot->drawPoint(y, "input");
+    ui->plot1->drawPoint(y, "input");
 }
 
 void MainWindow::drawOutput(double y){
-    ui->coercePlot->drawPoint(y, "output");
+    ui->plot1->drawPoint(y, "output");
 }
 
 void MainWindow::drawError(double y){
@@ -154,3 +109,46 @@ void MainWindow::setObjectsList(std::vector<std::string> names){
     }
 }
 
+void MainWindow::on_stepSourceRadio_toggled(bool checked)
+{
+    if(checked){
+        emit setSourceType(Source::STEP);
+    }
+}
+
+void MainWindow::on_impSourceRadio_toggled(bool checked)
+{
+    if(checked){
+        emit setSourceType(Source::IMP);
+    }
+}
+
+void MainWindow::on_nonSourceRadio_toggled(bool checked)
+{
+    if(checked){
+        emit setSourceType(Source::NONE);
+    }
+}
+
+void MainWindow::on_manualSourceRadio_toggled(bool checked)
+{
+    ui->sourceValueFrame->setEnabled(ui->manualSourceRadio->isChecked());
+    if(checked){
+        emit setSourceType(Source::CUSTOM);
+        emit setSourceValue(ui->sourceValueEdit->text().toDouble());
+    }
+}
+
+void MainWindow::on_sourceValueEdit_textChanged(const QString &arg1)
+{
+    ui->sourceValueSilder->setValue(ui->sourceValueEdit->text().toDouble() * 10);
+    emit setSourceValue(ui->sourceValueEdit->text().toDouble());
+}
+
+void MainWindow::on_sourceValueSilder_valueChanged(int value)
+{
+    double v2 = 0.1 * value;
+    std::stringstream convert;
+    convert << v2;
+    ui->sourceValueEdit->setText((convert.str().c_str()));
+}

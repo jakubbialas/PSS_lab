@@ -15,21 +15,21 @@ SOURCES += main.cpp\
     discreteobject.cpp \
     objectsiso.cpp \
     liveplot.cpp \
-    coerce.cpp \
     modeldata.cpp \
     objectdata.cpp \
     yamlconfigparser.cpp \
-    simulation.cpp
+    simulation.cpp \
+    source.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
     objectsiso.h \
     liveplot.h \
-    coerce.h \
     modeldata.h \
     objectdata.h \
     yamlconfigparser.h \
-    simulation.h
+    simulation.h \
+    source.h
 
 FORMS    += mainwindow.ui
 

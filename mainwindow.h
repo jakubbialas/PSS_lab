@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <sstream>
 #include <QTimer>
-#include "coerce.h"
+#include "source.h"
 #include "discreteobject.h"
 #include "yamlconfigparser.h"
 
@@ -48,18 +48,6 @@ signals:
      */
     void loadConfig(const char *);
     /**
-     * @brief Sygnał emitowany po wyborze typu wymuszenia
-     *
-     * @param Coerce::CoercionType Typ wymuszenia
-     */
-    void setCoercionType(Coerce::CoercionType);
-    /**
-     * @brief Sygnał emitowany przy zmianie wartosci wymuszenia
-     *
-     * @param double Wartosc wymuszenia
-     */
-    void setCoercionValue(double);
-    /**
      * @brief Sygnał emitowany przy wyborze nowego obiektu
      *
      * @param std::string Nazwa obiektu
@@ -71,6 +59,18 @@ signals:
      * @param int czas odswiezania[ms]
      */
     void setSamplingTime(int);
+    /**
+      * @brief Sygnał emitowany po wyborze typu wymuszenia
+      *
+      * @param Source::SourceType Typ wymuszenia
+      */
+     void setSourceType(Source::SourceType);
+     /**
+      * @brief Sygnał emitowany przy zmianie wartosci wymuszenia
+      *
+      * @param double Wartosc wymuszenia
+      */
+     void setSourceValue(double);
 
 //signals to simulation object (simulate):
     /**
@@ -155,18 +155,7 @@ private slots:
      * @param value
      */
     void on_samplingSlider_valueChanged(int value);
-    /**
-     * @brief
-     *
-     * @param value
-     */
-    void on_coerceSilder_valueChanged(int value);
-    /**
-     * @brief
-     *
-     * @param arg1
-     */
-    void on_coerceEdit_textChanged(const QString &arg1);
+
 
 //radios simulation:
     /**
@@ -182,31 +171,6 @@ private slots:
      */
     void on_stepSimRadio_toggled(bool checked);
 
-//radios coerce:
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_stepCoerceRadio_toggled(bool checked);
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_impCoerceRadio_toggled(bool checked);
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_nonCoerceRadio_toggled(bool checked);
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_manualCoerceRadio_toggled(bool checked);
 
 //object set:
     /**
@@ -216,6 +180,47 @@ private slots:
      */
     void on_comboBoxObject_currentIndexChanged(const QString &arg1);
 
+    /**
+     * @brief
+     *
+     * @param checked
+     */
+    void on_stepSourceRadio_toggled(bool checked);
+
+    /**
+     * @brief
+     *
+     * @param checked
+     */
+    void on_impSourceRadio_toggled(bool checked);
+
+    /**
+     * @brief
+     *
+     * @param checked
+     */
+    void on_nonSourceRadio_toggled(bool checked);
+
+    /**
+     * @brief
+     *
+     * @param checked
+     */
+    void on_manualSourceRadio_toggled(bool checked);
+
+    /**
+     * @brief
+     *
+     * @param arg1
+     */
+    void on_sourceValueEdit_textChanged(const QString &arg1);
+
+    /**
+     * @brief
+     *
+     * @param value
+     */
+    void on_sourceValueSilder_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
