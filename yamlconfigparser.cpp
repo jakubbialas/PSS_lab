@@ -1,54 +1,54 @@
 #include "yamlconfigparser.h"
 
-YamlConfigParser::YamlConfigParser()
-{
+YamlConfigParser::YamlConfigParser(){
+}
+
+YamlConfigParser::~YamlConfigParser(){
 }
 
 void operator >> (const YAML::Node& node, std::vector<double> &v) {
     double a;
     v.resize(node.size());
     for(int i=0; i<node.size(); i++){
-        node[i] >> a;
-        v[i] = a;
+        node[i] >> v[i];
     }
 }
 
 void operator >> (const YAML::Node& node, ModelData &md) {
-    node["B"] >> md.B;
-    node["A"] >> md.A;
-    node["k"] >> md.k;
-    node["t"] >> md.t;
+    std::vector<double> B, A;
+    int k, t;
+    node["B"] >> B;
+    node["A"] >> A;
+    node["k"] >> k;
+    node["t"] >> t;
+    md.setB(B);
+    md.setA(A);
+    md.setK(k);
+    md.setT(t);
 }
 
-void operator >> (const YAML::Node& node, std::vector<ModelData> &mdv) {
-
-    for(unsigned i=0;i<node.size();i++) {
+void operator >> (const YAML::Node& node, ObjectData &od) {
+    std::string name;
+    for(unsigned int i=0;i<node["models"].size();i++) {
         ModelData modelData = ModelData();
-        node[i] >> modelData;
-        mdv.push_back(modelData);
+        node["models"][i] >> modelData;
+        od.addModel(modelData);
     }
-}
-
-void operator >> (const YAML::Node& node, ObjectData &md) {
-    node["name"] >> md.name;
-    node["models"] >> md.models;
-}
-
-void operator >> (const YAML::Node& node, std::map<std::string, ObjectData> &md) {
-    for(unsigned i=0;i<node.size();i++) {
-        ObjectData objectData = ObjectData();
-        node[i] >> objectData;
-        md[objectData.name] = objectData;
-    }
+    node["name"] >> name;
+    od.setName(name);
 }
 
 void YamlConfigParser::parseFile(const char * filename){
     std::ifstream fin(filename);
     YAML::Parser parser(fin);
-    YAML::Node doc;
-    parser.GetNextDocument(doc);
+    YAML::Node node;
+    parser.GetNextDocument(node);
 
-    doc["objects"] >> objects;
+    for(unsigned int i=0;i<node["objects"].size();i++) {
+        ObjectData objectData = ObjectData();
+        node["objects"][i] >> objectData;
+        objects[objectData.getName()] = objectData;
+    }
 }
 
 ObjectData YamlConfigParser::getObject(std::string name){

@@ -21,6 +21,11 @@ public:
      *
      */
     YamlConfigParser();
+    /**
+     * @brief Destruktor
+     *
+     */
+    ~YamlConfigParser();
 
     /**
      * @brief  Wczytuje plik Yaml

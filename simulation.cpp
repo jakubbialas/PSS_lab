@@ -8,7 +8,7 @@ Simulation::Simulation(QObject *parent) :
 
     samplingTime = 100;
     source = Source();
-    object = DiscreteObject();
+    object = NonStationaryDiscreteObject();
 }
 
 
@@ -62,7 +62,7 @@ void Simulation::stepSimulation(int i){
 void Simulation::nextStep(){
     double x = source.nextSample();
     emit drawInput(x);
-    emit drawOutput(object.Symuluj(x));
+    emit drawOutput(object.symuluj(x));
     //emit drawError();
     //emit drawControl();
 }

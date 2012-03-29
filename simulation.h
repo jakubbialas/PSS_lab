@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
-#include "discreteobject.h"
+#include "nonstationarydiscreteobject.h"
 #include "source.h"
 #include "yamlconfigparser.h"
 
@@ -123,7 +123,7 @@ private:
 
     YamlConfigParser ymp; /**< Parser plikow Yaml */
 
-    DiscreteObject object; /**< Symulowany obiekt  */
+    NonStationaryDiscreteObject object; /**< Symulowany obiekt  */
     Source source; /**< Obiekt odpowiedzialny za wymuszenie */
 
     int samplingTime; /**< Czas probkowania wykresu */

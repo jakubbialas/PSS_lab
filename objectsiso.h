@@ -19,7 +19,8 @@ public:
      *
      * @param double Wartosc wejscia
      */
-    virtual double Symuluj(double)=0;
+    virtual double symuluj(double)=0;
+    virtual void reset(void)=0;
 
 };
 
