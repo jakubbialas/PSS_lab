@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     simulation.cpp \
     source.cpp \
     nonstationarydiscreteobject.cpp \
-    controller.cpp
+    controller.cpp \
+    controllerp.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     simulation.h \
     source.h \
     nonstationarydiscreteobject.h \
-    controller.h
+    controller.h \
+    controllerp.h
 
 FORMS    += mainwindow.ui
 
