@@ -8,6 +8,8 @@
 #include <map>
 #include "objectdata.h"
 #include "modeldata.h"
+#include <string>
+
 
 /**
  * @brief Klasa odpowiedzialna za wczytywanie plikow konfiguracyjnych w formacie Yaml
@@ -16,6 +18,8 @@
 class YamlConfigParser
 {
 public:
+
+
     /**
      * @brief Konstruktor
      *
@@ -28,7 +32,7 @@ public:
      * @param filename Sciezka do pliku
      */
     void parseFile(const char * filename);
-
+    void yamlEmitter(std::string name, int t, std::vector<double> A, std::vector<double> B, int k );
     /**
      * @brief Zwraca obiekt o podanej nazwie
      *
@@ -49,6 +53,7 @@ public:
 
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
+    void saveKey(YAML::Emitter *emitter, int t, std::vector<double> A, std::vector<double> B, int k);
 
 };
 

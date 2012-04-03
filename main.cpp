@@ -7,7 +7,7 @@
 #include "discreteobject.h"
 #include "yamlconfigparser.h"
 #include "simulation.h"
-
+#include <fstream>
 using namespace std;
 
 
@@ -53,5 +53,23 @@ int main(int argc, char *argv[])
 
     window.show();
 
+
+    YamlConfigParser  yaml;
+    std::vector<double> A(3);
+    std::vector<double> B(2);
+    A.at(0) = 1;
+    A.at(1) = 2;
+    A.at(2) = 4;
+    B.at(0) = 15;
+    B.at(1) = 20;
+
+    ModelData md;
+    md.A = A;
+    md.B = B;
+    md.t = 10;
+    md.k = 20;
+    std::ofstream fs("pliczek");
+    fs << md;
+    yaml.yamlEmitter("Obiekt_nazwa", 10,A, B, 50 );
     return a.exec();
 }
