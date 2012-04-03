@@ -8,7 +8,6 @@
 #include <QMessageBox>
 #include <sstream>
 #include <QTimer>
-#include "source.h"
 #include "discreteobject.h"
 #include "yamlconfigparser.h"
 
@@ -59,24 +58,13 @@ signals:
      * @param int czas odswiezania[ms]
      */
     void setSamplingTime(int);
-    /**
-     * @brief Sygnał emitowany po wyborze typu wymuszenia
-     *
-     * @param Source::SourceType Typ wymuszenia
-     */
-    void setSourceType(Source::SourceType);
-    /**
-     * @brief Sygnał emitowany przy zmianie wartosci wymuszenia
-     *
-     * @param double Wartosc wymuszenia
-     */
-    void setSourceValue(double);
-    /**
-     * @brief
-     *
-     * @param std::string
-     */
+
+    void addSource(std::string type);
+    void setLastSourceParameter(std::string name, double value);
+    void removeLastSource();
     void setControllerType(std::string);
+    void setControllerParameter(std::string, double);
+    void setFeedback(bool);
 
 //signals to simulation object (simulate):
     /**
@@ -186,49 +174,15 @@ private slots:
      */
     void on_comboBoxObject_currentIndexChanged(const QString &arg1);
 
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_stepSourceRadio_toggled(bool checked);
-
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_impSourceRadio_toggled(bool checked);
-
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_nonSourceRadio_toggled(bool checked);
-
-    /**
-     * @brief
-     *
-     * @param checked
-     */
-    void on_manualSourceRadio_toggled(bool checked);
-
-    /**
-     * @brief
-     *
-     * @param arg1
-     */
-    void on_sourceValueEdit_textChanged(const QString &arg1);
-
-    /**
-     * @brief
-     *
-     * @param value
-     */
-    void on_sourceValueSilder_valueChanged(int value);
-
     void on_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_comboBox_source_currentIndexChanged(const QString &arg1);
+
+    void on_pushButton_addSource_clicked();
+
+    void on_pushButton_removeSource_clicked();
+
+    void on_checkBox_feedback_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */

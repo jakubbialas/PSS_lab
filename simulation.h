@@ -6,7 +6,8 @@
 #include "nonstationarydiscreteobject.h"
 #include "controller.h"
 #include "controllerp.h"
-#include "source.h"
+#include "source/source.h"
+#include "source/multisource.h"
 #include "yamlconfigparser.h"
 
 /**
@@ -68,18 +69,6 @@ public slots:
      */
     void loadConfig(const char * filename);
     /**
-     * @brief Gniazdo odbierajace sygnal  by ustawic typ wymuszenia
-     *
-     * @param Source::SourceType Typ wymuszenia
-     */
-    void setSourceType(Source::SourceType);
-    /**
-     * @brief Gniazdo odbierajace sygnal by ustawic wartosc wymuszenia
-     *
-     * @param double Wartosc wymuszenia
-     */
-    void setSourceValue(double);
-    /**
      * @brief Gniazdo odbierajace sygnal by ustawic nowy czas probkowania wykresu
      *
      * @param int czas probkowania wykresu[ms]
@@ -92,8 +81,14 @@ public slots:
      */
     void setObject(std::string);
 
+    void addSource(std::string type);
+    void setLastSourceParameter(std::string name, double value);
+    void removeLastSource();
+
     void setControllerType(std::string);
     void setControllerParameter(std::string, double);
+
+    void setFeedback(bool);
 
 //slots to simulate:
     /**
@@ -131,9 +126,10 @@ private:
 
     NonStationaryDiscreteObject *object; /**< Symulowany obiekt  */
     Controller *controller;
-    Source *source; /**< Obiekt odpowiedzialny za wymuszenie */
+    MultiSource *source; /**< Obiekt odpowiedzialny za wymuszenie */
 
     int samplingTime; /**< Czas probkowania wykresu */
+    bool feedback;
 };
 
 #endif // SIMULATION_H

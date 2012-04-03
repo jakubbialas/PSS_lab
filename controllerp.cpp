@@ -4,7 +4,7 @@ ControllerP::ControllerP(){
 }
 
 ControllerP::ControllerP(double n_P){
-    parameter["P"] = n_P;
+    P = n_P;
 }
 
 ControllerP::~ControllerP(){
@@ -12,17 +12,12 @@ ControllerP::~ControllerP(){
 
 void ControllerP::setParameter(std::string name, double value){
     if(name.compare("P") == 0){
-        parameter["P"] = value;
+        P = value;
     }else{
-        throw "Undefined parameter";
+        throw "Undefined parameter " + name + ".";
     }
 }
 
-double ControllerP::simulate(double input){
-    if(parameter.find("P") == parameter.end()){
-        throw "P is undefined";
-    }else{
-        double e = source.nextSample() - input;
-        return e*parameter["P"];
-    }
+double ControllerP::simulate(double e){
+    return e*P;
 }

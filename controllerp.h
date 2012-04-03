@@ -5,6 +5,8 @@
 
 class ControllerP : public Controller
 {
+protected:
+    double P;
 public:
     ControllerP();
     ~ControllerP();

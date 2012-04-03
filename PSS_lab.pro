@@ -19,10 +19,17 @@ SOURCES += main.cpp\
     objectdata.cpp \
     yamlconfigparser.cpp \
     simulation.cpp \
-    source.cpp \
     nonstationarydiscreteobject.cpp \
     controller.cpp \
-    controllerp.cpp
+    controllerp.cpp \
+    source/trianglesource.cpp \
+    source/stepsource.cpp \
+    source/squaresource.cpp \
+    source/source.cpp \
+    source/sinussource.cpp \
+    source/noisesource.cpp \
+    source/multisource.cpp \
+    source/impulssource.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
@@ -32,10 +39,17 @@ HEADERS  += mainwindow.h \
     objectdata.h \
     yamlconfigparser.h \
     simulation.h \
-    source.h \
     nonstationarydiscreteobject.h \
     controller.h \
-    controllerp.h
+    controllerp.h \
+    source/trianglesource.h \
+    source/stepsource.h \
+    source/squaresource.h \
+    source/source.h \
+    source/sinussource.h \
+    source/noisesource.h \
+    source/multisource.h \
+    source/impulssource.h
 
 FORMS    += mainwindow.ui
 

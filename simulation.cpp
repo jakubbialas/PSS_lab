@@ -7,9 +7,10 @@ Simulation::Simulation(QObject *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
 
     samplingTime = 100;
-    controller = NULL;
-    source = new Source();
+    controller = new ControllerP(1);
+    source = new MultiSource();
     object = new NonStationaryDiscreteObject();
+    feedback = false;
 }
 
 Simulation::~Simulation(){
@@ -24,12 +25,16 @@ void Simulation::loadConfig(const char * filename)
     setObjectsList(ymp.getKeys());
 }
 
-void Simulation::setSourceType(Source::SourceType type){
-    source->setSourceType(type);
+void Simulation::addSource(std::string type){
+    source->addSource(type);
 }
 
-void Simulation::setSourceValue(double value){
-    source->setSourceValue(value);
+void Simulation::setLastSourceParameter(std::string name, double value){
+    source->setLastSourceParameter(name, value);
+}
+
+void Simulation::removeLastSource(){
+    source->removeLastSource();
 }
 
 
@@ -42,11 +47,18 @@ void Simulation::setObject(std::string name){
 }
 
 void Simulation::setControllerType(std::string type){
-    std::cout << "controller " << type;
     if(type.compare("P") == 0){
         delete controller;
-        controller = new ControllerP(1);
+        controller = new ControllerP();
     }
+}
+
+void Simulation::setControllerParameter(std::string name, double value){
+    this->controller->setParameter(name, value);
+}
+
+void Simulation::setFeedback(bool n_feedback){
+    feedback = n_feedback;
 }
 
 void Simulation::setSamplingTime(int n_samplingTime){
@@ -65,6 +77,7 @@ void Simulation::stopSimulation(){
 void Simulation::resetSimulation(){
     source->reset();
     object->reset();
+    controller->reset();
 }
 
 void Simulation::stepSimulation(int i){
@@ -74,8 +87,11 @@ void Simulation::stepSimulation(int i){
 }
 
 void Simulation::nextStep(){
-    double w = source->nextSample();
+    double w = source->getNextSample();
     double y_last = 0;
+    if(feedback){
+        y_last = object->getLastValue();
+    }
     double e = w - y_last;
     double u = controller->simulate(e);
     double y = object->simulate(u);

@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'simulation.h'
 **
+<<<<<<< HEAD
 ** Created: Wed Apr 4 14:23:31 2012
+=======
+** Created: Tue Apr 3 23:38:32 2012
+>>>>>>> zmiana calej klasy source
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +27,11 @@ static const uint qt_meta_data_Simulation[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
+<<<<<<< HEAD
       17,   14, // methods
+=======
+      19,   14, // methods
+>>>>>>> zmiana calej klasy source
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -40,6 +48,7 @@ static const uint qt_meta_data_Simulation[] = {
  // slots: signature, parameters, type, tag, flags
      139,  130,   11,   11, 0x0a,
      163,   11,   11,   11, 0x0a,
+<<<<<<< HEAD
      197,   11,   11,   11, 0x0a,
      220,   11,   11,   11, 0x0a,
      241,   11,   11,   11, 0x0a,
@@ -50,6 +59,20 @@ static const uint qt_meta_data_Simulation[] = {
      375,   11,   11,   11, 0x0a,
      393,   11,   11,   11, 0x0a,
      413,   11,   11,   11, 0x0a,
+=======
+     184,   11,   11,   11, 0x0a,
+     212,  207,   11,   11, 0x0a,
+     246,  235,   11,   11, 0x0a,
+     289,   11,   11,   11, 0x0a,
+     308,   11,   11,   11, 0x0a,
+     341,  339,   11,   11, 0x0a,
+     384,   11,   11,   11, 0x0a,
+     402,   11,   11,   11, 0x0a,
+     420,   11,   11,   11, 0x0a,
+     437,   11,   11,   11, 0x0a,
+     455,   11,   11,   11, 0x0a,
+     475,   11,   11,   11, 0x0a,
+>>>>>>> zmiana calej klasy source
 
        0        // eod
 };
@@ -60,6 +83,7 @@ static const char qt_meta_stringdata_Simulation[] = {
     "drawControl(double)\0"
     "setObjectsList(std::vector<std::string>)\0"
     "filename\0loadConfig(const char*)\0"
+<<<<<<< HEAD
     "setSourceType(Source::SourceType)\0"
     "setSourceValue(double)\0setSamplingTime(int)\0"
     "setObject(std::string)\0"
@@ -68,6 +92,16 @@ static const char qt_meta_stringdata_Simulation[] = {
     "startSimulation()\0stopSimulation()\0"
     "resetSimulation()\0stepSimulation(int)\0"
     "nextStep()\0"
+=======
+    "setSamplingTime(int)\0setObject(std::string)\0"
+    "type\0addSource(std::string)\0name,value\0"
+    "setLastSourceParameter(std::string,double)\0"
+    "removeLastSource()\0setControllerType(std::string)\0"
+    ",\0setControllerParameter(std::string,double)\0"
+    "setFeedback(bool)\0startSimulation()\0"
+    "stopSimulation()\0resetSimulation()\0"
+    "stepSimulation(int)\0nextStep()\0"
+>>>>>>> zmiana calej klasy source
 };
 
 const QMetaObject Simulation::staticMetaObject = {
@@ -105,6 +139,7 @@ int Simulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 3: drawControl((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 4: setObjectsList((*reinterpret_cast< std::vector<std::string>(*)>(_a[1]))); break;
         case 5: loadConfig((*reinterpret_cast< const char*(*)>(_a[1]))); break;
+<<<<<<< HEAD
         case 6: setSourceType((*reinterpret_cast< Source::SourceType(*)>(_a[1]))); break;
         case 7: setSourceValue((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 8: setSamplingTime((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -119,6 +154,24 @@ int Simulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         default: ;
         }
         _id -= 17;
+=======
+        case 6: setSamplingTime((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 7: setObject((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 8: addSource((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 9: setLastSourceParameter((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2]))); break;
+        case 10: removeLastSource(); break;
+        case 11: setControllerType((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 12: setControllerParameter((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2]))); break;
+        case 13: setFeedback((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 14: startSimulation(); break;
+        case 15: stopSimulation(); break;
+        case 16: resetSimulation(); break;
+        case 17: stepSimulation((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 18: nextStep(); break;
+        default: ;
+        }
+        _id -= 19;
+>>>>>>> zmiana calej klasy source
     }
     return _id;
 }
