@@ -1,0 +1,7 @@
+objects:
+  - name: Obiekt_nazwa
+    models:
+      - t: 10
+        A: [1, 2, 4]
+        B: [15, 20]
+        K: 50

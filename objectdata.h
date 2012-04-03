@@ -33,6 +33,9 @@ public:
     void addModel(ModelData);
     //void getModel(std::string);
 
+    friend void operator << (std::ofstream &filestream, ObjectData &md );
+    friend void operator << (std::ofstream &filestream, std::vector<ObjectData> &md );
+
 };
 
 #endif // OBJECTDATA_H

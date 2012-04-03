@@ -3,7 +3,7 @@
 
 void ModelData::saveKey(YAML::Emitter * emitter, int t, std::vector<double> A, std::vector<double> B, int k){
 
-    *emitter << YAML::BeginSeq <<YAML::BeginMap;
+    *emitter<<YAML::BeginMap;
 
     *emitter << YAML::Key << "t" << YAML::Value << t;
 
@@ -24,12 +24,12 @@ void ModelData::saveKey(YAML::Emitter * emitter, int t, std::vector<double> A, s
     *emitter << YAML::EndSeq;
 
     *emitter << YAML::Key << "K" << YAML::Value << k;
+
     *emitter << YAML::EndMap;
-    *emitter << YAML::EndSeq;
 
 }
 
-void operator<<(std::ofstream &stream, ModelData &md){
+void operator<<(std::ofstream &filestream, ModelData &md){
 
     YAML::Emitter emitter;
     emitter << YAML::BeginMap << YAML::Key << "objects" << YAML::Value;
@@ -41,14 +41,39 @@ void operator<<(std::ofstream &stream, ModelData &md){
 
     emitter << YAML::Key <<  "models";
     emitter << YAML::Value;
+    emitter << YAML::BeginSeq ;
 
     md.saveKey(&emitter, md.t,md.A,md.B,md.k);
 
+     emitter << YAML::EndSeq ;
     emitter << YAML::EndSeq << YAML::EndMap;;
 
-    stream << emitter.c_str();
+    filestream << emitter.c_str();
 }
 
+void operator <<(std::ofstream &filestream, std::vector<ModelData> &mdv ){
+    std::cout << "wektorowy md, rozmiar " << mdv.size() << std::endl;
+    YAML::Emitter emitter;
+    emitter << YAML::BeginMap << YAML::Key << "objects" << YAML::Value;
+
+    emitter << YAML::BeginSeq;
+    emitter << YAML::BeginMap;
+
+    emitter << YAML::Key << "name" << YAML::Value << "default" ;
+    emitter << YAML::Key <<  "models";
+    emitter << YAML::Value;
+    emitter << YAML::BeginSeq ;
+    for(unsigned int j = 0; j < mdv.size(); j++ ){
+        std::cout << "wykonano " << j << std::endl;
+        mdv.at(j).saveKey(&emitter, mdv.at(j).getT(),mdv.at(j).getA(),mdv.at(j).getB(),mdv.at(j).getK());
+    }
+    emitter << YAML::EndSeq;
+
+    emitter << YAML::EndMap<<YAML::EndSeq << YAML::EndMap;;
+
+    filestream << emitter.c_str();
+    std::cout << "emitter : " << emitter.c_str() << std::endl;
+}
 
 ModelData::ModelData(){
 

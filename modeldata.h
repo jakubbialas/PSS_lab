@@ -51,7 +51,8 @@ public:
     void setT(int);
     int getT();
 
-    friend void operator<<(std::ofstream &stream, ModelData &md);
+    friend void operator<<(std::ofstream &filestream, ModelData &md);
+    friend void operator <<(std::ofstream &filestream, std::vector<ModelData> &mdv );
     void saveKey(YAML::Emitter * emitter, int t, std::vector<double> A, std::vector<double> B, int k);
 };
 

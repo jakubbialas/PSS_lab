@@ -7,6 +7,7 @@
 #include "discreteobject.h"
 #include "yamlconfigparser.h"
 #include "simulation.h"
+#include "modeldata.h"
 #include <fstream>
 using namespace std;
 
@@ -57,6 +58,7 @@ int main(int argc, char *argv[])
     YamlConfigParser  yaml;
     std::vector<double> A(3);
     std::vector<double> B(2);
+    std::vector<ModelData> models(3);
     A.at(0) = 1;
     A.at(1) = 2;
     A.at(2) = 4;
@@ -64,12 +66,38 @@ int main(int argc, char *argv[])
     B.at(1) = 20;
 
     ModelData md;
-    md.A = A;
-    md.B = B;
-    md.t = 10;
-    md.k = 20;
+    md.setA( A);
+    md.setB(B);
+    md.setT(20);
+    md.setK(50);
+    ModelData md1;
+    md1.setA( A);
+    md1.setB(B);
+    md1.setT(19);
+    md1.setK(5044);
+    ModelData md2;
+    md2.setA( A);
+    md2.setB(B);
+    md2.setT(25);
+    md2.setK(450);
+    models.at(0) = md;
+    models.at(1) = md1;
+    models.at(2) = md2;
+
+    ObjectData od;
+    od.setName("nazwa");
+    od.addModel(md);
+    od.addModel(md1);
+    od.addModel(md2);
+
+    std::vector<ObjectData> odv(3);
+    odv.at(0) = od;
+    odv.at(1) = od;
+    odv.at(2) = od;
+
     std::ofstream fs("pliczek");
-    fs << md;
-    yaml.yamlEmitter("Obiekt_nazwa", 10,A, B, 50 );
+    //fs << md;
+    fs << odv;
+    //yaml.yamlEmitter("Obiekt_nazwa", 10,A, B, 50 );
     return a.exec();
 }

@@ -2,6 +2,7 @@
 #define CONTROLLER_H
 
 #include "source.h"
+#include "discreteobject.h"
 
 class Controller : public DiscreteObject
 {
