@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Wed Apr 4 13:04:00 2012
+** Created: Wed Apr 4 14:23:04 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -65,6 +65,8 @@ public:
     QComboBox *comboBoxObject;
     QLabel *label_4;
     QWidget *tab_controller;
+    QComboBox *comboBox;
+    QLabel *label_5;
     QWidget *tab_feedback;
     QPushButton *simBtn;
     QPushButton *resetBtn;
@@ -193,6 +195,12 @@ public:
         tabWidget->addTab(tab_object, QString());
         tab_controller = new QWidget();
         tab_controller->setObjectName(QString::fromUtf8("tab_controller"));
+        comboBox = new QComboBox(tab_controller);
+        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        comboBox->setGeometry(QRect(80, 10, 81, 27));
+        label_5 = new QLabel(tab_controller);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(10, 10, 67, 17));
         tabWidget->addTab(tab_controller, QString());
         tab_feedback = new QWidget();
         tab_feedback->setObjectName(QString::fromUtf8("tab_feedback"));
@@ -217,7 +225,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -243,6 +251,12 @@ public:
         getConfigBtn->setText(QApplication::translate("MainWindow", "Get Config", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("MainWindow", "Chose object:", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_object), QApplication::translate("MainWindow", "Object", 0, QApplication::UnicodeUTF8));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "P", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("MainWindow", "PID", 0, QApplication::UnicodeUTF8)
+        );
+        label_5->setText(QApplication::translate("MainWindow", "Type:", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_controller), QApplication::translate("MainWindow", "Controller", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_feedback), QApplication::translate("MainWindow", "Feedback", 0, QApplication::UnicodeUTF8));
         simBtn->setText(QApplication::translate("MainWindow", "Start Simulation", 0, QApplication::UnicodeUTF8));

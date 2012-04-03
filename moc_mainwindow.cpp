@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed Apr 4 13:04:15 2012
+** Created: Wed Apr 4 14:23:28 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,12 +23,12 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      29,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       9,       // signalCount
+      10,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x05,
@@ -37,29 +37,31 @@ static const uint qt_meta_data_MainWindow[] = {
       80,   11,   11,   11, 0x05,
      114,   11,   11,   11, 0x05,
      137,   11,   11,   11, 0x05,
-     155,   11,   11,   11, 0x05,
-     172,   11,   11,   11, 0x05,
-     190,   11,   11,   11, 0x05,
+     168,   11,   11,   11, 0x05,
+     186,   11,   11,   11, 0x05,
+     203,   11,   11,   11, 0x05,
+     221,   11,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-     212,  210,   11,   11, 0x08,
-     230,  210,   11,   11, 0x08,
-     249,  210,   11,   11, 0x08,
-     267,  210,   11,   11, 0x08,
-     287,   11,   11,   11, 0x08,
-     328,   11,   11,   11, 0x08,
-     348,   11,   11,   11, 0x08,
-     374,   11,   11,   11, 0x08,
-     402,  396,   11,   11, 0x08,
-     446,  438,   11,   11, 0x08,
-     476,  438,   11,   11, 0x08,
-     511,  506,   11,   11, 0x08,
-     558,  438,   11,   11, 0x08,
-     591,  438,   11,   11, 0x08,
-     623,  438,   11,   11, 0x08,
-     655,  438,   11,   11, 0x08,
-     690,  506,   11,   11, 0x08,
-     730,  396,   11,   11, 0x08,
+     243,  241,   11,   11, 0x08,
+     261,  241,   11,   11, 0x08,
+     280,  241,   11,   11, 0x08,
+     298,  241,   11,   11, 0x08,
+     318,   11,   11,   11, 0x08,
+     359,   11,   11,   11, 0x08,
+     379,   11,   11,   11, 0x08,
+     405,   11,   11,   11, 0x08,
+     433,  427,   11,   11, 0x08,
+     477,  469,   11,   11, 0x08,
+     507,  469,   11,   11, 0x08,
+     542,  537,   11,   11, 0x08,
+     589,  469,   11,   11, 0x08,
+     622,  469,   11,   11, 0x08,
+     654,  469,   11,   11, 0x08,
+     686,  469,   11,   11, 0x08,
+     721,  537,   11,   11, 0x08,
+     761,  427,   11,   11, 0x08,
+     800,  537,   11,   11, 0x08,
 
        0        // eod
 };
@@ -68,11 +70,12 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0loadConfig(const char*)\0"
     "setObject(std::string)\0setSamplingTime(int)\0"
     "setSourceType(Source::SourceType)\0"
-    "setSourceValue(double)\0startSimulation()\0"
-    "stopSimulation()\0resetSimulation()\0"
-    "stepSimulation(int)\0y\0drawInput(double)\0"
-    "drawOutput(double)\0drawError(double)\0"
-    "drawControl(double)\0"
+    "setSourceValue(double)\0"
+    "setControllerType(std::string)\0"
+    "startSimulation()\0stopSimulation()\0"
+    "resetSimulation()\0stepSimulation(int)\0"
+    "y\0drawInput(double)\0drawOutput(double)\0"
+    "drawError(double)\0drawControl(double)\0"
     "setObjectsList(std::vector<std::string>)\0"
     "on_simBtn_clicked()\0on_getConfigBtn_clicked()\0"
     "on_resetBtn_clicked()\0value\0"
@@ -86,6 +89,7 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "on_manualSourceRadio_toggled(bool)\0"
     "on_sourceValueEdit_textChanged(QString)\0"
     "on_sourceValueSilder_valueChanged(int)\0"
+    "on_comboBox_currentIndexChanged(QString)\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -122,31 +126,33 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 2: setSamplingTime((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: setSourceType((*reinterpret_cast< Source::SourceType(*)>(_a[1]))); break;
         case 4: setSourceValue((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 5: startSimulation(); break;
-        case 6: stopSimulation(); break;
-        case 7: resetSimulation(); break;
-        case 8: stepSimulation((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: drawInput((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 10: drawOutput((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 11: drawError((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 12: drawControl((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 13: setObjectsList((*reinterpret_cast< std::vector<std::string>(*)>(_a[1]))); break;
-        case 14: on_simBtn_clicked(); break;
-        case 15: on_getConfigBtn_clicked(); break;
-        case 16: on_resetBtn_clicked(); break;
-        case 17: on_samplingSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 18: on_contSimRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 19: on_stepSimRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 20: on_comboBoxObject_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 21: on_stepSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 22: on_impSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 23: on_nonSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 24: on_manualSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 25: on_sourceValueEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 26: on_sourceValueSilder_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: setControllerType((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 6: startSimulation(); break;
+        case 7: stopSimulation(); break;
+        case 8: resetSimulation(); break;
+        case 9: stepSimulation((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: drawInput((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 11: drawOutput((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 12: drawError((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 13: drawControl((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 14: setObjectsList((*reinterpret_cast< std::vector<std::string>(*)>(_a[1]))); break;
+        case 15: on_simBtn_clicked(); break;
+        case 16: on_getConfigBtn_clicked(); break;
+        case 17: on_resetBtn_clicked(); break;
+        case 18: on_samplingSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 19: on_contSimRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 20: on_stepSimRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 21: on_comboBoxObject_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 22: on_stepSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 23: on_impSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 24: on_nonSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 25: on_manualSourceRadio_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 26: on_sourceValueEdit_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 27: on_sourceValueSilder_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 28: on_comboBox_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 27;
+        _id -= 29;
     }
     return _id;
 }
@@ -187,27 +193,34 @@ void MainWindow::setSourceValue(double _t1)
 }
 
 // SIGNAL 5
-void MainWindow::startSimulation()
+void MainWindow::setControllerType(std::string _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 5, 0);
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 
 // SIGNAL 6
-void MainWindow::stopSimulation()
+void MainWindow::startSimulation()
 {
     QMetaObject::activate(this, &staticMetaObject, 6, 0);
 }
 
 // SIGNAL 7
-void MainWindow::resetSimulation()
+void MainWindow::stopSimulation()
 {
     QMetaObject::activate(this, &staticMetaObject, 7, 0);
 }
 
 // SIGNAL 8
+void MainWindow::resetSimulation()
+{
+    QMetaObject::activate(this, &staticMetaObject, 8, 0);
+}
+
+// SIGNAL 9
 void MainWindow::stepSimulation(int _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 8, _a);
+    QMetaObject::activate(this, &staticMetaObject, 9, _a);
 }
 QT_END_MOC_NAMESPACE

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'simulation.h'
 **
-** Created: Wed Apr 4 13:04:17 2012
+** Created: Wed Apr 4 14:23:31 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Simulation[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -44,10 +44,12 @@ static const uint qt_meta_data_Simulation[] = {
      220,   11,   11,   11, 0x0a,
      241,   11,   11,   11, 0x0a,
      264,   11,   11,   11, 0x0a,
-     282,   11,   11,   11, 0x0a,
-     299,   11,   11,   11, 0x0a,
-     317,   11,   11,   11, 0x0a,
-     337,   11,   11,   11, 0x0a,
+     297,  295,   11,   11, 0x0a,
+     340,   11,   11,   11, 0x0a,
+     358,   11,   11,   11, 0x0a,
+     375,   11,   11,   11, 0x0a,
+     393,   11,   11,   11, 0x0a,
+     413,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -60,9 +62,12 @@ static const char qt_meta_stringdata_Simulation[] = {
     "filename\0loadConfig(const char*)\0"
     "setSourceType(Source::SourceType)\0"
     "setSourceValue(double)\0setSamplingTime(int)\0"
-    "setObject(std::string)\0startSimulation()\0"
-    "stopSimulation()\0resetSimulation()\0"
-    "stepSimulation(int)\0nextStep()\0"
+    "setObject(std::string)\0"
+    "setControllerType(std::string)\0,\0"
+    "setControllerParameter(std::string,double)\0"
+    "startSimulation()\0stopSimulation()\0"
+    "resetSimulation()\0stepSimulation(int)\0"
+    "nextStep()\0"
 };
 
 const QMetaObject Simulation::staticMetaObject = {
@@ -104,14 +109,16 @@ int Simulation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 7: setSourceValue((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 8: setSamplingTime((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 9: setObject((*reinterpret_cast< std::string(*)>(_a[1]))); break;
-        case 10: startSimulation(); break;
-        case 11: stopSimulation(); break;
-        case 12: resetSimulation(); break;
-        case 13: stepSimulation((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 14: nextStep(); break;
+        case 10: setControllerType((*reinterpret_cast< std::string(*)>(_a[1]))); break;
+        case 11: setControllerParameter((*reinterpret_cast< std::string(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2]))); break;
+        case 12: startSimulation(); break;
+        case 13: stopSimulation(); break;
+        case 14: resetSimulation(); break;
+        case 15: stepSimulation((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: nextStep(); break;
         default: ;
         }
-        _id -= 15;
+        _id -= 17;
     }
     return _id;
 }

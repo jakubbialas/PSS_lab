@@ -50,6 +50,11 @@ public:
      *
      */
     double nextSample();
+    /**
+     * @brief Podaje wartosc wymuszenia
+     *
+     */
+    double getSample();
 
 private:
     SourceType type; /**< Zmienna przechowujaca aktualny typ wymuszenia */

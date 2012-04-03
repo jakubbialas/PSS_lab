@@ -5,8 +5,7 @@
  * @brief Klasa podstawowa Obiektu SISO
  *
  */
-class ObjectSISO
-{
+class ObjectSISO{
 public:
     /**
      * @brief Konstruktor
@@ -19,7 +18,7 @@ public:
      *
      * @param double Wartosc wejscia
      */
-    virtual double symuluj(double)=0;
+    virtual double simulate(double)=0;
     virtual void reset(void)=0;
 
 };

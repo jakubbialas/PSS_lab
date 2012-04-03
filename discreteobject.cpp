@@ -51,7 +51,7 @@ void DiscreteObject::reset(){
     Y.clear();
 }
 
-double DiscreteObject::symuluj(double input){
+double DiscreteObject::simulate(double input){
     double out;
 
     U.push_front(input);
@@ -88,4 +88,9 @@ double DiscreteObject::symuluj(double input){
     counter++;
 
     return out;
+}
+
+
+double DiscreteObject::getLastValue(){
+    return Y[0];
 }

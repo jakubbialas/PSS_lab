@@ -7,10 +7,16 @@ Simulation::Simulation(QObject *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
 
     samplingTime = 100;
-    source = Source();
-    object = NonStationaryDiscreteObject();
+    controller = NULL;
+    source = new Source();
+    object = new NonStationaryDiscreteObject();
 }
 
+Simulation::~Simulation(){
+    delete controller;
+    delete source;
+    delete object;
+}
 
 void Simulation::loadConfig(const char * filename)
 {
@@ -19,19 +25,27 @@ void Simulation::loadConfig(const char * filename)
 }
 
 void Simulation::setSourceType(Source::SourceType type){
-    source.setSourceType(type);
+    source->setSourceType(type);
 }
 
 void Simulation::setSourceValue(double value){
-    source.setSourceValue(value);
+    source->setSourceValue(value);
 }
 
 
 void Simulation::setObject(std::string name){
     if(ymp.hasKey(name)){
-        object.setData(ymp.getObject(name));
+        object->setData(ymp.getObject(name));
     }else{
         //
+    }
+}
+
+void Simulation::setControllerType(std::string type){
+    std::cout << "controller " << type;
+    if(type.compare("P") == 0){
+        delete controller;
+        controller = new ControllerP(1);
     }
 }
 
@@ -49,8 +63,8 @@ void Simulation::stopSimulation(){
 }
 
 void Simulation::resetSimulation(){
-    source.reset();
-    object.reset();
+    source->reset();
+    object->reset();
 }
 
 void Simulation::stepSimulation(int i){
@@ -60,9 +74,14 @@ void Simulation::stepSimulation(int i){
 }
 
 void Simulation::nextStep(){
-    double x = source.nextSample();
-    emit drawInput(x);
-    emit drawOutput(object.symuluj(x));
-    //emit drawError();
-    //emit drawControl();
+    double w = source->nextSample();
+    double y_last = 0;
+    double e = w - y_last;
+    double u = controller->simulate(e);
+    double y = object->simulate(u);
+
+    emit drawInput(w);
+    emit drawError(e);
+    emit drawControl(u);
+    emit drawOutput(y);
 }

@@ -104,7 +104,9 @@ public:
      *
      * @param double Wartosc wejscia
      */
-    double symuluj(double);
+    double simulate(double);
+
+    double getLastValue();
 
 };
 

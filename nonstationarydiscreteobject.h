@@ -19,7 +19,7 @@ public:
     void setData(ObjectData);
 
     void reset();
-    double symuluj(double);
+    double simulate(double);
 };
 
 #endif // NONSTATIONARYDISCRETEOBJECT_H

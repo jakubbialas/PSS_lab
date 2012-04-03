@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
     QObject::connect(&window, SIGNAL(setObject(std::string)),
                      &simulation, SLOT(setObject(std::string)));
 
+    QObject::connect(&window, SIGNAL(setControllerType(std::string)),
+                     &simulation, SLOT(setControllerType(std::string)));
+
     QObject::connect(&window, SIGNAL(startSimulation()),
                      &simulation, SLOT(startSimulation()));
     QObject::connect(&window, SIGNAL(stopSimulation()),
@@ -51,6 +54,7 @@ int main(int argc, char *argv[])
 
     QObject::connect(&simulation, SIGNAL(setObjectsList(std::vector<std::string>)),
                      &window, SLOT(setObjectsList(std::vector<std::string>)));
+
 
     window.show();
 

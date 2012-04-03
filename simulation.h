@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QTimer>
 #include "nonstationarydiscreteobject.h"
+#include "controller.h"
+#include "controllerp.h"
 #include "source.h"
 #include "yamlconfigparser.h"
 
@@ -22,6 +24,7 @@ public:
      */
     explicit Simulation(QObject *parent = 0);
 
+    ~Simulation();
 signals:
 //signals to draw on plots:
     /**
@@ -89,6 +92,9 @@ public slots:
      */
     void setObject(std::string);
 
+    void setControllerType(std::string);
+    void setControllerParameter(std::string, double);
+
 //slots to simulate:
     /**
      * @brief Gniazdo odbierajace sygnal by rozpoczac symulacje ciagla
@@ -123,8 +129,9 @@ private:
 
     YamlConfigParser ymp; /**< Parser plikow Yaml */
 
-    NonStationaryDiscreteObject object; /**< Symulowany obiekt  */
-    Source source; /**< Obiekt odpowiedzialny za wymuszenie */
+    NonStationaryDiscreteObject *object; /**< Symulowany obiekt  */
+    Controller *controller;
+    Source *source; /**< Obiekt odpowiedzialny za wymuszenie */
 
     int samplingTime; /**< Czas probkowania wykresu */
 };

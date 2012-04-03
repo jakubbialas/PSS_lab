@@ -2,12 +2,12 @@
 
 Source::Source(){
     type = STEP;
-    time = 0;
+    time = -1;
 }
 
 Source::Source(SourceType n_Type){
     type = n_Type;
-    time = 0;
+    time = -1;
 }
 
 void Source::setSourceType(SourceType n_Type){
@@ -23,6 +23,11 @@ void Source::reset(){
 }
 
 double Source::nextSample(){
+    time++;
+    return getSample();
+}
+
+double Source::getSample(){
     double v;
     switch(type){
         case STEP:
@@ -41,6 +46,5 @@ double Source::nextSample(){
         default:
             v = 0;
     }
-    time++;
     return v;
 }

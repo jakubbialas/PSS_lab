@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->plot1->addPen("input", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
     ui->plot1->addPen("output", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ) );
+    ui->plot2->addPen("error", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
+    ui->plot2->addPen("control", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ) );
 
     isSimulationStarted = false;
 }
@@ -90,11 +92,11 @@ void MainWindow::drawOutput(double y){
 }
 
 void MainWindow::drawError(double y){
-
+    ui->plot2->drawPoint(y, "error");
 }
 
 void MainWindow::drawControl(double y){
-
+    ui->plot2->drawPoint(y, "control");
 }
 
 void MainWindow::on_comboBoxObject_currentIndexChanged(const QString &arg1){
@@ -151,4 +153,11 @@ void MainWindow::on_sourceValueSilder_valueChanged(int value)
     std::stringstream convert;
     convert << v2;
     ui->sourceValueEdit->setText((convert.str().c_str()));
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    if(arg1.compare(QString("P")) == 0){
+        emit setControllerType(std::string("P"));
+    }
 }

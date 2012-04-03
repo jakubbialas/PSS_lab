@@ -71,6 +71,12 @@ signals:
      * @param double Wartosc wymuszenia
      */
     void setSourceValue(double);
+    /**
+     * @brief
+     *
+     * @param std::string
+     */
+    void setControllerType(std::string);
 
 //signals to simulation object (simulate):
     /**
@@ -221,6 +227,8 @@ private slots:
      * @param value
      */
     void on_sourceValueSilder_valueChanged(int value);
+
+    void on_comboBox_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
