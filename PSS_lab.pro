@@ -19,7 +19,10 @@ SOURCES += main.cpp\
     objectdata.cpp \
     yamlconfigparser.cpp \
     simulation.cpp \
-    source.cpp
+    source.cpp \
+    nonstationarydiscreteobject.cpp \
+    controller.cpp \
+    controllerp.cpp
 
 HEADERS  += mainwindow.h \
     discreteobject.h \
@@ -29,7 +32,10 @@ HEADERS  += mainwindow.h \
     objectdata.h \
     yamlconfigparser.h \
     simulation.h \
-    source.h
+    source.h \
+    nonstationarydiscreteobject.h \
+    controller.h \
+    controllerp.h
 
 FORMS    += mainwindow.ui
 
