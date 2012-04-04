@@ -184,6 +184,8 @@ private slots:
 
     void on_checkBox_feedback_toggled(bool checked);
 
+    void on_doubleSpinBox_P_P_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
 

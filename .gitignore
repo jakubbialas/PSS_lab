@@ -5,3 +5,5 @@
 *.o
 Makefile
 PSS_lab
+moc_*.cpp
+ui_*.h

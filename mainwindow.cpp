@@ -192,7 +192,7 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
     emit setFeedback(checked);
 }
 
-void MainWindow::on_doubleSpinBox_valueChanged(double arg1)
+void MainWindow::on_doubleSpinBox_P_P_valueChanged(double arg1)
 {
     emit setControllerParameter("P", arg1);
 }
