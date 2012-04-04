@@ -122,3 +122,14 @@ void YamlConfigParser::saveKey(YAML::Emitter * emitter, int t, std::vector<doubl
     *emitter << YAML::EndSeq;
 
 }
+
+void YamlConfigParser::saveFile(const char *filename){
+    std::map<std::string, ObjectData>::iterator it;
+    YAML::Emitter emitter;
+
+    for(it = objects.begin(); it != objects.end(); it++){
+        emitter << (*it).second;
+    }
+
+    std::cout << emitter.c_str();
+}

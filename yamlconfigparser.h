@@ -56,6 +56,8 @@ public:
      */
     bool hasKey(std::string);
 
+    void saveFile(const char *filename);
+
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
     void saveKey(YAML::Emitter *emitter, int t, std::vector<double> A, std::vector<double> B, int k);

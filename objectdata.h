@@ -2,6 +2,10 @@
 #define OBJECTDATA_H
 
 #include "modeldata.h"
+
+#include <yaml-cpp/yaml.h>
+#include <yaml-cpp/emitter.h>
+#include <yaml-cpp/stlemitter.h>
 #include <vector>
 
 /**
@@ -26,15 +30,15 @@ private:
 
 public:
     void setName(std::string);
-    std::string getName();
+    std::string getName() const;
     void setModels(std::vector<ModelData>);
-    std::vector<ModelData> getModels();
+    std::vector<ModelData> getModels() const;
 
     void addModel(ModelData);
     //void getModel(std::string);
 
-    friend void operator << (std::ofstream &filestream, ObjectData &md );
-    friend void operator << (std::ofstream &filestream, std::vector<ObjectData> &md );
+    friend YAML::Emitter& operator << (YAML::Emitter &emitter, const ObjectData &md );
+    friend YAML::Emitter& operator << (YAML::Emitter &emitter, std::vector<ObjectData> &md );
 
 };
 

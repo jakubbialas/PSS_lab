@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <yaml-cpp/yaml.h>
+#include <yaml-cpp/emitter.h>
+#include <yaml-cpp/stlemitter.h>
 #include <iostream>
 #include <fstream>
 
@@ -20,11 +22,7 @@ class ModelData
     int k;                  /**< Parametr k */
     int t;                  /**< Czas przelaczenia parametrow(nie stacjonarnosc) */
 
-
-
-
-
-public:
+ public:
     /**
      * @brief Konstruktor
      *
@@ -43,17 +41,16 @@ public:
     ~ModelData();
 
     void setB(std::vector<double>);
-    std::vector<double> getB();
+    std::vector<double> getB() const;
     void setA(std::vector<double>);
-    std::vector<double> getA();
+    std::vector<double> getA() const;
     void setK(int);
-    int getK();
+    int getK() const;
     void setT(int);
-    int getT();
+    int getT() const;
 
-    friend void operator<<(std::ofstream &filestream, ModelData &md);
-    friend void operator <<(std::ofstream &filestream, std::vector<ModelData> &mdv );
-    void saveKey(YAML::Emitter * emitter, int t, std::vector<double> A, std::vector<double> B, int k);
+    friend YAML::Emitter& operator <<(YAML::Emitter &emitter, const std::vector<ModelData> &mdv );
+    friend YAML::Emitter& operator <<(YAML::Emitter &emitter, const ModelData &md);
 };
 
 #endif // MODELDATA_H
