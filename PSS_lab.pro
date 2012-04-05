@@ -13,44 +13,44 @@ TEMPLATE = app
 SOURCES += main.cpp\
     gui/mainwindow.cpp \
     gui/liveplot.cpp \
-    object/discreteobject.cpp \
-    object/objectsiso.cpp \
-    object/modeldata.cpp \
-    object/objectdata.cpp \
-    object/nonstationarydiscreteobject.cpp \
-    file/yamlconfigparser.cpp \
     simulation/simulation.cpp \
-    controller/controller.cpp \
-    controller/controllerp.cpp \
-    source/trianglesource.cpp \
-    source/stepsource.cpp \
-    source/squaresource.cpp \
-    source/source.cpp \
-    source/sinussource.cpp \
-    source/noisesource.cpp \
-    source/multisource.cpp \
-    source/impulssource.cpp
+    simulation/configuration.cpp \
+    simulation/object/discreteobject.cpp \
+    simulation/object/objectsiso.cpp \
+    simulation/object/modeldata.cpp \
+    simulation/object/objectdata.cpp \
+    simulation/object/nonstationarydiscreteobject.cpp \
+    simulation/controller/controller.cpp \
+    simulation/controller/controllerp.cpp \
+    simulation/source/trianglesource.cpp \
+    simulation/source/stepsource.cpp \
+    simulation/source/squaresource.cpp \
+    simulation/source/source.cpp \
+    simulation/source/sinussource.cpp \
+    simulation/source/noisesource.cpp \
+    simulation/source/multisource.cpp \
+    simulation/source/impulssource.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
-    object/discreteobject.h \
-    object/objectsiso.h \
-    object/modeldata.h \
-    object/objectdata.h \
-    object/nonstationarydiscreteobject.h \
-    file/yamlconfigparser.h \
     simulation/simulation.h \
-    controller/controller.h \
-    controller/controllerp.h \
-    source/trianglesource.h \
-    source/stepsource.h \
-    source/squaresource.h \
-    source/source.h \
-    source/sinussource.h \
-    source/noisesource.h \
-    source/multisource.h \
-    source/impulssource.h \
-    object/tool.h
+    simulation/configuration.h \
+    simulation/object/discreteobject.h \
+    simulation/object/objectsiso.h \
+    simulation/object/modeldata.h \
+    simulation/object/objectdata.h \
+    simulation/object/nonstationarydiscreteobject.h \
+    simulation/controller/controller.h \
+    simulation/controller/controllerp.h \
+    simulation/source/trianglesource.h \
+    simulation/source/stepsource.h \
+    simulation/source/squaresource.h \
+    simulation/source/source.h \
+    simulation/source/sinussource.h \
+    simulation/source/noisesource.h \
+    simulation/source/multisource.h \
+    simulation/source/impulssource.h \
+    simulation/object/tool.h
 
 FORMS    += gui/mainwindow.ui
 

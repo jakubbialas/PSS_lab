@@ -8,7 +8,7 @@
 #include "controller/controllerp.h"
 #include "source/source.h"
 #include "source/multisource.h"
-#include "file/yamlconfigparser.h"
+#include "configuration.h"
 
 /**
  * @brief Klasa posredniczaca w komunikacji z GUI za pomoca gniazd i sygnalow, jest tez odpowedzialna za symulacje
@@ -122,7 +122,7 @@ public slots:
 private:
     QTimer * timer; /**< Timer generujacy nowe punkty na wykresie co okreslony czas probkowania */
 
-    YamlConfigParser ymp; /**< Parser plikow Yaml */
+    Configuration ymp; /**< Parser plikow Yaml */
 
     NonStationaryDiscreteObject *object; /**< Symulowany obiekt  */
     Controller *controller;

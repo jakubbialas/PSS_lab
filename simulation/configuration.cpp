@@ -1,12 +1,12 @@
-#include "yamlconfigparser.h"
+#include "configuration.h"
 
-YamlConfigParser::YamlConfigParser(){
+Configuration::Configuration(){
 }
 
-YamlConfigParser::~YamlConfigParser(){
+Configuration::~Configuration(){
 }
 
-void YamlConfigParser::parseFile(const char * filename){
+void Configuration::parseFile(const char * filename){
     std::ifstream fin(filename);
     YAML::Parser parser(fin);
     YAML::Node node;
@@ -20,15 +20,15 @@ void YamlConfigParser::parseFile(const char * filename){
     }
 }
 
-ObjectData YamlConfigParser::getObject(std::string name){
+ObjectData Configuration::getObject(std::string name){
     return objects[name];
 }
 
-bool YamlConfigParser::hasKey(std::string name){
+bool Configuration::hasKey(std::string name){
     return (objects.find(name) != objects.end());
 }
 
-std::vector<std::string> YamlConfigParser::getKeys(){
+std::vector<std::string> Configuration::getKeys(){
     std::vector<std::string> objectList;
     std::map<std::string, ObjectData>::iterator it;
 
@@ -38,7 +38,7 @@ std::vector<std::string> YamlConfigParser::getKeys(){
     return objectList;
 }
 
-void YamlConfigParser::saveFile(const char *filename){
+void Configuration::saveFile(const char *filename){
     YAML::Emitter emitter;
 
     // emitter << objects; //nie mozna, bo mapa musi byc zapisana jak wektor a nie jak mapa.
@@ -50,7 +50,7 @@ void YamlConfigParser::saveFile(const char *filename){
     }
     emitter << YAML::EndSeq << YAML::EndMap;
 
-    std::fstream file(filename);
+    std::ofstream file(filename);
     file << emitter.c_str();
     file.close();
 

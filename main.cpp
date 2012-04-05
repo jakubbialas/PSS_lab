@@ -6,7 +6,7 @@
 #include "gui/mainwindow.h"
 #include "simulation/simulation.h"
 
-#include "file/yamlconfigparser.h"
+#include "simulation/configuration.h"
 
 
 int main(int argc, char *argv[])
@@ -73,9 +73,9 @@ int main(int argc, char *argv[])
 
 
 
-    YamlConfigParser ycp;
-    ycp.parseFile("model.yaml");
-    ycp.saveFile("model2.yaml");
+    //YamlConfigParser ycp;
+    //ycp.parseFile("model.yaml");
+    //ycp.saveFile("model.yaml");
 
     return a.exec();
 }

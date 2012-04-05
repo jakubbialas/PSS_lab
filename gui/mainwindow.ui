@@ -624,7 +624,7 @@
   <customwidget>
    <class>LivePlot</class>
    <extends>QWidget</extends>
-   <header>liveplot.h</header>
+   <header>gui/liveplot.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

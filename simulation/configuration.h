@@ -17,7 +17,7 @@
  * @brief Klasa odpowiedzialna za wczytywanie plikow konfiguracyjnych w formacie Yaml
  *
  */
-class YamlConfigParser
+class Configuration
 {
 public:
 
@@ -26,12 +26,12 @@ public:
      * @brief Konstruktor
      *
      */
-    YamlConfigParser();
+    Configuration();
     /**
      * @brief Destruktor
      *
      */
-    ~YamlConfigParser();
+    ~Configuration();
 
     /**
      * @brief  Wczytuje plik Yaml
