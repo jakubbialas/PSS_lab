@@ -33,32 +33,22 @@ void ObjectData::addModel(ModelData model){
 }
 
 YAML::Emitter& operator << (YAML::Emitter &emitter, const ObjectData &md ){
-
     emitter << YAML::BeginMap;
-    emitter << YAML::Key << "name" << YAML::Value << static_cast<std::string>(md.getName());
-
-    emitter << YAML::Key <<  "models";
-    emitter << YAML::Value;
-    emitter << YAML::BeginSeq;
-
-    emitter << md.getModels();
-
-    emitter << YAML::EndSeq;
+    emitter << YAML::Key << "name"   << YAML::Value << md.getName();
+    emitter << YAML::Key << "models" << YAML::Value << md.getModels();
     emitter << YAML::EndMap;
     return emitter;
 }
 
-YAML::Emitter& operator << (YAML::Emitter &emitter, std::vector<ObjectData> &md ){
+std::ostream& operator << (std::ostream &stream, const ObjectData &md){
+    stream << "[ ";
+    stream << "name: " << md.getName() << ", ";
+    stream << "models: " << md.getModels() << "";
+    stream << " ]";
+    return stream;
+}
 
-    emitter << YAML::BeginMap << YAML::Key << "objects" << YAML::Value;
-    emitter << YAML::BeginSeq;
-
-    for(unsigned int i = 0; i < md.size(); i ++){
-        emitter << md.at(i);
-    }
-
-    emitter << YAML::EndSeq;
-    emitter<< YAML::EndMap;
-
-    return emitter;
+void operator >> (const YAML::Node& node, ObjectData &od) {
+    node["models"] >> od.models;
+    node["name"] >> od.name;
 }

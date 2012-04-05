@@ -1,13 +1,16 @@
 #ifndef MODELDATA_H
 #define MODELDATA_H
 
+#include "tool.h"
+
 #include <string>
 #include <vector>
 #include <yaml-cpp/yaml.h>
 #include <yaml-cpp/emitter.h>
+#include <yaml-cpp/node.h>
 #include <yaml-cpp/stlemitter.h>
+#include <yaml-cpp/stlnode.h>
 #include <iostream>
-#include <fstream>
 
 /**
  * @brief Klasa przechowujaca parametru obiektu
@@ -49,8 +52,11 @@ class ModelData
     void setT(int);
     int getT() const;
 
-    friend YAML::Emitter& operator <<(YAML::Emitter &emitter, const std::vector<ModelData> &mdv );
-    friend YAML::Emitter& operator <<(YAML::Emitter &emitter, const ModelData &md);
+    friend void operator >> (const YAML::Node& node, ModelData &md);
 };
+
+YAML::Emitter& operator << (YAML::Emitter &emitter, const ModelData &md);
+std::ostream& operator << (std::ostream &stream, const ModelData &md);
+void operator >> (const YAML::Node& node, ModelData &md);
 
 #endif // MODELDATA_H

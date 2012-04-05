@@ -5,7 +5,8 @@
 //#include <QTimer>
 #include "gui/mainwindow.h"
 #include "simulation/simulation.h"
-using namespace std;
+
+#include "file/yamlconfigparser.h"
 
 
 int main(int argc, char *argv[])
@@ -72,8 +73,9 @@ int main(int argc, char *argv[])
 
 
 
-    /*YamlConfigParser ycp;
+    YamlConfigParser ycp;
     ycp.parseFile("model.yaml");
-    ycp.saveFile("sdassd");*/
+    ycp.saveFile("model2.yaml");
+
     return a.exec();
 }

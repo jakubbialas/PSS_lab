@@ -49,7 +49,8 @@ HEADERS  += gui/mainwindow.h \
     source/sinussource.h \
     source/noisesource.h \
     source/multisource.h \
-    source/impulssource.h
+    source/impulssource.h \
+    object/tool.h
 
 FORMS    += gui/mainwindow.ui
 

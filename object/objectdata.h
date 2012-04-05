@@ -2,11 +2,12 @@
 #define OBJECTDATA_H
 
 #include "modeldata.h"
+#include "tool.h"
 
+#include <vector>
 #include <yaml-cpp/yaml.h>
 #include <yaml-cpp/emitter.h>
 #include <yaml-cpp/stlemitter.h>
-#include <vector>
 
 /**
  * @brief Klasa przechowujaca zbior parametrow obiektu i jego nazwe
@@ -37,9 +38,11 @@ public:
     void addModel(ModelData);
     //void getModel(std::string);
 
-    friend YAML::Emitter& operator << (YAML::Emitter &emitter, const ObjectData &md );
-    friend YAML::Emitter& operator << (YAML::Emitter &emitter, std::vector<ObjectData> &md );
-
+    friend void operator >> (const YAML::Node& node, ObjectData &od);
 };
+
+YAML::Emitter& operator << (YAML::Emitter &emitter, const ObjectData &md);
+std::ostream& operator << (std::ostream &stream, const ObjectData &md);
+void operator >> (const YAML::Node& node, ObjectData &od);
 
 #endif // OBJECTDATA_H

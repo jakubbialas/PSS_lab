@@ -1,6 +1,8 @@
 #ifndef YAMLMODELPARSER_H
 #define YAMLMODELPARSER_H
 
+#include "object/tool.h"
+
 #include <yaml-cpp/yaml.h>
 #include <string>
 #include <iostream>

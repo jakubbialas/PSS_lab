@@ -1,46 +1,7 @@
 #include "modeldata.h"
 
-
-YAML::Emitter& operator << (YAML::Emitter &emitter, const ModelData &md){
-
-    emitter<<YAML::BeginMap;
-
-    emitter << YAML::Key << "t" << YAML::Value << md.getT();
-
-    emitter << YAML::Key << "A";
-    emitter << YAML::Value<<YAML::Flow;
-    emitter << YAML::BeginSeq;
-    for(unsigned int i = 0; i < md.getA().size(); i++ ){
-        emitter << md.getA().at(i);
-    }
-    emitter << YAML::EndSeq;
-
-    emitter << YAML::Key << "B";
-    emitter << YAML::Value << YAML::Flow;
-    emitter << YAML::BeginSeq;
-    for(unsigned int i = 0; i < md.getB().size(); i++ ){
-        emitter << md.getB().at(i);
-    }
-    emitter << YAML::EndSeq;
-
-    emitter << YAML::Key << "K" << YAML::Value << md.getK();
-
-    emitter << YAML::EndMap;
-    return emitter;
-}
-
-YAML::Emitter& operator <<(YAML::Emitter &emitter, const std::vector<ModelData> &mdv ){
-    for(unsigned int j = 0; j < mdv.size(); j++ ){
-        emitter << mdv.at(j);
-    }
-    return emitter;
-
-}
-
 ModelData::ModelData(){
-
 }
-
 
 ModelData::ModelData(std::vector<double> n_B, std::vector<double> n_A, int n_k, int n_t){
     B = n_B;
@@ -84,5 +45,29 @@ int ModelData::getT() const{
     return t;
 }
 
+YAML::Emitter& operator << (YAML::Emitter &emitter, const ModelData &md){
+    emitter << YAML::BeginMap;
+    emitter << YAML::Key << "t" << YAML::Value << md.getT();
+    emitter << YAML::Key << "A" << YAML::Value << YAML::Flow << md.getA();
+    emitter << YAML::Key << "B" << YAML::Value << YAML::Flow << md.getB();
+    emitter << YAML::Key << "k" << YAML::Value << md.getK();
+    emitter << YAML::EndMap;
+    return emitter;
+}
 
+std::ostream& operator << (std::ostream &stream, const ModelData &md){
+    stream << "[ ";
+    stream << "t: " << md.getT() << ", ";
+    stream << "A: " << md.getA() << ", ";
+    stream << "B: " << md.getB() << ", ";
+    stream << "k: " << md.getK() << "";
+    stream << "]";
+    return stream;
+}
 
+void operator >> (const YAML::Node& node, ModelData &md) {
+    node["B"] >> md.B;
+    node["A"] >> md.A;
+    node["k"] >> md.k;
+    node["t"] >> md.t;
+}
