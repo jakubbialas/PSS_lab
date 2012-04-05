@@ -11,17 +11,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    discreteobject.cpp \
-    objectsiso.cpp \
-    liveplot.cpp \
-    modeldata.cpp \
-    objectdata.cpp \
-    yamlconfigparser.cpp \
-    simulation.cpp \
-    nonstationarydiscreteobject.cpp \
-    controller.cpp \
-    controllerp.cpp \
+    gui/mainwindow.cpp \
+    gui/liveplot.cpp \
+    object/discreteobject.cpp \
+    object/objectsiso.cpp \
+    object/modeldata.cpp \
+    object/objectdata.cpp \
+    object/nonstationarydiscreteobject.cpp \
+    file/yamlconfigparser.cpp \
+    simulation/simulation.cpp \
+    controller/controller.cpp \
+    controller/controllerp.cpp \
     source/trianglesource.cpp \
     source/stepsource.cpp \
     source/squaresource.cpp \
@@ -31,17 +31,17 @@ SOURCES += main.cpp\
     source/multisource.cpp \
     source/impulssource.cpp
 
-HEADERS  += mainwindow.h \
-    discreteobject.h \
-    objectsiso.h \
-    liveplot.h \
-    modeldata.h \
-    objectdata.h \
-    yamlconfigparser.h \
-    simulation.h \
-    nonstationarydiscreteobject.h \
-    controller.h \
-    controllerp.h \
+HEADERS  += gui/mainwindow.h \
+    gui/liveplot.h \
+    object/discreteobject.h \
+    object/objectsiso.h \
+    object/modeldata.h \
+    object/objectdata.h \
+    object/nonstationarydiscreteobject.h \
+    file/yamlconfigparser.h \
+    simulation/simulation.h \
+    controller/controller.h \
+    controller/controllerp.h \
     source/trianglesource.h \
     source/stepsource.h \
     source/squaresource.h \
@@ -51,7 +51,7 @@ HEADERS  += mainwindow.h \
     source/multisource.h \
     source/impulssource.h
 
-FORMS    += mainwindow.ui
+FORMS    += gui/mainwindow.ui
 
 
 unix: LIBS += -L$$PWD/../../../../usr/local/qwt-6.0.2-svn/lib/ -lqwt

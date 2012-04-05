@@ -3,12 +3,12 @@
 
 #include <QObject>
 #include <QTimer>
-#include "nonstationarydiscreteobject.h"
-#include "controller.h"
-#include "controllerp.h"
+#include "object/nonstationarydiscreteobject.h"
+#include "controller/controller.h"
+#include "controller/controllerp.h"
 #include "source/source.h"
 #include "source/multisource.h"
-#include "yamlconfigparser.h"
+#include "file/yamlconfigparser.h"
 
 /**
  * @brief Klasa posredniczaca w komunikacji z GUI za pomoca gniazd i sygnalow, jest tez odpowedzialna za symulacje

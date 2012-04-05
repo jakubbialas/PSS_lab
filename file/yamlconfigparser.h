@@ -6,8 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <map>
-#include "objectdata.h"
-#include "modeldata.h"
+#include "object/objectdata.h"
+#include "object/modeldata.h"
 #include <string>
 
 

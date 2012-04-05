@@ -1,14 +1,10 @@
 #include <QtGui/QApplication>
-#include <iostream>
-#include <stdlib.h>
-#include <QLabel>
-#include <QTimer>
-#include "mainwindow.h"
-#include "discreteobject.h"
-#include "yamlconfigparser.h"
-#include "simulation.h"
-#include "modeldata.h"
-#include <fstream>
+//#include <iostream>
+//#include <stdlib.h>
+//#include <QLabel>
+//#include <QTimer>
+#include "gui/mainwindow.h"
+#include "simulation/simulation.h"
 using namespace std;
 
 
@@ -76,8 +72,8 @@ int main(int argc, char *argv[])
 
 
 
-    YamlConfigParser ycp;
+    /*YamlConfigParser ycp;
     ycp.parseFile("model.yaml");
-    ycp.saveFile("sdassd");
+    ycp.saveFile("sdassd");*/
     return a.exec();
 }

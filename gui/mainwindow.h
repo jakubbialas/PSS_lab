@@ -7,9 +7,9 @@
 #include <QtGui/QApplication>
 #include <QMessageBox>
 #include <sstream>
-#include <QTimer>
-#include "discreteobject.h"
-#include "yamlconfigparser.h"
+//#include <QTimer>
+//#include "discreteobject.h"
+//#include "yamlconfigparser.h"
 
 using namespace std;
 namespace Ui {
