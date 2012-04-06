@@ -62,12 +62,9 @@ signals:
 
 public slots:
 //slots to set config:
-    /**
-     * @brief Gniazdo odbierajace sygnal by zaladowac liste plikow
-     *
-     * @param filename Nazwa pliku
-     */
-    void loadConfig(const char * filename);
+    void openConfig(std::string filename);
+    void saveConfig(std::string filename = NULL);
+
     /**
      * @brief Gniazdo odbierajace sygnal by ustawic nowy czas probkowania wykresu
      *

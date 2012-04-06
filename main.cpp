@@ -17,8 +17,10 @@ int main(int argc, char *argv[])
 
     Simulation simulation;
 
-    QObject::connect(&window, SIGNAL(loadConfig(const char * )),
-                     &simulation, SLOT(loadConfig(const char * )));
+    QObject::connect(&window, SIGNAL(openConfig(std::string)),
+                     &simulation, SLOT(openConfig(std::string)));
+    QObject::connect(&window, SIGNAL(saveConfig(std::string)),
+                     &simulation, SLOT(saveConfig(std::string)));
 
 /*    QObject::connect(&window, SIGNAL(setSourceType(std::string)),
                      &simulation, SLOT(setSourceType(std::string)));

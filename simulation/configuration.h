@@ -38,8 +38,12 @@ public:
      *
      * @param filename Sciezka do pliku
      */
-    void parseFile(const char * filename);
-    void yamlEmitter(std::string name, int t, std::vector<double> A, std::vector<double> B, int k );
+    void newConfig();
+    void openConfig(std::string filename);
+    void saveConfig(std::string filename);
+
+
+
     /**
      * @brief Zwraca obiekt o podanej nazwie
      *
@@ -58,11 +62,11 @@ public:
      */
     bool hasKey(std::string);
 
-    void saveFile(const char *filename);
-
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
-    void saveKey(YAML::Emitter *emitter, int t, std::vector<double> A, std::vector<double> B, int k);
+    //std::map<std::string, ControllerData> controllers;
+
+    std::string filename;
 
 };
 

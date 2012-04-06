@@ -6,10 +6,9 @@
 #include <vector>
 #include <QtGui/QApplication>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <iostream>
 #include <sstream>
-//#include <QTimer>
-//#include "discreteobject.h"
-//#include "yamlconfigparser.h"
 
 using namespace std;
 namespace Ui {
@@ -45,7 +44,8 @@ signals:
      *
      * @param Sciezka do pliku konfiguracyjnego
      */
-    void loadConfig(const char *);
+    void openConfig(std::string);
+    void saveConfig(std::string);
     /**
      * @brief Sygnał emitowany przy wyborze nowego obiektu
      *
@@ -135,11 +135,6 @@ private slots:
      * @brief
      *
      */
-    void on_getConfigBtn_clicked();
-    /**
-     * @brief
-     *
-     */
     void on_resetBtn_clicked();
 
 //sliders:
@@ -185,6 +180,12 @@ private slots:
     void on_checkBox_feedback_toggled(bool checked);
 
     void on_doubleSpinBox_P_P_valueChanged(double arg1);
+
+    void on_actionNew_activated();
+    void on_actionOpen_activated();
+    void on_actionSave_activated();
+    void on_actionSave_As_activated();
+    void on_actionExit_activated();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */

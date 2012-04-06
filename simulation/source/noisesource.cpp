@@ -15,4 +15,5 @@ double NoiseSource::getSample(){
     double e = r%32767; //0-32767
     e = (e/32767)*2 - 1; //(-1) - 1
     e = e*amplitude;
+    return e;
 }

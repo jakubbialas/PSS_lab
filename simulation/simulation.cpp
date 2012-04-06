@@ -19,10 +19,13 @@ Simulation::~Simulation(){
     delete object;
 }
 
-void Simulation::loadConfig(const char * filename)
-{
-    ymp.parseFile(filename);
+void Simulation::openConfig(std::string filename){
+    ymp.openConfig(filename);
     setObjectsList(ymp.getKeys());
+}
+
+void Simulation::saveConfig(std::string filename){
+    ymp.saveConfig(filename);
 }
 
 void Simulation::addSource(std::string type){

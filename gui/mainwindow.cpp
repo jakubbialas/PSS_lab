@@ -55,11 +55,6 @@ void MainWindow::on_resetBtn_clicked()
     ui->plot2->resetPen("control");
 }
 
-void MainWindow::on_getConfigBtn_clicked()
-{
-    emit loadConfig("model.yaml");
-}
-
 
 void MainWindow::on_samplingSlider_valueChanged(int value)
 {
@@ -195,4 +190,38 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
 void MainWindow::on_doubleSpinBox_P_P_valueChanged(double arg1)
 {
     emit setControllerParameter("P", arg1);
+}
+
+void MainWindow::on_actionNew_activated(){
+
+}
+
+void MainWindow::on_actionOpen_activated(){
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::currentPath(), tr("Config File (*.yaml);;All (*.*)"), 0, QFileDialog::DontUseNativeDialog);
+    if(!fileName.isEmpty()){
+        emit openConfig(fileName.toStdString());
+    }
+}
+
+void MainWindow::on_actionSave_activated(){
+    emit saveConfig(std::string(""));
+}
+
+void MainWindow::on_actionSave_As_activated(){
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter(tr("Config File (*.yaml);;All (*.*)"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+
+    QStringList fileNames;
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+
+    if(fileNames.size()>0){
+        emit saveConfig(fileNames.at(0).toStdString());
+    }
+}
+
+void MainWindow::on_actionExit_activated(){
+    close();
 }
