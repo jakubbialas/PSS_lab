@@ -1,9 +1,16 @@
 #include "configuration.h"
 
-Configuration::Configuration(){
+Configuration::Configuration(QObject *parent) :
+    QObject(parent)
+{
 }
 
 Configuration::~Configuration(){
+}
+
+void Configuration::newConfig(){
+    filename = "";
+    //objects = NULL;
 }
 
 void Configuration::openConfig(std::string n_filename){
@@ -20,6 +27,8 @@ void Configuration::openConfig(std::string n_filename){
         node["objects"][i] >> objectData;
         objects[objectData.getName()] = objectData;
     }
+
+    emit setObjectsList(getKeys());
 }
 
 void Configuration::saveConfig(std::string n_filename){
@@ -44,8 +53,8 @@ void Configuration::saveConfig(std::string n_filename){
 
 }
 
-ObjectData Configuration::getObject(std::string name){
-    return objects[name];
+void Configuration::setObject(std::string name){
+    emit setObject(objects[name]);
 }
 
 bool Configuration::hasKey(std::string name){

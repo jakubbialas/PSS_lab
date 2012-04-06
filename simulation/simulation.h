@@ -8,7 +8,6 @@
 #include "controller/controllerp.h"
 #include "source/source.h"
 #include "source/multisource.h"
-#include "configuration.h"
 
 /**
  * @brief Klasa posredniczaca w komunikacji z GUI za pomoca gniazd i sygnalow, jest tez odpowedzialna za symulacje
@@ -62,8 +61,6 @@ signals:
 
 public slots:
 //slots to set config:
-    void openConfig(std::string filename);
-    void saveConfig(std::string filename = NULL);
 
     /**
      * @brief Gniazdo odbierajace sygnal by ustawic nowy czas probkowania wykresu
@@ -76,7 +73,7 @@ public slots:
      *
      * @param std::string Nazwa obiektu
      */
-    void setObject(std::string);
+    void setObject(ObjectData);
 
     void addSource(std::string type);
     void setLastSourceParameter(std::string name, double value);
@@ -118,8 +115,6 @@ public slots:
 
 private:
     QTimer * timer; /**< Timer generujacy nowe punkty na wykresie co okreslony czas probkowania */
-
-    Configuration ymp; /**< Parser plikow Yaml */
 
     NonStationaryDiscreteObject *object; /**< Symulowany obiekt  */
     Controller *controller;

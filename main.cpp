@@ -14,13 +14,26 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     MainWindow window;
-
+    Configuration config;
     Simulation simulation;
 
+
+    QObject::connect(&window, SIGNAL(newConfig()),
+                     &config, SLOT(newConfig()));
     QObject::connect(&window, SIGNAL(openConfig(std::string)),
-                     &simulation, SLOT(openConfig(std::string)));
+                     &config, SLOT(openConfig(std::string)));
     QObject::connect(&window, SIGNAL(saveConfig(std::string)),
-                     &simulation, SLOT(saveConfig(std::string)));
+                     &config, SLOT(saveConfig(std::string)));
+
+    QObject::connect(&config, SIGNAL(setObjectsList(std::vector<std::string>)),
+                     &window, SLOT(setObjectsList(std::vector<std::string>)));
+
+    QObject::connect(&window, SIGNAL(setObject(std::string)),
+                     &config, SLOT(setObject(std::string)));
+
+    QObject::connect(&config, SIGNAL(setObject(ObjectData)),
+                     &simulation, SLOT(setObject(ObjectData)));
+
 
 /*    QObject::connect(&window, SIGNAL(setSourceType(std::string)),
                      &simulation, SLOT(setSourceType(std::string)));
@@ -45,8 +58,6 @@ int main(int argc, char *argv[])
     QObject::connect(&window, SIGNAL(setSamplingTime(int)),
                      &simulation, SLOT(setSamplingTime(int)));
 
-    QObject::connect(&window, SIGNAL(setObject(std::string)),
-                     &simulation, SLOT(setObject(std::string)));
 
 
     QObject::connect(&window, SIGNAL(startSimulation()),
@@ -67,8 +78,6 @@ int main(int argc, char *argv[])
     QObject::connect(&simulation, SIGNAL(drawControl(double)),
                      &window, SLOT(drawControl(double)));
 
-    QObject::connect(&simulation, SIGNAL(setObjectsList(std::vector<std::string>)),
-                     &window, SLOT(setObjectsList(std::vector<std::string>)));
 
 
     window.show();

@@ -193,7 +193,7 @@ void MainWindow::on_doubleSpinBox_P_P_valueChanged(double arg1)
 }
 
 void MainWindow::on_actionNew_activated(){
-
+    emit newConfig();
 }
 
 void MainWindow::on_actionOpen_activated(){

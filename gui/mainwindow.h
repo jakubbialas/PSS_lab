@@ -37,15 +37,10 @@ public:
     ~MainWindow();
 
 signals:
-
-//signals to simulation object (setings):
-    /**
-     * @brief Sygnał emitowany przy załadowaniu pliku konfiguracyjnego
-     *
-     * @param Sciezka do pliku konfiguracyjnego
-     */
+    void newConfig();
     void openConfig(std::string);
     void saveConfig(std::string);
+
     /**
      * @brief Sygnał emitowany przy wyborze nowego obiektu
      *

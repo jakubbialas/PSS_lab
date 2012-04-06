@@ -19,14 +19,14 @@ Simulation::~Simulation(){
     delete object;
 }
 
-void Simulation::openConfig(std::string filename){
+/*void Simulation::openConfig(std::string filename){
     ymp.openConfig(filename);
     setObjectsList(ymp.getKeys());
-}
+}*/
 
-void Simulation::saveConfig(std::string filename){
+/*void Simulation::saveConfig(std::string filename){
     ymp.saveConfig(filename);
-}
+}*/
 
 void Simulation::addSource(std::string type){
     source->addSource(type);
@@ -41,12 +41,8 @@ void Simulation::removeLastSource(){
 }
 
 
-void Simulation::setObject(std::string name){
-    if(ymp.hasKey(name)){
-        object->setData(ymp.getObject(name));
-    }else{
-        //
-    }
+void Simulation::setObject(ObjectData od){
+    object->setData(od);
 }
 
 void Simulation::setControllerType(std::string type){
