@@ -3,11 +3,9 @@
 
 #include <QObject>
 #include <QTimer>
-#include "object/nonstationarydiscreteobject.h"
-#include "controller/controller.h"
-#include "controller/controllerp.h"
+#include "object/objectsiso.h"
 #include "source/source.h"
-#include "source/multisource.h"
+#include <vector>
 
 /**
  * @brief Klasa posredniczaca w komunikacji z GUI za pomoca gniazd i sygnalow, jest tez odpowedzialna za symulacje
@@ -60,7 +58,6 @@ signals:
     void setObjectsList(std::vector<std::string>);
 
 public slots:
-//slots to set config:
 
     /**
      * @brief Gniazdo odbierajace sygnal by ustawic nowy czas probkowania wykresu
@@ -68,23 +65,8 @@ public slots:
      * @param int czas probkowania wykresu[ms]
      */
     void setSamplingTime(int);
-    /**
-     * @brief Gniazdo odbierajace sygnal by ustawic nowy obiekt
-     *
-     * @param std::string Nazwa obiektu
-     */
-    void setObject(ObjectData);
-
-    void addSource(std::string type);
-    void setLastSourceParameter(std::string name, double value);
-    void removeLastSource();
-
-    void setControllerType(std::string);
-    void setControllerParameter(std::string, double);
-
     void setFeedback(bool);
 
-//slots to simulate:
     /**
      * @brief Gniazdo odbierajace sygnal by rozpoczac symulacje ciagla
      *
@@ -113,12 +95,21 @@ public slots:
      */
     void nextStep();
 
-private:
-    QTimer * timer; /**< Timer generujacy nowe punkty na wykresie co okreslony czas probkowania */
+    void setObject(ObjectSISO*);
+    void setController(ObjectSISO*);
+    void setSource(Source*);
 
-    NonStationaryDiscreteObject *object; /**< Symulowany obiekt  */
-    Controller *controller;
-    MultiSource *source; /**< Obiekt odpowiedzialny za wymuszenie */
+public:
+    ObjectSISO* getObject();
+    ObjectSISO* getController();
+    Source* getSource();
+
+private:
+    ObjectSISO *object;
+    ObjectSISO *controller;
+    Source *source;
+
+    QTimer * timer; /**< Timer generujacy nowe punkty na wykresie co okreslony czas probkowania */
 
     int samplingTime; /**< Czas probkowania wykresu */
     bool feedback;

@@ -19,6 +19,7 @@ public:
      * @param double Wartosc wejscia
      */
     virtual double simulate(double)=0;
+    virtual double getLastValue()=0;
     virtual void reset(void)=0;
 
 };

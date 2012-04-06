@@ -41,53 +41,26 @@ signals:
     void openConfig(std::string);
     void saveConfig(std::string);
 
-    /**
-     * @brief Sygnał emitowany przy wyborze nowego obiektu
-     *
-     * @param std::string Nazwa obiektu
-     */
-    void setObject(std::string);
-    /**
-     * @brief Sygnał emitowany przy zmianie czasu probkowania wykresow
-     *
-     * @param int czas odswiezania[ms]
-     */
+    void startSimulation();
+    void stopSimulation();
+    void resetSimulation();
+    void stepSimulation(int);
     void setSamplingTime(int);
+    void setFeedback(bool);
+
+
+    void setActiveObject(std::string);
+    void getObjectsList(std::string);
+
+
 
     void addSource(std::string type);
     void setLastSourceParameter(std::string name, double value);
     void removeLastSource();
     void setControllerType(std::string);
     void setControllerParameter(std::string, double);
-    void setFeedback(bool);
-
-//signals to simulation object (simulate):
-    /**
-     * @brief Sygnał emitowany aby rozpoczac ciagla symulacje
-     *
-     */
-    void startSimulation();
-    /**
-     * @brief Sygnał emitowany aby zatrzymac ciagla symulacje
-     *
-     */
-    void stopSimulation();
-    /**
-     * @brief Sygnał emitowany  aby zresetowac wykresy i symulacje
-     *
-     */
-    void resetSimulation();
-    /**
-     * @brief Sygnał emitowany aby rozpoczac symulacje krokowa
-     *
-     * @param int Liczba krokow
-     */
-    void stepSimulation(int);
 
 private slots:
-
-//signals from simulation object:
-  //draw:
     /**
      * @brief Gniazdo odbierajace sygnal rysowania wejscia
      *
@@ -112,13 +85,10 @@ private slots:
      * @param y wartosc sygnalu
      */
     void drawControl(double y);
-  //infos:
-    /**
-     * @brief Gniazdo odbierajace sygnal ustawiajacy liste dostepnych obiektow
-     *
-     * @param std::vector<std::string> Lista obiektow
-     */
-    void setObjectsList(std::vector<std::string>);
+
+
+
+    void retObjectsList(std::vector<std::string>);
 
 //buttons:
     /**

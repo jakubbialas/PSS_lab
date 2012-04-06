@@ -6,10 +6,7 @@ Simulation::Simulation(QObject *parent) :
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
 
-    samplingTime = 100;
-    controller = new ControllerP(1);
-    source = new MultiSource();
-    object = new NonStationaryDiscreteObject();
+    samplingTime = 10;
     feedback = false;
 }
 
@@ -17,43 +14,6 @@ Simulation::~Simulation(){
     delete controller;
     delete source;
     delete object;
-}
-
-/*void Simulation::openConfig(std::string filename){
-    ymp.openConfig(filename);
-    setObjectsList(ymp.getKeys());
-}*/
-
-/*void Simulation::saveConfig(std::string filename){
-    ymp.saveConfig(filename);
-}*/
-
-void Simulation::addSource(std::string type){
-    source->addSource(type);
-}
-
-void Simulation::setLastSourceParameter(std::string name, double value){
-    source->setLastSourceParameter(name, value);
-}
-
-void Simulation::removeLastSource(){
-    source->removeLastSource();
-}
-
-
-void Simulation::setObject(ObjectData od){
-    object->setData(od);
-}
-
-void Simulation::setControllerType(std::string type){
-    if(type.compare("P") == 0){
-        delete controller;
-        controller = new ControllerP();
-    }
-}
-
-void Simulation::setControllerParameter(std::string name, double value){
-    this->controller->setParameter(name, value);
 }
 
 void Simulation::setFeedback(bool n_feedback){
@@ -99,4 +59,28 @@ void Simulation::nextStep(){
     emit drawError(e);
     emit drawControl(u);
     emit drawOutput(y);
+}
+
+void Simulation::setObject(ObjectSISO* n_object){
+    object = n_object;
+}
+
+void Simulation::setController(ObjectSISO* n_controller){
+    controller = n_controller;
+}
+
+void Simulation::setSource(Source* n_source){
+    source = n_source;
+}
+
+ObjectSISO* Simulation::getObject(){
+    return object;
+}
+
+ObjectSISO* Simulation::getController(){
+    return controller;
+}
+
+Source* Simulation::getSource(){
+    return source;
 }

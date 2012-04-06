@@ -1,5 +1,5 @@
-#ifndef YAMLMODELPARSER_H
-#define YAMLMODELPARSER_H
+#ifndef CONFIGURATION_H
+#define CONFIGURATION_H
 
 #include <QObject>
 #include "object/tool.h"
@@ -9,6 +9,9 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include "object/nonstationarydiscreteobject.h"
+#include "controller/controllerp.h"
+#include "source/multisource.h"
 #include "object/objectdata.h"
 #include "object/modeldata.h"
 #include <string>
@@ -30,14 +33,23 @@ public:
     ~Configuration();
 
 signals:
-    void setObject(ObjectData);
-    void setObjectsList(std::vector<std::string>);
+    void setObject(ObjectSISO*);
+    void setController(ObjectSISO*);
+    void setSource(Source*);
+
+    void retObjectsList(std::vector<std::string>);
+    void retObjectData(ObjectData);
+    void retActiveObject(std::string);
 
 public slots:
     void newConfig();
-    void openConfig(std::string filename);
-    void saveConfig(std::string filename);
-    void setObject(std::string);
+    void openConfig(std::string);
+    void saveConfig(std::string);
+
+    void getObjectsList();
+    void getObjectData(std::string);
+    void editObjectData(std::string, ObjectData);
+    void setActiveObject(std::string);
 
 public:
     /**
@@ -45,8 +57,7 @@ public:
      *
      * @param std::string
      */
-    bool hasKey(std::string);
-    std::vector<std::string> getKeys();
+    std::vector<std::string> getObjectsKeys();
 
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
@@ -56,4 +67,4 @@ private:
 
 };
 
-#endif // YAMLMODELPARSER_H
+#endif // CONFIGURATION_H

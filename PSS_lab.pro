@@ -13,7 +13,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
     gui/mainwindow.cpp \
     gui/liveplot.cpp \
-    simulation/simulation.cpp \
     simulation/configuration.cpp \
     simulation/object/discreteobject.cpp \
     simulation/object/objectsiso.cpp \
@@ -29,11 +28,11 @@ SOURCES += main.cpp\
     simulation/source/sinussource.cpp \
     simulation/source/noisesource.cpp \
     simulation/source/multisource.cpp \
-    simulation/source/impulssource.cpp
+    simulation/source/impulssource.cpp \
+    simulation/simulation.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
-    simulation/simulation.h \
     simulation/configuration.h \
     simulation/object/discreteobject.h \
     simulation/object/objectsiso.h \
@@ -50,7 +49,8 @@ HEADERS  += gui/mainwindow.h \
     simulation/source/noisesource.h \
     simulation/source/multisource.h \
     simulation/source/impulssource.h \
-    simulation/object/tool.h
+    simulation/object/tool.h \
+    simulation/simulation.h
 
 FORMS    += gui/mainwindow.ui
 

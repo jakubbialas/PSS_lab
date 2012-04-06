@@ -28,7 +28,7 @@ void Configuration::openConfig(std::string n_filename){
         objects[objectData.getName()] = objectData;
     }
 
-    emit setObjectsList(getKeys());
+    emit retObjectsList(getObjectsKeys());
 }
 
 void Configuration::saveConfig(std::string n_filename){
@@ -53,15 +53,7 @@ void Configuration::saveConfig(std::string n_filename){
 
 }
 
-void Configuration::setObject(std::string name){
-    emit setObject(objects[name]);
-}
-
-bool Configuration::hasKey(std::string name){
-    return (objects.find(name) != objects.end());
-}
-
-std::vector<std::string> Configuration::getKeys(){
+std::vector<std::string> Configuration::getObjectsKeys(){
     std::vector<std::string> objectList;
     std::map<std::string, ObjectData>::iterator it;
 
@@ -69,4 +61,29 @@ std::vector<std::string> Configuration::getKeys(){
         objectList.push_back((*it).first);
     }
     return objectList;
+}
+
+
+
+
+
+
+void Configuration::getObjectsList(){
+    emit retObjectsList(getObjectsKeys());
+}
+
+void Configuration::getObjectData(std::string name){
+    emit retObjectData(objects[name]);
+}
+
+void Configuration::editObjectData(std::string name, ObjectData od){
+    objects[name] = od;
+    if(od.getName() != name){
+        //TODO: change name;
+    }
+}
+
+void Configuration::setActiveObject(std::string name){
+    emit setObject(new NonStationaryDiscreteObject(objects[name]));
+    emit retActiveObject(name);
 }

@@ -94,16 +94,16 @@ void MainWindow::drawControl(double y){
     ui->plot2->drawPoint(y, "control");
 }
 
-void MainWindow::on_comboBoxObject_currentIndexChanged(const QString &arg1){
-    setObject(arg1.toStdString());
-}
-
-void MainWindow::setObjectsList(std::vector<std::string> names){
+void MainWindow::retObjectsList(std::vector<std::string> names){
     ui->comboBoxObject->clear();
     std::vector<std::string>::iterator it;
     for(it = names.begin(); it < names.end(); it++){
         ui->comboBoxObject->addItem(QString((*it).c_str()));
     }
+}
+
+void MainWindow::on_comboBoxObject_currentIndexChanged(const QString &arg1){
+    setActiveObject(arg1.toStdString());
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
