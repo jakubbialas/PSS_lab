@@ -56,6 +56,44 @@ void MainWindow::on_resetBtn_clicked()
 }
 
 
+void MainWindow::drawInput(double y){
+    ui->plot1->drawPoint(y, "input");
+}
+
+void MainWindow::drawOutput(double y){
+    ui->plot1->drawPoint(y, "output");
+}
+
+void MainWindow::drawError(double y){
+    ui->plot2->drawPoint(y, "error");
+}
+
+void MainWindow::drawControl(double y){
+    ui->plot2->drawPoint(y, "control");
+}
+
+void MainWindow::retObjectsList(std::vector<std::string> names){
+    //TODO
+    ui->comboBoxObject->clear();
+    std::vector<std::string>::iterator it;
+    for(it = names.begin(); it < names.end(); it++){
+        ui->comboBoxObject->addItem(QString((*it).c_str()));
+    }
+}
+
+void MainWindow::retObjectData(ObjectData){
+    //TODO
+}
+
+void MainWindow::retActiveObject(std::string){
+    //TODO
+}
+
+
+
+
+
+
 void MainWindow::on_samplingSlider_valueChanged(int value)
 {
     std::stringstream convert;
@@ -75,30 +113,6 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
     ui->stepFrame->setEnabled(checked);
     if(checked){
 
-    }
-}
-
-void MainWindow::drawInput(double y){
-    ui->plot1->drawPoint(y, "input");
-}
-
-void MainWindow::drawOutput(double y){
-    ui->plot1->drawPoint(y, "output");
-}
-
-void MainWindow::drawError(double y){
-    ui->plot2->drawPoint(y, "error");
-}
-
-void MainWindow::drawControl(double y){
-    ui->plot2->drawPoint(y, "control");
-}
-
-void MainWindow::retObjectsList(std::vector<std::string> names){
-    ui->comboBoxObject->clear();
-    std::vector<std::string>::iterator it;
-    for(it = names.begin(); it < names.end(); it++){
-        ui->comboBoxObject->addItem(QString((*it).c_str()));
     }
 }
 

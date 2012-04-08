@@ -51,6 +51,13 @@ public slots:
     void editObjectData(std::string, ObjectData);
     void setActiveObject(std::string);
 
+    //TODO:
+    void addSource(std::string);
+    void setLastSourceParameter(std::string, double);
+    void removeLastSource();
+    void setControllerType(std::string);
+    void setControllerParameter(std::string, double);
+
 public:
     /**
      * @brief Sprawdza czy istnieje obiekt o zadaniej nazwie
@@ -62,9 +69,13 @@ public:
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
     //std::map<std::string, ControllerData> controllers;
+    //std::map<std::string, MultiSourceData> sources;
 
     std::string filename;
 
+    Controller *controller;
+    NonStationaryDiscreteObject *object;
+    MultiSource *source;
 };
 
 #endif // CONFIGURATION_H

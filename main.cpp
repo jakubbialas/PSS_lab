@@ -80,10 +80,10 @@ int main(int argc, char *argv[])
     //editAdjustment(std::string, AdjustmentData)
     //setAtciveController(std::string)
     //retAtciveController(std::string)
-    //QObject::connect(&window, SIGNAL(setControllerType(std::string)),
-    //                 &simulation, SLOT(setControllerType(std::string)));
-    //QObject::connect(&window, SIGNAL(setControllerParameter(std::string, double)),
-    //                 &simulation, SLOT(setControllerParameter(std::string, double)));
+    QObject::connect(&window, SIGNAL(setControllerType(std::string)),
+                     &config, SLOT(setControllerType(std::string)));
+    QObject::connect(&window, SIGNAL(setControllerParameter(std::string, double)),
+                     &config, SLOT(setControllerParameter(std::string, double)));
 
     //getSource(std::string)
     //retSource(std::string, SourceData)
@@ -92,12 +92,12 @@ int main(int argc, char *argv[])
     //editSource(std::string, SourceData)
     //setActiveSource(std::string)
     //retActiveSource(std::string)
-    //QObject::connect(&window, SIGNAL(addSource(std::string)),
-    //                 &simulation, SLOT(addSource(std::string)));
-    //QObject::connect(&window, SIGNAL(setLastSourceParameter(std::string, double)),
-    //                 &simulation, SLOT(setLastSourceParameter(std::string, double)));
-    //QObject::connect(&window, SIGNAL(removeLastSource()),
-    //                 &simulation, SLOT(removeLastSource()));
+    QObject::connect(&window, SIGNAL(addSource(std::string)),
+                     &config, SLOT(addSource(std::string)));
+    QObject::connect(&window, SIGNAL(setLastSourceParameter(std::string, double)),
+                     &config, SLOT(setLastSourceParameter(std::string, double)));
+    QObject::connect(&window, SIGNAL(removeLastSource()),
+                     &config, SLOT(removeLastSource()));
 
 
     window.show();

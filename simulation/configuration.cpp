@@ -3,9 +3,19 @@
 Configuration::Configuration(QObject *parent) :
     QObject(parent)
 {
+    controller = new ControllerP(1);
+    source = new MultiSource();
+    object = new NonStationaryDiscreteObject();
+
+    emit setController(controller);
+    emit setObject(object);
+    emit setSource(source);
 }
 
 Configuration::~Configuration(){
+    delete source;
+    delete object;
+    delete controller;
 }
 
 void Configuration::newConfig(){
@@ -86,4 +96,32 @@ void Configuration::editObjectData(std::string name, ObjectData od){
 void Configuration::setActiveObject(std::string name){
     emit setObject(new NonStationaryDiscreteObject(objects[name]));
     emit retActiveObject(name);
+}
+
+
+
+
+
+
+void Configuration::addSource(std::string type){
+    source->addSource(type);
+}
+
+void Configuration::setLastSourceParameter(std::string name, double value){
+    source->setLastSourceParameter(name, value);
+}
+
+void Configuration::removeLastSource(){
+    source->removeLastSource();
+}
+
+void Configuration::setControllerType(std::string type){
+    if(type.compare("P") == 0){
+        delete controller;
+        controller = new ControllerP();
+    }
+}
+
+void Configuration::setControllerParameter(std::string name, double value){
+    this->controller->setParameter(name, value);
 }

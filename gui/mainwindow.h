@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include <sstream>
+#include "simulation/object/objectdata.h"
 
 using namespace std;
 namespace Ui {
@@ -48,9 +49,10 @@ signals:
     void setSamplingTime(int);
     void setFeedback(bool);
 
-
     void setActiveObject(std::string);
-    void getObjectsList(std::string);
+    void getObjectData(std::string);
+    void getObjectsList();
+    void editObjectData(std::string, ObjectData);
 
 
 
@@ -86,9 +88,9 @@ private slots:
      */
     void drawControl(double y);
 
-
-
     void retObjectsList(std::vector<std::string>);
+    void retObjectData(ObjectData);
+    void retActiveObject(std::string);
 
 //buttons:
     /**
