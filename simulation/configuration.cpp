@@ -7,9 +7,6 @@ Configuration::Configuration(QObject *parent) :
     source = new MultiSource();
     object = new NonStationaryDiscreteObject();
 
-    emit setController(controller);
-    emit setObject(object);
-    emit setSource(source);
 }
 
 Configuration::~Configuration(){
@@ -24,6 +21,11 @@ void Configuration::newConfig(){
 }
 
 void Configuration::openConfig(std::string n_filename){
+
+    emit setController(dynamic_cast<ObjectSISO*>(controller));
+    emit setObject(object);
+    emit setSource(source);
+
     filename = n_filename;
     std::ifstream file(filename.c_str());
     YAML::Parser parser(file);
@@ -94,7 +96,8 @@ void Configuration::editObjectData(std::string name, ObjectData od){
 }
 
 void Configuration::setActiveObject(std::string name){
-    emit setObject(new NonStationaryDiscreteObject(objects[name]));
+    object->setData(objects[name]);
+    //emit setObject(object);
     emit retActiveObject(name);
 }
 

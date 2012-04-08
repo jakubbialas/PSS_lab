@@ -14,9 +14,8 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     MainWindow window;
-    Configuration config;
     Simulation simulation;
-
+    Configuration config;
 
     QObject::connect(&window, SIGNAL(newConfig()),
                      &config, SLOT(newConfig()));

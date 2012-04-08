@@ -1,5 +1,10 @@
 #include "simulation.h"
 
+#include "object/nonstationarydiscreteobject.h"
+#include "source/multisource.h"
+#include "controller/controllerp.h"
+
+
 Simulation::Simulation(QObject *parent) :
     QObject(parent)
 {
@@ -11,9 +16,6 @@ Simulation::Simulation(QObject *parent) :
 }
 
 Simulation::~Simulation(){
-    delete controller;
-    delete source;
-    delete object;
 }
 
 void Simulation::setFeedback(bool n_feedback){
@@ -26,6 +28,11 @@ void Simulation::setSamplingTime(int n_samplingTime){
 }
 
 void Simulation::startSimulation(){
+    NonStationaryDiscreteObject *a = dynamic_cast<NonStationaryDiscreteObject*>(object);
+    ControllerP *p = dynamic_cast<ControllerP*>(controller);
+    MultiSource *s = dynamic_cast<MultiSource*>(source);
+
+
     timer->start(samplingTime);
 }
 
