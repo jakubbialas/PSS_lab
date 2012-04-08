@@ -14,5 +14,4 @@ public:
     virtual void setParameter(std::string, double)=0;
     virtual double simulate(double)=0;
 };
-
 #endif // CONTROLLER_H

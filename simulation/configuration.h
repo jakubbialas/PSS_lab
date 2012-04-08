@@ -2,8 +2,9 @@
 #define CONFIGURATION_H
 
 #include <QObject>
-#include "object/tool.h"
+#include "tool.h"
 
+#include "controller/controllerdata.h"
 #include <yaml-cpp/yaml.h>
 #include <string>
 #include <iostream>
@@ -68,7 +69,7 @@ public:
 
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
-    //std::map<std::string, ControllerData> controllers;
+    std::map<std::string, ControllerData> controllers;
     //std::map<std::string, MultiSourceData> sources;
 
     std::string filename;

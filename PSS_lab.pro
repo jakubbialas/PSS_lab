@@ -29,7 +29,9 @@ SOURCES += main.cpp\
     simulation/source/noisesource.cpp \
     simulation/source/multisource.cpp \
     simulation/source/impulssource.cpp \
-    simulation/simulation.cpp
+    simulation/simulation.cpp \
+    simulation/controller/controllerdata.cpp \
+    simulation/controller/adjustmentdata.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -49,8 +51,10 @@ HEADERS  += gui/mainwindow.h \
     simulation/source/noisesource.h \
     simulation/source/multisource.h \
     simulation/source/impulssource.h \
-    simulation/object/tool.h \
-    simulation/simulation.h
+    simulation/simulation.h \
+    simulation/controller/controllerdata.h \
+    simulation/controller/adjustmentdata.h \
+    tool.h
 
 FORMS    += gui/mainwindow.ui
 

@@ -21,7 +21,7 @@ void Configuration::newConfig(){
 }
 
 void Configuration::openConfig(std::string n_filename){
-
+//TOTO: przeniesc gdzies te emity.... gdziekolwiek ale nie tu! i nie w konstruktorze!
     emit setController(dynamic_cast<ObjectSISO*>(controller));
     emit setObject(object);
     emit setSource(source);
@@ -39,6 +39,12 @@ void Configuration::openConfig(std::string n_filename){
         node["objects"][i] >> objectData;
         objects[objectData.getName()] = objectData;
     }
+    //node["controllers"] >> controllers; //nie mozna, bo w pliku yaml jest wektor ktory jest parsowany do mapy
+    for(unsigned int i=0;i<node["controllers"].size();i++) {
+        ControllerData controllerData = ControllerData();
+        node["controllers"][i] >> controllerData;
+        controllers[controllerData.getType()] = controllerData;
+    }
 
     emit retObjectsList(getObjectsKeys());
 }
@@ -51,13 +57,27 @@ void Configuration::saveConfig(std::string n_filename){
     YAML::Emitter emitter;
 
     // emitter << objects; //nie mozna, bo mapa musi byc zapisana jak wektor a nie jak mapa.
-    emitter << YAML::BeginMap << YAML::Key << "objects" << YAML::Value;
+    emitter << YAML::BeginMap;
+
+    emitter << YAML::Key << "objects" << YAML::Value;
     emitter << YAML::BeginSeq;
-    std::map<std::string, ObjectData>::iterator it;
-    for(it = objects.begin(); it != objects.end(); it++){
-        emitter << (*it).second;
+    std::map<std::string, ObjectData>::iterator it1;
+    for(it1 = objects.begin(); it1 != objects.end(); it1++){
+        emitter << (*it1).second;
     }
-    emitter << YAML::EndSeq << YAML::EndMap;
+    emitter << YAML::EndSeq;
+
+    // emitter << controllers; //nie mozna, bo mapa musi byc zapisana jak wektor a nie jak mapa.
+    emitter << YAML::Key << "controllers" << YAML::Value;
+    emitter << YAML::BeginSeq;
+    std::map<std::string, ControllerData>::iterator it2;
+    for(it2 = controllers.begin(); it2 != controllers.end(); it2++){
+        emitter << (*it2).second;
+    }
+    emitter << YAML::EndSeq;
+
+    emitter << YAML::EndMap;
+
 
     std::ofstream file(filename.c_str());
     file << emitter.c_str();

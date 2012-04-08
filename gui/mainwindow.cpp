@@ -30,18 +30,10 @@ void MainWindow::on_simBtn_clicked()
             emit stopSimulation();
             isSimulationStarted = false;
             ui->simBtn->setText("Start simulation");
-            ui->simFrame->setEnabled(true);
-            ui->getConfigBtn->setEnabled(true);
-            ui->comboBoxObject->setEnabled(true);
-            ui->resetBtn->setEnabled(true);
         }else{
             emit startSimulation();
             isSimulationStarted = true;
             ui->simBtn->setText("Pause simulation");
-            ui->simFrame->setEnabled(false);
-            ui->getConfigBtn->setEnabled(false);
-            ui->comboBoxObject->setEnabled(false);
-            ui->resetBtn->setEnabled(false);
         }
     }
 }
@@ -73,11 +65,11 @@ void MainWindow::drawControl(double y){
 }
 
 void MainWindow::retObjectsList(std::vector<std::string> names){
-    //TODO
-    ui->comboBoxObject->clear();
+    //delete ui->listWidget_sources->item(i-1);
+    ui->listWidget_Objects->clear();
     std::vector<std::string>::iterator it;
     for(it = names.begin(); it < names.end(); it++){
-        ui->comboBoxObject->addItem(QString((*it).c_str()));
+        ui->listWidget_Objects->addItem(QString((*it).c_str()));
     }
 }
 
@@ -114,10 +106,6 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
     if(checked){
 
     }
-}
-
-void MainWindow::on_comboBoxObject_currentIndexChanged(const QString &arg1){
-    setActiveObject(arg1.toStdString());
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
@@ -238,4 +226,8 @@ void MainWindow::on_actionSave_As_activated(){
 
 void MainWindow::on_actionExit_activated(){
     close();
+}
+
+void MainWindow::on_pushButton_setObject_clicked(){
+    emit setActiveObject(ui->listWidget_Objects->currentItem()->text().toStdString());
 }

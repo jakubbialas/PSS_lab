@@ -44,7 +44,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab_simulation">
      <attribute name="title">
@@ -213,9 +213,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>70</y>
         <width>191</width>
-        <height>171</height>
+        <height>111</height>
        </rect>
       </property>
      </widget>
@@ -442,45 +442,19 @@
        <string>Remove</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_object">
-     <attribute name="title">
-      <string>Object</string>
-     </attribute>
-     <widget class="QPushButton" name="getConfigBtn">
+     <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
         <width>191</width>
-        <height>41</height>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
-       <string>Get Config</string>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="comboBoxObject">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>90</y>
-        <width>191</width>
-        <height>41</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>191</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Chose object:</string>
+       <string>TA ZAKLADKA JEST 
+JESZCZE DO PRZEROBKI!
+narazie dziala po staremu.</string>
       </property>
      </widget>
     </widget>
@@ -489,11 +463,14 @@
       <string>Controller</string>
      </attribute>
      <widget class="QComboBox" name="comboBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>130</x>
         <y>10</y>
-        <width>91</width>
+        <width>71</width>
         <height>27</height>
        </rect>
       </property>
@@ -506,51 +483,229 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>12</y>
-        <width>67</width>
+        <x>10</x>
+        <y>10</y>
+        <width>111</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>Type:</string>
+       <string>Controler type:</string>
       </property>
      </widget>
-     <widget class="QStackedWidget" name="stackedWidget_2">
+     <widget class="QPushButton" name="pushButton_newAdjustment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>210</x>
+        <y>10</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>New Adjustment</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_editAdjustment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
         <y>40</y>
-        <width>201</width>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Edit Selected</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_removeAdjustment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>70</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove Selected</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_setAdjustment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>150</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Selected Controller/Adj</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_moveUpAdjustment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>91</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Move Up</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_moveDownAdjustment">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>100</y>
+        <width>91</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Move Down</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget_adjustments">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>191</width>
         <height>141</height>
        </rect>
       </property>
-      <widget class="QWidget" name="page">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_P_P">
-        <property name="geometry">
-         <rect>
-          <x>101</x>
-          <y>10</y>
-          <width>91</width>
-          <height>27</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_11">
-        <property name="geometry">
-         <rect>
-          <x>16</x>
-          <y>16</y>
-          <width>71</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>P:</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="page_4"/>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_object">
+     <attribute name="title">
+      <string>Object</string>
+     </attribute>
+     <widget class="QListWidget" name="listWidget_Objects">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>191</width>
+        <height>171</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_newObject">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>10</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>New Discrete Object</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_editObject">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>40</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Edit Selected</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_setObject">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>150</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Set Selected</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_removeObject">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>70</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Remove Selected</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_moveUpObject">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>100</y>
+        <width>91</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Move Up</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_moveDownObject">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>100</y>
+        <width>91</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Move Down</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_feedback">

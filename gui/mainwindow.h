@@ -129,12 +129,6 @@ private slots:
 
 
 //object set:
-    /**
-     * @brief
-     *
-     * @param arg1
-     */
-    void on_comboBoxObject_currentIndexChanged(const QString &arg1);
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
@@ -153,6 +147,8 @@ private slots:
     void on_actionSave_activated();
     void on_actionSave_As_activated();
     void on_actionExit_activated();
+
+    void on_pushButton_setObject_clicked();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
