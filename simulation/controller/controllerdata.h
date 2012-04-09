@@ -14,6 +14,11 @@ public:
     std::string getType() const;
     void setAdjustment(std::vector<AdjustmentData>);
     std::vector<AdjustmentData> getAdjustments() const;
+
+    std::vector<std::string> getAdjustmentsNames();
+
+    void removeAdjustment(std::string);
+    void addAdjustment(AdjustmentData);
 private:
     std::string type;
     std::vector<AdjustmentData> adjustments;

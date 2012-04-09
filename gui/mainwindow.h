@@ -6,10 +6,14 @@
 #include <vector>
 #include <QtGui/QApplication>
 #include <QMessageBox>
+#include <QListWidgetItem>
 #include <QFileDialog>
 #include <iostream>
 #include <sstream>
 #include "simulation/object/objectdata.h"
+
+#include "simulation/controller/controllerdata.h"
+#include "simulation/controller/adjustmentdata.h"
 
 using namespace std;
 namespace Ui {
@@ -55,12 +59,15 @@ signals:
     void editObjectData(std::string, ObjectData);
 
 
+    void getAdjustmentsList();
+    void setActiveController(std::string, AdjustmentData);
+    void removeAdjustment(std::string, std::string);
+    void saveAdjustment(std::string, AdjustmentData);
+
 
     void addSource(std::string type);
     void setLastSourceParameter(std::string name, double value);
     void removeLastSource();
-    void setControllerType(std::string);
-    void setControllerParameter(std::string, double);
 
 private slots:
     /**
@@ -92,6 +99,8 @@ private slots:
     void retObjectData(ObjectData);
     void retActiveObject(std::string);
 
+
+    void retAdjustmentsList(std::map<std::string, ControllerData>);
 //buttons:
     /**
      * @brief
@@ -150,10 +159,23 @@ private slots:
 
     void on_pushButton_setObject_clicked();
 
+    void on_comboBox_controllerType_currentIndexChanged(const QString &arg1);
+
+    void on_listWidget_adjustments_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    void on_pushButton_setAdjustment_clicked();
+
+    void on_pushButton_removeAdjustment_clicked();
+
+    void on_pushButton_saveAdjustment_clicked();
+
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
 
     bool isSimulationStarted; /**< Okresla czy symulacja jest aktulanie wykonywana */
+    std::map<std::string, ControllerData> controllersData;
+
+    void updateAdjustmentsList();
 };
 
 #endif // MAINWINDOW_H

@@ -81,6 +81,128 @@ void MainWindow::retActiveObject(std::string){
     //TODO
 }
 
+void MainWindow::retAdjustmentsList(std::map<std::string, ControllerData> controllers){
+    controllersData = controllers;
+    updateAdjustmentsList();
+}
+
+void MainWindow::updateAdjustmentsList(){
+    ui->listWidget_adjustments->clear();
+    QString ctype = ui->comboBox_controllerType->currentText();
+    if(controllersData.find(ctype.toStdString()) != controllersData.end()){
+        std::vector<AdjustmentData> adjustments = controllersData[ctype.toStdString()].getAdjustments();
+        std::vector<AdjustmentData>::iterator it;
+        for(it = adjustments.begin(); it!= adjustments.end(); it++){
+            ui->listWidget_adjustments->addItem(QString((*it).getName().c_str()));
+        }
+    }
+    if(ctype.compare("P") == 0){
+        ui->stackedWidget_controllerValues->setCurrentIndex(0);
+    }
+    if(ctype.compare("PID") == 0){
+        ui->stackedWidget_controllerValues->setCurrentIndex(1);
+    }
+}
+
+
+
+
+
+void MainWindow::on_actionNew_activated(){
+    emit newConfig();
+}
+
+void MainWindow::on_actionOpen_activated(){
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::currentPath(), tr("Config File (*.yaml);;All (*.*)"), 0, QFileDialog::DontUseNativeDialog);
+    if(!fileName.isEmpty()){
+        emit openConfig(fileName.toStdString());
+    }
+}
+
+void MainWindow::on_actionSave_activated(){
+    emit saveConfig(std::string(""));
+}
+
+void MainWindow::on_actionSave_As_activated(){
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter(tr("Config File (*.yaml);;All (*.*)"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+
+    QStringList fileNames;
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+
+    if(fileNames.size()>0){
+        emit saveConfig(fileNames.at(0).toStdString());
+    }
+}
+
+void MainWindow::on_actionExit_activated(){
+    close();
+}
+
+void MainWindow::on_pushButton_setObject_clicked(){
+    emit setActiveObject(ui->listWidget_Objects->currentItem()->text().toStdString());
+}
+
+void MainWindow::on_comboBox_controllerType_currentIndexChanged(const QString &arg1){
+    updateAdjustmentsList();
+
+}
+
+void MainWindow::on_listWidget_adjustments_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous){
+    if(current){
+        QString name = current->text();
+        QString ctype = ui->comboBox_controllerType->currentText();
+        std::vector<AdjustmentData> ad = controllersData[ctype.toStdString()].getAdjustments();
+        std::vector<AdjustmentData>::iterator it;
+        for(it = ad.begin(); it!= ad.end(); it++){
+            if((*it).getName().compare(name.toStdString()) == 0){
+                std::map<std::string, double> param = (*it).getParameters();
+
+                if(ctype.compare("P") == 0){
+                    ui->doubleSpinBox_controllerPP->setValue(param["P"]);
+                }
+                if(ctype.compare("PID") == 0){
+                    ui->doubleSpinBox_controllerPIDP->setValue(param["P"]);
+                    ui->doubleSpinBox_controllerPIDI->setValue(param["I"]);
+                    ui->doubleSpinBox_controllerPIDD->setValue(param["D"]);
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::on_pushButton_setAdjustment_clicked(){
+    QString ctype = ui->comboBox_controllerType->currentText();
+    AdjustmentData ad = AdjustmentData();
+    std::map<std::string, double> param;
+
+    if(ctype.compare("P") == 0){
+        param["P"] = ui->doubleSpinBox_controllerPP->value();
+    }
+    if(ctype.compare("PID") == 0){
+        param["P"] = ui->doubleSpinBox_controllerPIDP->value();
+        param["I"] = ui->doubleSpinBox_controllerPIDI->value();
+        param["D"] = ui->doubleSpinBox_controllerPIDD->value();
+    }
+    ad.setParemeters(param);
+    emit setActiveController(ctype.toStdString(), ad);
+}
+
+void MainWindow::on_pushButton_removeAdjustment_clicked(){
+    QString ctype = ui->comboBox_controllerType->currentText();
+    QString name = ui->listWidget_adjustments->currentItem()->text();
+    emit removeAdjustment(ctype.toStdString(), name.toStdString());
+}
+
+void MainWindow::on_pushButton_saveAdjustment_clicked(){
+    QDialog dialog;
+    dialog.setModal(true);
+    dialog.exec();
+}
+
 
 
 
@@ -111,7 +233,10 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 {
     if(arg1.compare(QString("P")) == 0){
-        emit setControllerType(std::string("P"));
+
+    }
+    if(arg1.compare(QString("PID")) == 0){
+
     }
 }
 
@@ -191,43 +316,13 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
 
 void MainWindow::on_doubleSpinBox_P_P_valueChanged(double arg1)
 {
-    emit setControllerParameter("P", arg1);
+    //emit setControllerParameter("P", arg1);
 }
 
-void MainWindow::on_actionNew_activated(){
-    emit newConfig();
-}
 
-void MainWindow::on_actionOpen_activated(){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::currentPath(), tr("Config File (*.yaml);;All (*.*)"), 0, QFileDialog::DontUseNativeDialog);
-    if(!fileName.isEmpty()){
-        emit openConfig(fileName.toStdString());
-    }
-}
 
-void MainWindow::on_actionSave_activated(){
-    emit saveConfig(std::string(""));
-}
 
-void MainWindow::on_actionSave_As_activated(){
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter(tr("Config File (*.yaml);;All (*.*)"));
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
 
-    QStringList fileNames;
-    if (dialog.exec())
-        fileNames = dialog.selectedFiles();
 
-    if(fileNames.size()>0){
-        emit saveConfig(fileNames.at(0).toStdString());
-    }
-}
 
-void MainWindow::on_actionExit_activated(){
-    close();
-}
 
-void MainWindow::on_pushButton_setObject_clicked(){
-    emit setActiveObject(ui->listWidget_Objects->currentItem()->text().toStdString());
-}

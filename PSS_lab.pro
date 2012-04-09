@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     simulation/source/impulssource.cpp \
     simulation/simulation.cpp \
     simulation/controller/controllerdata.cpp \
-    simulation/controller/adjustmentdata.cpp
+    simulation/controller/adjustmentdata.cpp \
+    simulation/controller/controllerpid.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -54,7 +55,8 @@ HEADERS  += gui/mainwindow.h \
     simulation/simulation.h \
     simulation/controller/controllerdata.h \
     simulation/controller/adjustmentdata.h \
-    tool.h
+    tool.h \
+    simulation/controller/controllerpid.h
 
 FORMS    += gui/mainwindow.ui
 

@@ -12,6 +12,7 @@
 #include <map>
 #include "object/nonstationarydiscreteobject.h"
 #include "controller/controllerp.h"
+#include "controller/controllerpid.h"
 #include "source/multisource.h"
 #include "object/objectdata.h"
 #include "object/modeldata.h"
@@ -42,6 +43,10 @@ signals:
     void retObjectData(ObjectData);
     void retActiveObject(std::string);
 
+    void retAdjustmentsList(std::map<std::string, ControllerData>);
+    //void retObjectData(ObjectData);
+    //void retActiveObject(std::string);
+
 public slots:
     void newConfig();
     void openConfig(std::string);
@@ -52,20 +57,22 @@ public slots:
     void editObjectData(std::string, ObjectData);
     void setActiveObject(std::string);
 
+    void getAdjustmentsList();
+    void removeAdjustment(std::string, std::string);
+    void saveAdjustment(std::string, AdjustmentData);
+    void setActiveController(std::string, AdjustmentData);
+
+
     //TODO:
     void addSource(std::string);
     void setLastSourceParameter(std::string, double);
     void removeLastSource();
-    void setControllerType(std::string);
-    void setControllerParameter(std::string, double);
+    //void setControllerType(std::string);
+    //void setControllerParameter(std::string, double);
 
-public:
-    /**
-     * @brief Sprawdza czy istnieje obiekt o zadaniej nazwie
-     *
-     * @param std::string
-     */
+private:
     std::vector<std::string> getObjectsKeys();
+    std::map<std::string, ControllerData> getAdjustments();
 
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
@@ -75,6 +82,7 @@ private:
     std::string filename;
 
     Controller *controller;
+    std::string currentControllerType;
     NonStationaryDiscreteObject *object;
     MultiSource *source;
 };

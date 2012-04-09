@@ -462,9 +462,9 @@ narazie dziala po staremu.</string>
      <attribute name="title">
       <string>Controller</string>
      </attribute>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="comboBox_controllerType">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -479,6 +479,11 @@ narazie dziala po staremu.</string>
         <string>P</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>PID</string>
+       </property>
+      </item>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
@@ -490,49 +495,33 @@ narazie dziala po staremu.</string>
        </rect>
       </property>
       <property name="text">
-       <string>Controler type:</string>
+       <string>Controller type:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_newAdjustment">
+     <widget class="QPushButton" name="pushButton_saveAdjustment">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>10</y>
+        <x>10</x>
+        <y>120</y>
         <width>191</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>New Adjustment</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_editAdjustment">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>40</y>
-        <width>191</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edit Selected</string>
+       <string>Save Adjustment</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_removeAdjustment">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>70</y>
+        <x>10</x>
+        <y>150</y>
         <width>191</width>
         <height>27</height>
        </rect>
@@ -543,7 +532,7 @@ narazie dziala po staremu.</string>
      </widget>
      <widget class="QPushButton" name="pushButton_setAdjustment">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -557,47 +546,164 @@ narazie dziala po staremu.</string>
        <string>Set Selected Controller/Adj</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_moveUpAdjustment">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>100</y>
-        <width>91</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Move Up</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_moveDownAdjustment">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>100</y>
-        <width>91</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Move Down</string>
-      </property>
-     </widget>
      <widget class="QListWidget" name="listWidget_adjustments">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>40</y>
         <width>191</width>
-        <height>141</height>
+        <height>71</height>
        </rect>
       </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>120</y>
+        <width>191</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>continous update</string>
+      </property>
+     </widget>
+     <widget class="QStackedWidget" name="stackedWidget_controllerValues">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>10</y>
+        <width>191</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="P">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_controllerPP">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>0</y>
+          <width>101</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <double>2000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_11">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>0</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>P:</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="PID">
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_controllerPIDP">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>0</y>
+          <width>101</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <double>2000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_controllerPIDI">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>30</y>
+          <width>101</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <double>2000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_controllerPIDD">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>60</y>
+          <width>101</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="maximum">
+         <double>2000.000000000000000</double>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>0</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>P:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_13">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>30</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>I:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_14">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>60</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>D:</string>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_object">
@@ -673,38 +779,6 @@ narazie dziala po staremu.</string>
       </property>
       <property name="text">
        <string>Remove Selected</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_moveUpObject">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>100</y>
-        <width>91</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Move Up</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_moveDownObject">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>310</x>
-        <y>100</y>
-        <width>91</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Move Down</string>
       </property>
      </widget>
     </widget>

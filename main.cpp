@@ -72,6 +72,18 @@ int main(int argc, char *argv[])
 
 
 
+    QObject::connect(&window, SIGNAL(getAdjustmentsList()),
+                     &config, SLOT(getAdjustmentsList()));
+    QObject::connect(&config, SIGNAL(retAdjustmentsList(std::map<std::string, ControllerData>)),
+                     &window, SLOT(retAdjustmentsList(std::map<std::string, ControllerData>)));
+    QObject::connect(&window, SIGNAL(setActiveController(std::string, AdjustmentData)),
+                     &config, SLOT(setActiveController(std::string, AdjustmentData)));
+    QObject::connect(&window, SIGNAL(removeAdjustment(std::string, std::string)),
+                     &config, SLOT(removeAdjustment(std::string, std::string)));
+    QObject::connect(&window, SIGNAL(saveAdjustment(std::string, AdjustmentData)),
+                     &config, SLOT(saveAdjustment(std::string, AdjustmentData)));
+
+
     //getAdjustment(std::string, std::string)
     //retAdjustment(std::string, AdjustmentData)
     ////getAdjustmentsList()
@@ -79,10 +91,8 @@ int main(int argc, char *argv[])
     //editAdjustment(std::string, AdjustmentData)
     //setAtciveController(std::string)
     //retAtciveController(std::string)
-    QObject::connect(&window, SIGNAL(setControllerType(std::string)),
-                     &config, SLOT(setControllerType(std::string)));
-    QObject::connect(&window, SIGNAL(setControllerParameter(std::string, double)),
-                     &config, SLOT(setControllerParameter(std::string, double)));
+
+
 
     //getSource(std::string)
     //retSource(std::string, SourceData)

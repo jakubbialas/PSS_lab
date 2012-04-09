@@ -4,6 +4,7 @@ Configuration::Configuration(QObject *parent) :
     QObject(parent)
 {
     controller = new ControllerP(1);
+    currentControllerType = "P";
     source = new MultiSource();
     object = new NonStationaryDiscreteObject();
 
@@ -47,6 +48,7 @@ void Configuration::openConfig(std::string n_filename){
     }
 
     emit retObjectsList(getObjectsKeys());
+    emit retAdjustmentsList(getAdjustments());
 }
 
 void Configuration::saveConfig(std::string n_filename){
@@ -86,15 +88,22 @@ void Configuration::saveConfig(std::string n_filename){
 }
 
 std::vector<std::string> Configuration::getObjectsKeys(){
-    std::vector<std::string> objectList;
+    std::vector<std::string> keys;
     std::map<std::string, ObjectData>::iterator it;
-
     for(it = objects.begin(); it != objects.end(); it++){
-        objectList.push_back((*it).first);
+        keys.push_back((*it).first);
     }
-    return objectList;
+    return keys;
 }
 
+std::map<std::string, ControllerData> Configuration::getAdjustments(){
+    /*std::map<std::string, std::vector<std::string> > keys;
+    std::map<std::string, ControllerData>::iterator it;
+    for(it = controllers.begin(); it != controllers.end(); it++){
+        keys[(*it).first] = (*it).second.getAdjustmentsNames();
+    }*/
+    return controllers;
+}
 
 
 
@@ -122,6 +131,46 @@ void Configuration::setActiveObject(std::string name){
 }
 
 
+void Configuration::getAdjustmentsList(){
+    emit retAdjustmentsList(getAdjustments());
+}
+
+void Configuration::removeAdjustment(std::string ctype, std::string name){
+    this->controllers[ctype].removeAdjustment(name);
+    emit retAdjustmentsList(getAdjustments());
+}
+
+void Configuration::saveAdjustment(std::string ctype, AdjustmentData ad){
+    this->controllers[ctype].addAdjustment(ad);
+    emit retAdjustmentsList(getAdjustments());
+}
+
+void Configuration::setActiveController(std::string ctype, AdjustmentData ad){
+    if(currentControllerType.compare(ctype) != 0){
+        if(ctype.compare("P") == 0){
+            delete controller;
+            controller = new ControllerP();
+            emit setController(controller);
+            currentControllerType = "P";
+        }
+        if(ctype.compare("PID") == 0){
+            delete controller;
+            controller = new ControllerPID();
+            emit setController(controller);
+            currentControllerType = "PID";
+        }
+    }
+    if(controller != NULL){
+        std::map<std::string, double>::iterator it;
+        std::map<std::string, double> param = ad.getParameters();
+        for(it = param.begin(); it!=param.end(); it++){
+            controller->setParameter((*it).first, (*it).second);
+        }
+    }
+}
+
+
+
 
 
 
@@ -138,7 +187,7 @@ void Configuration::removeLastSource(){
     source->removeLastSource();
 }
 
-void Configuration::setControllerType(std::string type){
+/*void Configuration::setControllerType(std::string type){
     if(type.compare("P") == 0){
         delete controller;
         controller = new ControllerP();
@@ -147,4 +196,4 @@ void Configuration::setControllerType(std::string type){
 
 void Configuration::setControllerParameter(std::string name, double value){
     this->controller->setParameter(name, value);
-}
+}*/
