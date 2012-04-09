@@ -44,7 +44,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab_simulation">
      <attribute name="title">
@@ -722,7 +722,7 @@ narazie dziala po staremu.</string>
      </widget>
      <widget class="QPushButton" name="pushButton_newObject">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -738,7 +738,7 @@ narazie dziala po staremu.</string>
      </widget>
      <widget class="QPushButton" name="pushButton_editObject">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -767,7 +767,7 @@ narazie dziala po staremu.</string>
      </widget>
      <widget class="QPushButton" name="pushButton_removeObject">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>

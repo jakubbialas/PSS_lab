@@ -23,9 +23,12 @@ void Configuration::newConfig(){
 
 void Configuration::openConfig(std::string n_filename){
 //TOTO: przeniesc gdzies te emity.... gdziekolwiek ale nie tu! i nie w konstruktorze!
-    emit setController(dynamic_cast<ObjectSISO*>(controller));
+    emit setController(controller);
     emit setObject(object);
     emit setSource(source);
+
+    objects.clear();
+    controllers.clear();
 
     filename = n_filename;
     std::ifstream file(filename.c_str());
@@ -117,11 +120,20 @@ void Configuration::getObjectData(std::string name){
     emit retObjectData(objects[name]);
 }
 
-void Configuration::editObjectData(std::string name, ObjectData od){
-    objects[name] = od;
-    if(od.getName() != name){
-        //TODO: change name;
+void Configuration::removeObject(std::string name){
+    std::map<std::string, ObjectData>::iterator it = objects.find(name);
+    objects.erase(it);
+    emit retObjectsList(getObjectsKeys());
+}
+
+void Configuration::editObject(std::string name, ObjectData od){
+    if(od.getName().compare(name) != 0){
+        removeObject(name);
+        objects[od.getName()] = od;
+    }else{
+        objects[name] = od;
     }
+    emit retObjectsList(getObjectsKeys());
 }
 
 void Configuration::setActiveObject(std::string name){
@@ -161,11 +173,14 @@ void Configuration::setActiveController(std::string ctype, AdjustmentData ad){
         }
     }
     if(controller != NULL){
+        std::ostringstream ret;
         std::map<std::string, double>::iterator it;
         std::map<std::string, double> param = ad.getParameters();
         for(it = param.begin(); it!=param.end(); it++){
             controller->setParameter((*it).first, (*it).second);
+            ret << " " << (*it).first << ": " << (*it).second;
         }
+        emit retActiveController(currentControllerType, ret.str());
     }
 }
 

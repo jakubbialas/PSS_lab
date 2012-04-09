@@ -44,8 +44,7 @@ signals:
     void retActiveObject(std::string);
 
     void retAdjustmentsList(std::map<std::string, ControllerData>);
-    //void retObjectData(ObjectData);
-    //void retActiveObject(std::string);
+    void retActiveController(std::string, std::string);
 
 public slots:
     void newConfig();
@@ -54,7 +53,8 @@ public slots:
 
     void getObjectsList();
     void getObjectData(std::string);
-    void editObjectData(std::string, ObjectData);
+    void editObject(std::string, ObjectData);
+    void removeObject(std::string);
     void setActiveObject(std::string);
 
     void getAdjustmentsList();

@@ -63,8 +63,10 @@ int main(int argc, char *argv[])
                      &config, SLOT(getObjectData(std::string)));
     QObject::connect(&config, SIGNAL(retObjectData(ObjectData)),
                      &window, SLOT(retObjectData(ObjectData)));
-    QObject::connect(&window, SIGNAL(editObjectData(std::string, ObjectData)),
-                     &config, SLOT(editObjectData(std::string, ObjectData)));
+    QObject::connect(&window, SIGNAL(editObject(std::string, ObjectData)),
+                     &config, SLOT(editObject(std::string, ObjectData)));
+    QObject::connect(&window, SIGNAL(removeObject(std::string)),
+                     &config, SLOT(removeObject(std::string)));
     QObject::connect(&window, SIGNAL(setActiveObject(std::string)),
                      &config, SLOT(setActiveObject(std::string)));
     QObject::connect(&config, SIGNAL(retActiveObject(std::string)),
@@ -76,21 +78,15 @@ int main(int argc, char *argv[])
                      &config, SLOT(getAdjustmentsList()));
     QObject::connect(&config, SIGNAL(retAdjustmentsList(std::map<std::string, ControllerData>)),
                      &window, SLOT(retAdjustmentsList(std::map<std::string, ControllerData>)));
-    QObject::connect(&window, SIGNAL(setActiveController(std::string, AdjustmentData)),
-                     &config, SLOT(setActiveController(std::string, AdjustmentData)));
     QObject::connect(&window, SIGNAL(removeAdjustment(std::string, std::string)),
                      &config, SLOT(removeAdjustment(std::string, std::string)));
     QObject::connect(&window, SIGNAL(saveAdjustment(std::string, AdjustmentData)),
                      &config, SLOT(saveAdjustment(std::string, AdjustmentData)));
+    QObject::connect(&window, SIGNAL(setActiveController(std::string, AdjustmentData)),
+                     &config, SLOT(setActiveController(std::string, AdjustmentData)));
+    QObject::connect(&config, SIGNAL(retActiveController(std::string, std::string)),
+                     &window, SLOT(retActiveController(std::string, std::string)));
 
-
-    //getAdjustment(std::string, std::string)
-    //retAdjustment(std::string, AdjustmentData)
-    ////getAdjustmentsList()
-    //retAdjustmentsList(std::vector<std::string>) ??
-    //editAdjustment(std::string, AdjustmentData)
-    //setAtciveController(std::string)
-    //retAtciveController(std::string)
 
 
 

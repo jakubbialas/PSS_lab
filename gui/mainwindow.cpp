@@ -73,12 +73,20 @@ void MainWindow::retObjectsList(std::vector<std::string> names){
     }
 }
 
-void MainWindow::retObjectData(ObjectData){
-    //TODO
+void MainWindow::retObjectData(ObjectData od){
+    EditObjectDialog *eod = new EditObjectDialog();
+    eod->setObjectData(od);
+    int status = eod->exec();
+    if(status == QDialog::Accepted){
+        emit this->editObject(od.getName(), eod->getObjectData());
+    }
+    delete eod;
 }
 
-void MainWindow::retActiveObject(std::string){
-    //TODO
+void MainWindow::retActiveObject(std::string name){
+    std::ostringstream msg;
+    msg << "Simulation object: " << name << ".";
+    ui->statusBar->showMessage(msg.str().c_str(), 5000);
 }
 
 void MainWindow::retAdjustmentsList(std::map<std::string, ControllerData> controllers){
@@ -104,6 +112,11 @@ void MainWindow::updateAdjustmentsList(){
     }
 }
 
+void MainWindow::retActiveController(std::string type, std::string adj){
+    std::ostringstream msg;
+    msg << "Controller set to " << type << ", adjustments: " << adj << ".";
+    ui->statusBar->showMessage(msg.str().c_str(), 5000);
+}
 
 
 
@@ -142,9 +155,33 @@ void MainWindow::on_actionExit_activated(){
     close();
 }
 
+
+
+
 void MainWindow::on_pushButton_setObject_clicked(){
     emit setActiveObject(ui->listWidget_Objects->currentItem()->text().toStdString());
 }
+
+void MainWindow::on_pushButton_removeObject_clicked(){
+    emit removeObject(ui->listWidget_Objects->currentItem()->text().toStdString());
+}
+
+void MainWindow::on_pushButton_editObject_clicked(){
+    emit this->getObjectData(ui->listWidget_Objects->currentItem()->text().toStdString());
+}
+
+void MainWindow::on_pushButton_newObject_clicked(){
+    EditObjectDialog *eod = new EditObjectDialog();
+    int status = eod->exec();
+    if(status == QDialog::Accepted){
+        emit this->editObject(eod->getObjectData().getName(), eod->getObjectData());
+    }
+    delete eod;
+}
+
+
+
+
 
 void MainWindow::on_comboBox_controllerType_currentIndexChanged(const QString &arg1){
     updateAdjustmentsList();
@@ -320,6 +357,9 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
 {
     emit setFeedback(checked);
 }
+
+
+
 
 
 

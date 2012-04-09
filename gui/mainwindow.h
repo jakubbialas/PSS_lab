@@ -16,6 +16,7 @@
 #include "simulation/controller/adjustmentdata.h"
 
 #include "saveadjustmentdialog.h"
+#include "editobjectdialog.h"
 
 using namespace std;
 namespace Ui {
@@ -58,7 +59,8 @@ signals:
     void setActiveObject(std::string);
     void getObjectData(std::string);
     void getObjectsList();
-    void editObjectData(std::string, ObjectData);
+    void removeObject(std::string);
+    void editObject(std::string, ObjectData);
 
 
     void getAdjustmentsList();
@@ -101,8 +103,8 @@ private slots:
     void retObjectData(ObjectData);
     void retActiveObject(std::string);
 
-
     void retAdjustmentsList(std::map<std::string, ControllerData>);
+    void retActiveController(std::string, std::string);
 //buttons:
     /**
      * @brief
@@ -166,6 +168,12 @@ private slots:
     void on_pushButton_removeAdjustment_clicked();
 
     void on_pushButton_saveAdjustment_clicked();
+
+    void on_pushButton_removeObject_clicked();
+
+    void on_pushButton_editObject_clicked();
+
+    void on_pushButton_newObject_clicked();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
