@@ -186,29 +186,26 @@ void Configuration::setActiveController(std::string ctype, AdjustmentData ad){
 
 
 
-
-
-
-
-void Configuration::addSource(std::string type){
-    source->addSource(type);
-}
-
-void Configuration::setLastSourceParameter(std::string name, double value){
-    source->setLastSourceParameter(name, value);
-}
-
-void Configuration::removeLastSource(){
-    source->removeLastSource();
-}
-
-/*void Configuration::setControllerType(std::string type){
-    if(type.compare("P") == 0){
-        delete controller;
-        controller = new ControllerP();
+void Configuration::setActiveSimpleSource(std::string type, std::map<std::string, double> param){
+    delete source;
+    if(type.compare("step") == 0){
+        source = new StepSource();
+    }else if(type.compare("impuls") == 0){
+        source = new ImpulsSource();
+    }else if(type.compare("sinus") == 0){
+        source = new SinusSource();
+    }else if(type.compare("square") == 0){
+        source = new SquareSource();
+    }else if(type.compare("triangle") == 0){
+        source = new TriangleSource();
+    }else if(type.compare("noise") == 0){
+        source = new NoiseSource();
     }
+    if(source != NULL){
+        std::map<std::string, double>::iterator it;
+        for(it = param.begin(); it!=param.end(); it++){
+            source->setParameter((*it).first, (*it).second);
+        }
+    }
+    emit setSource(source);
 }
-
-void Configuration::setControllerParameter(std::string name, double value){
-    this->controller->setParameter(name, value);
-}*/

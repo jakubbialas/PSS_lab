@@ -89,20 +89,28 @@ int main(int argc, char *argv[])
 
 
 
+    QObject::connect(&window, SIGNAL(setActiveSimpleSource(std::string, std::map<std::string, double>)),
+                     &config, SLOT(setActiveSimpleSource(std::string, std::map<std::string, double>)));
 
-    //getSource(std::string)
-    //retSource(std::string, SourceData)
-    ////getSourcesList()
-    //retSourcesList(std::vector<std::string>)
-    //editSource(std::string, SourceData)
-    //setActiveSource(std::string)
-    //retActiveSource(std::string)
-    QObject::connect(&window, SIGNAL(addSource(std::string)),
-                     &config, SLOT(addSource(std::string)));
-    QObject::connect(&window, SIGNAL(setLastSourceParameter(std::string, double)),
-                     &config, SLOT(setLastSourceParameter(std::string, double)));
-    QObject::connect(&window, SIGNAL(removeLastSource()),
-                     &config, SLOT(removeLastSource()));
+    /*TODO:
+    QObject::connect(&window, SIGNAL(getCustomSourcesList()),
+                     &config, SLOT(getCustomSourcesList()));
+    QObject::connect(&config, SIGNAL(retCustomSourcesList(std::vector<std::string>)),
+                     &window, SLOT(retCustomSourcesList(std::vector<std::string>)));
+    QObject::connect(&window, SIGNAL(getCustomSourceData(std::string)),
+                     &config, SLOT(getCustomSourceData(std::string)));
+    QObject::connect(&config, SIGNAL(retCustomSourceData(CustomSourceData)),
+                     &window, SLOT(retCustomSourceData(CustomSourceData)));
+    QObject::connect(&window, SIGNAL(editCustomSource(std::string, CustomSourceData)),
+                     &config, SLOT(editCustomSource(std::string, CustomSourceData)));
+    QObject::connect(&window, SIGNAL(removeCustomSource(std::string)),
+                     &config, SLOT(removeCustomSource(std::string)));
+    QObject::connect(&window, SIGNAL(setActiveCustomSource(std::string)),
+                     &config, SLOT(setActiveCustomSource(std::string)));
+
+    QObject::connect(&config, SIGNAL(retActiveSource(std::string)),
+                     &window, SLOT(retActiveSource(std::string)));
+    */
 
 
     window.show();

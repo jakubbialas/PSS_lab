@@ -69,9 +69,11 @@ signals:
     void saveAdjustment(std::string, AdjustmentData);
 
 
-    void addSource(std::string type);
-    void setLastSourceParameter(std::string name, double value);
-    void removeLastSource();
+    void setActiveSimpleSource(std::string, std::map<std::string, double>);
+
+    //void addSource(std::string type);
+    //void setLastSourceParameter(std::string name, double value);
+    //void removeLastSource();
 
 private slots:
     /**
@@ -105,6 +107,8 @@ private slots:
 
     void retAdjustmentsList(std::map<std::string, ControllerData>);
     void retActiveController(std::string, std::string);
+
+
 //buttons:
     /**
      * @brief
@@ -142,13 +146,6 @@ private slots:
 
 
 //object set:
-
-    void on_comboBox_source_currentIndexChanged(const QString &arg1);
-
-    void on_pushButton_addSource_clicked();
-
-    void on_pushButton_removeSource_clicked();
-
     void on_checkBox_feedback_toggled(bool checked);
 
     void on_actionNew_activated();
@@ -174,6 +171,10 @@ private slots:
     void on_pushButton_editObject_clicked();
 
     void on_pushButton_newObject_clicked();
+
+    void on_listWidget_simpleSources_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    void on_pushButton_setSimpleSource_clicked();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */

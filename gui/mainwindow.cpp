@@ -157,6 +157,7 @@ void MainWindow::on_actionExit_activated(){
 
 
 
+//////////////////////////////////// OBJECTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 void MainWindow::on_pushButton_setObject_clicked(){
     emit setActiveObject(ui->listWidget_Objects->currentItem()->text().toStdString());
@@ -182,6 +183,7 @@ void MainWindow::on_pushButton_newObject_clicked(){
 
 
 
+//////////////////////////////////// ADJUSTMENTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 void MainWindow::on_comboBox_controllerType_currentIndexChanged(const QString &arg1){
     updateAdjustmentsList();
@@ -259,8 +261,67 @@ void MainWindow::on_pushButton_saveAdjustment_clicked(){
 
 
 
+//////////////////////////////////// SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+void MainWindow::on_listWidget_simpleSources_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous){
+    QString arg1 = current->text();
+
+    if(arg1.compare(QString("Step")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(1);
+    }else if(arg1.compare(QString("Impuls")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(1);
+    }else if(arg1.compare(QString("Sinus")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(2);
+    }else if(arg1.compare(QString("Square")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(3);
+    }else if(arg1.compare(QString("Triangle")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(2);
+    }else if(arg1.compare(QString("Noise")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(1);
+    }else{
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(0);
+    }
+}
+
+void MainWindow::on_pushButton_setSimpleSource_clicked(){
+    QString arg1 = ui->listWidget_simpleSources->currentItem()->text();
+
+    std::map<std::string, double> param;
+    std::string name;
+
+    if(arg1.compare(QString("Step")) == 0){
+        param["amplitude"] = ui->doubleSpinBox_amplitude1->value();
+        name = "step";
+    }else if(arg1.compare(QString("Impuls")) == 0){
+        param["amplitude"] = ui->doubleSpinBox_amplitude1->value();
+        name = "impuls";
+    }else if(arg1.compare(QString("Noise")) == 0){
+        param["amplitude"] = ui->doubleSpinBox_amplitude1->value();
+        name = "noise";
+    }else if(arg1.compare(QString("Sinus")) == 0){
+        param["amplitude"] = ui->doubleSpinBox_amplitude2->value();
+        param["frequency"] = ui->doubleSpinBox_frequency2->value();
+        name = "sinus";
+    }else if(arg1.compare(QString("Triangle")) == 0){
+        param["amplitude"] = ui->doubleSpinBox_amplitude2->value();
+        param["frequency"] = ui->doubleSpinBox_frequency2->value();
+        name = "triangle";
+    }else if(arg1.compare(QString("Square")) == 0){
+        param["amplitude"] = ui->doubleSpinBox_amplitude3->value();
+        param["frequency"] = ui->doubleSpinBox_frequency3->value();
+        param["dutycycle"] = ui->doubleSpinBox_dutycycle3->value();
+        name = "square";
+    }
+
+    if(!name.empty()){
+        emit setActiveSimpleSource(name, param);
+    }
+}
 
 
+
+
+//////////////////////////////////// OTHERS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 void MainWindow::on_samplingSlider_valueChanged(int value)
 {
@@ -284,88 +345,7 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
     }
 }
 
-void MainWindow::on_comboBox_source_currentIndexChanged(const QString &arg1)
-{
-    if(arg1.compare(QString("Step")) == 0){
-        ui->stackedWidget->setCurrentIndex(0);
-    }else if(arg1.compare(QString("Impuls")) == 0){
-        ui->stackedWidget->setCurrentIndex(0);
-    }else if(arg1.compare(QString("Sinus")) == 0){
-        ui->stackedWidget->setCurrentIndex(1);
-    }else if(arg1.compare(QString("Square")) == 0){
-        ui->stackedWidget->setCurrentIndex(2);
-    }else if(arg1.compare(QString("Triangle")) == 0){
-        ui->stackedWidget->setCurrentIndex(1);
-    }else if(arg1.compare(QString("Noise")) == 0){
-        ui->stackedWidget->setCurrentIndex(0);
-    }
-}
-
-void MainWindow::on_pushButton_addSource_clicked()
-{
-    QString arg1 = ui->comboBox_source->currentText();
-    if(arg1.compare(QString("Step")) == 0){
-        double amplitude = ui->doubleSpinBox_amplitude1->value();
-        emit addSource("step");
-        emit setLastSourceParameter("amplitude", amplitude);
-        ui->listWidget_sources->addItem(QString("Step: a=").append(QString::number(amplitude, 'f', 2)));
-    }else if(arg1.compare(QString("Impuls")) == 0){
-        double amplitude = ui->doubleSpinBox_amplitude1->value();
-        emit addSource("impuls");
-        emit setLastSourceParameter("amplitude", amplitude);
-        ui->listWidget_sources->addItem(QString("Impuls: a=").append(QString::number(amplitude, 'f', 2)));
-    }else if(arg1.compare(QString("Noise")) == 0){
-        double amplitude = ui->doubleSpinBox_amplitude1->value();
-        emit addSource("noise");
-        emit setLastSourceParameter("amplitude", amplitude);
-        ui->listWidget_sources->addItem(QString("Noise: a=").append(QString::number(amplitude, 'f', 2)));
-    }else if(arg1.compare(QString("Sinus")) == 0){
-        double amplitude = ui->doubleSpinBox_amplitude2->value();
-        double frequency = ui->doubleSpinBox_frequency2->value();
-        emit addSource("sinus");
-        emit setLastSourceParameter("amplitude", amplitude);
-        emit setLastSourceParameter("frequency", frequency);
-        ui->listWidget_sources->addItem(QString("Sinus: a=").append(QString::number(amplitude, 'f', 2)).append(" f=").append(QString::number(frequency, 'f', 2)));
-    }else if(arg1.compare(QString("Triangle")) == 0){
-        double amplitude = ui->doubleSpinBox_amplitude2->value();
-        double frequency = ui->doubleSpinBox_frequency2->value();
-        emit addSource("triangle");
-        emit setLastSourceParameter("amplitude", amplitude);
-        emit setLastSourceParameter("frequency", frequency);
-        ui->listWidget_sources->addItem(QString("Triangle: a=").append(QString::number(amplitude, 'f', 2)).append(" f=").append(QString::number(frequency, 'f', 2)));
-    }else if(arg1.compare(QString("Square")) == 0){
-        double amplitude = ui->doubleSpinBox_amplitude3->value();
-        double frequency = ui->doubleSpinBox_frequency3->value();
-        double dutycycle = ui->doubleSpinBox_dutycycle3->value();
-        emit addSource("square");
-        emit setLastSourceParameter("amplitude", amplitude);
-        emit setLastSourceParameter("frequency", frequency);
-        emit setLastSourceParameter("dutycycle", dutycycle);
-        ui->listWidget_sources->addItem(QString("Square: a=").append(QString::number(amplitude, 'f', 2)).append(" f=").append(QString::number(frequency, 'f', 2)).append(" d=").append(QString::number(dutycycle, 'f', 2)));
-    }
-}
-
-void MainWindow::on_pushButton_removeSource_clicked(){
-    emit removeLastSource();
-    int i = ui->listWidget_sources->count();
-    if(i>0){
-        delete ui->listWidget_sources->item(i-1);
-    }
-}
-
 void MainWindow::on_checkBox_feedback_toggled(bool checked)
 {
     emit setFeedback(checked);
 }
-
-
-
-
-
-
-
-
-
-
-
-

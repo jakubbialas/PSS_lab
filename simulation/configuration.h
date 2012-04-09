@@ -62,13 +62,7 @@ public slots:
     void saveAdjustment(std::string, AdjustmentData);
     void setActiveController(std::string, AdjustmentData);
 
-
-    //TODO:
-    void addSource(std::string);
-    void setLastSourceParameter(std::string, double);
-    void removeLastSource();
-    //void setControllerType(std::string);
-    //void setControllerParameter(std::string, double);
+    void setActiveSimpleSource(std::string, std::map<std::string, double>);
 
 private:
     std::vector<std::string> getObjectsKeys();
@@ -84,7 +78,7 @@ private:
     Controller *controller;
     std::string currentControllerType;
     NonStationaryDiscreteObject *object;
-    MultiSource *source;
+    Source *source;
 };
 
 #endif // CONFIGURATION_H
