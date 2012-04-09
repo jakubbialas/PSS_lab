@@ -198,9 +198,26 @@ void MainWindow::on_pushButton_removeAdjustment_clicked(){
 }
 
 void MainWindow::on_pushButton_saveAdjustment_clicked(){
-    QDialog dialog;
-    dialog.setModal(true);
-    dialog.exec();
+    SaveAdjustmentDialog *sad = new SaveAdjustmentDialog();
+    int status = sad->exec();
+    if(status == QDialog::Accepted){
+        std::string name = sad->getAdjustmentName();
+        QString ctype = ui->comboBox_controllerType->currentText();
+        AdjustmentData ad = AdjustmentData();
+        std::map<std::string, double> param;
+        if(ctype.compare("P") == 0){
+            param["P"] = ui->doubleSpinBox_controllerPP->value();
+        }
+        if(ctype.compare("PID") == 0){
+            param["P"] = ui->doubleSpinBox_controllerPIDP->value();
+            param["I"] = ui->doubleSpinBox_controllerPIDI->value();
+            param["D"] = ui->doubleSpinBox_controllerPIDD->value();
+        }
+        ad.setParemeters(param);
+        ad.setName(name);
+        emit saveAdjustment(ctype.toStdString(), ad);
+    }
+    delete sad;
 }
 
 
@@ -226,16 +243,6 @@ void MainWindow::on_stepSimRadio_toggled(bool checked)
 {
     ui->stepFrame->setEnabled(checked);
     if(checked){
-
-    }
-}
-
-void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if(arg1.compare(QString("P")) == 0){
-
-    }
-    if(arg1.compare(QString("PID")) == 0){
 
     }
 }
@@ -314,10 +321,6 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
     emit setFeedback(checked);
 }
 
-void MainWindow::on_doubleSpinBox_P_P_valueChanged(double arg1)
-{
-    //emit setControllerParameter("P", arg1);
-}
 
 
 

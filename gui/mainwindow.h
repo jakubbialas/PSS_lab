@@ -15,6 +15,8 @@
 #include "simulation/controller/controllerdata.h"
 #include "simulation/controller/adjustmentdata.h"
 
+#include "saveadjustmentdialog.h"
+
 using namespace std;
 namespace Ui {
     class MainWindow;
@@ -139,8 +141,6 @@ private slots:
 
 //object set:
 
-    void on_comboBox_currentIndexChanged(const QString &arg1);
-
     void on_comboBox_source_currentIndexChanged(const QString &arg1);
 
     void on_pushButton_addSource_clicked();
@@ -148,8 +148,6 @@ private slots:
     void on_pushButton_removeSource_clicked();
 
     void on_checkBox_feedback_toggled(bool checked);
-
-    void on_doubleSpinBox_P_P_valueChanged(double arg1);
 
     void on_actionNew_activated();
     void on_actionOpen_activated();
