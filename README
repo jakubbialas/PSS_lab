@@ -1,0 +1,11 @@
+TODO:
+
+ - Komentarze w klasach GUI
+ - Remake klasy MultiSource
+ - Zapis i odczyt custom sources z pliku
+ - Okno dialogowe umozliwiajaca dodawanie i edytowanie custom sources
+ - zapis sygnałów z pliku (zapis sygnalu wyjsciowego, sterowania, uchybu itp.)
+ - odczyt sygnału wejsciowego z pliku
+ - implementacja brakujacych metod w klasie wykresu (mozna ta klase przerobic całkowicie...)
+ - wyrzucanie wyjatkow przez klasy source, controller, discreteobject itd. oraz obsługa tych wyjatków
+ - wysyłanie wyjatków z klasy configuration do gui w formie sygnału i wyswietlanie ich w formie okna dialogowego
