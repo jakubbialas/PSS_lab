@@ -16,8 +16,8 @@ void SquareSource::setParameter(std::string name, double value){
 }
 
 double SquareSource::getSample(){
-    double t = (int)(getTime())%(int)(frequency);
-    t = t/(frequency);
+    double t = (int)(getTime())%(int)(1/frequency);
+    t = t*frequency;
     if(t < dutycycle/100){
         return amplitude;
     }else{

@@ -31,7 +31,7 @@ adjustments:
   - type: P
     name: nastawa1
     parameters:
-      P: 3
+      P: 1
   - type: P
     name: nastawa2
     parameters:
@@ -43,17 +43,26 @@ adjustments:
       I: 5.5
       P: 1
 sources:
-  - name: defined source 1
+  - name: sinus f=0.01 + noise
     sources:
-      - type: step
-        parameters:
-          amplitude: 1
       - type: sinus
         parameters:
-          amplitude: 0.1
+          amplitude: 1
           frequency: 0.01
-  - name: defined source 2
-    sources:
-      - type: impuls
+      - type: noise
         parameters:
-          amplitude: 2
+          amplitude: 0.05
+  - name: square + triangle + noise
+    sources:
+      - type: square
+        parameters:
+          amplitude: 1
+          dutycycle: 50
+          frequency: 0.01
+      - type: triangle
+        parameters:
+          amplitude: 1
+          frequency: 0.01
+      - type: noise
+        parameters:
+          amplitude: 0.05
