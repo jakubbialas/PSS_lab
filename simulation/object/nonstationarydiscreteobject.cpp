@@ -31,8 +31,8 @@ void NonStationaryDiscreteObject::updateModel(){
 }
 
 void NonStationaryDiscreteObject::reset(){
-    updateModel();
     DiscreteObject::reset();
+    updateModel();
 }
 
 double NonStationaryDiscreteObject::simulate(double input){

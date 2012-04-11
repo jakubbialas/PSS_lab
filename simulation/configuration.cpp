@@ -3,9 +3,9 @@
 Configuration::Configuration(QObject *parent) :
     QObject(parent)
 {
-    controller = new ControllerP(1);
-    currentControllerType = "P";
-    source = new MultiSource();
+    controller = NULL;
+    currentControllerType = "";
+    source = NULL;
     object = new NonStationaryDiscreteObject();
 
 }
@@ -18,7 +18,13 @@ Configuration::~Configuration(){
 
 void Configuration::newConfig(){
     filename = "";
-    //objects = NULL;
+    delete source;
+    delete object;
+    delete controller;
+    object = new NonStationaryDiscreteObject();
+    objects.clear();
+    adjustments.clear();
+
 }
 
 void Configuration::openConfig(std::string n_filename){

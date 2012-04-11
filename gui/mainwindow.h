@@ -12,7 +12,6 @@
 #include <sstream>
 #include "simulation/object/objectdata.h"
 
-#include "simulation/controller/controllerdata.h"
 #include "simulation/controller/adjustmentdata.h"
 
 #include "saveadjustmentdialog.h"

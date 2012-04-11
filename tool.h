@@ -5,7 +5,6 @@
 #include <vector>
 #include <map>
 
-//namespace std{
     template < class T >
     std::ostream& operator << (std::ostream& os, const std::vector<T>& v)
     {
@@ -29,6 +28,5 @@
         os << "]";
         return os;
     }
-//}
 
 #endif // TOOL_H

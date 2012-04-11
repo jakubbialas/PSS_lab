@@ -13,5 +13,5 @@ void SinusSource::setParameter(std::string name, double value){
 }
 
 double SinusSource::getSample(){
-    return sin(frequency*this->getTime()*2*M_PI/1000)*amplitude;
+    return sin(frequency*this->getTime()*2*M_PI)*amplitude;
 }

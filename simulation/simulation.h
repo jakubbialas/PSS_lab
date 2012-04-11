@@ -65,6 +65,11 @@ public slots:
      * @param int czas probkowania wykresu[ms]
      */
     void setSamplingTime(int);
+    /**
+     * @brief Gniazdo odbierajace sygnal zamykający bądz otwierający sprzężenie zwrotne
+     *
+     * @param bool
+     */
     void setFeedback(bool);
 
     /**
@@ -95,24 +100,40 @@ public slots:
      */
     void nextStep();
 
+
+    /**
+     * @brief Gniazdo odbierajace sygnal ustawiający symulowany obiekt
+     *
+     * @param wskaźnik na obiektSISO w najprostrzej postaci
+     */
     void setObject(ObjectSISO*);
+    /**
+     * @brief Gniazdo odbierajace sygnal ustawiający symulowany regulator
+     *
+     * @param wskaźnik na obiektSISO w najprostrzej postaci
+     */
     void setController(ObjectSISO*);
+    /**
+     * @brief Gniazdo odbierajace sygnal ustawiający symulowane źródło
+     *
+     * @param wskaźnik na Źródło w najprostrzej postaci
+     */
     void setSource(Source*);
 
 public:
-    ObjectSISO* getObject();
-    ObjectSISO* getController();
-    Source* getSource();
+    //ObjectSISO* getObject();
+    //ObjectSISO* getController();
+    //Source* getSource();
 
 private:
-    ObjectSISO *object;
-    ObjectSISO *controller;
-    Source *source;
+    ObjectSISO *object; /**< wskaźnik na symulowany obiekt dyskretny */
+    ObjectSISO *controller; /**< wskaxnik na symulowany regulator */
+    Source *source; /**< wskaźnik na symulowane źródło */
 
-    QTimer * timer; /**< Timer generujacy nowe punkty na wykresie co okreslony czas probkowania */
+    QTimer * timer; /**< Timer odpowiedzialny za wygenerowanie kolejnych wartości symulacji */
 
     int samplingTime; /**< Czas probkowania wykresu */
-    bool feedback;
+    bool feedback; /**< sprzężenie zwrotne */
 };
 
 #endif // SIMULATION_H

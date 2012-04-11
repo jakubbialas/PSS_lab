@@ -13,8 +13,8 @@ void TriangleSource::setParameter(std::string name, double value){
 }
 
 double TriangleSource::getSample(){
-    double t = (int)(getTime())%(int)(1000/frequency);
-    t = t/(1000/frequency);
+    double t = (int)(getTime())%(int)(frequency);
+    t = t/(frequency);
     if(t < 0.25){
         return 4*t*amplitude;
     }else if (t<0.75){

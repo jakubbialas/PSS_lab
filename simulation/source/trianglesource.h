@@ -3,17 +3,35 @@
 
 #include "source.h"
 
+/**
+ * @brief Klasa Źródła fali trójkątnej
+ *
+ */
 class TriangleSource : public Source
 {
 private:
-    double amplitude;
-    double frequency;
+    double amplitude; /**< amplituda */
+    double frequency; /**< częstotliwość */
 
 public:
+    /**
+     * @brief Konstruktor
+     *
+     */
     TriangleSource();
 
+    /**
+     * @brief funkcja ustawiająca parametr źródła
+     *
+     * @param std::string nazwa parametru (możliwe wartości: "amlplitude", "frequency");
+     * @param double wartosc paramatru
+     */
     void setParameter(std::string, double);
-    double getNextSample();
+
+    /**
+     * @brief funkcja zwraca sygnał wyjsciowy
+     *
+     */
     double getSample();
 };
 
