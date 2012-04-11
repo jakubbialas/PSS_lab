@@ -10,7 +10,7 @@ void StepSource::setParameter(std::string name, double value){
 }
 
 double StepSource::getSample(){
-    if(getTime()>0){
+    if(getTime()>=0){
         return amplitude;
     }else{
         return 0;

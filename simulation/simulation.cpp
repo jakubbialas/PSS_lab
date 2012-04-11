@@ -28,11 +28,6 @@ void Simulation::setSamplingTime(int n_samplingTime){
 }
 
 void Simulation::startSimulation(){
-    NonStationaryDiscreteObject *a = dynamic_cast<NonStationaryDiscreteObject*>(object);
-    ControllerP *p = dynamic_cast<ControllerP*>(controller);
-    MultiSource *s = dynamic_cast<MultiSource*>(source);
-
-
     timer->start(samplingTime);
 }
 
@@ -80,7 +75,7 @@ void Simulation::setSource(Source* n_source){
     source = n_source;
 }
 
-ObjectSISO* Simulation::getObject(){
+/*ObjectSISO* Simulation::getObject(){
     return object;
 }
 
@@ -90,4 +85,4 @@ ObjectSISO* Simulation::getController(){
 
 Source* Simulation::getSource(){
     return source;
-}
+}*/
