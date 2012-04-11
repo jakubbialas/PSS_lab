@@ -4,6 +4,7 @@ TODO:
  - Remake klasy MultiSource
  - Zapis i odczyt custom sources z pliku
  - Okno dialogowe umozliwiajaca dodawanie i edytowanie custom sources
+ - uzupelnienie okna dialogowego umizliwiajacego edycje obiektów
  - zapis sygnałów z pliku (zapis sygnalu wyjsciowego, sterowania, uchybu itp.)
  - odczyt sygnału wejsciowego z pliku
  - implementacja brakujacych metod w klasie wykresu (mozna ta klase przerobic całkowicie...)
