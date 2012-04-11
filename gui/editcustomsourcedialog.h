@@ -19,8 +19,20 @@ public:
     void setCustomSourceData(MultiSourceData);
     MultiSourceData getCustomSourceData();
 
+private slots:
+
+    void on_pushButton_addSource_clicked();
+
+    void on_pushButton_removeSource_clicked();
+
+    void on_comboBox_source_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::EditCustomSourceDialog *ui;
+
+    std::vector<SourceData> sources;
+
+    void updateSourceList();
 };
 
 #endif // EDITCUSTOMSOURCEDIALOG_H
