@@ -92,25 +92,24 @@ int main(int argc, char *argv[])
     QObject::connect(&window, SIGNAL(setActiveSimpleSource(std::string, std::map<std::string, double>)),
                      &config, SLOT(setActiveSimpleSource(std::string, std::map<std::string, double>)));
 
-    /*TODO:
+
     QObject::connect(&window, SIGNAL(getCustomSourcesList()),
                      &config, SLOT(getCustomSourcesList()));
     QObject::connect(&config, SIGNAL(retCustomSourcesList(std::vector<std::string>)),
                      &window, SLOT(retCustomSourcesList(std::vector<std::string>)));
     QObject::connect(&window, SIGNAL(getCustomSourceData(std::string)),
                      &config, SLOT(getCustomSourceData(std::string)));
-    QObject::connect(&config, SIGNAL(retCustomSourceData(CustomSourceData)),
-                     &window, SLOT(retCustomSourceData(CustomSourceData)));
-    QObject::connect(&window, SIGNAL(editCustomSource(std::string, CustomSourceData)),
-                     &config, SLOT(editCustomSource(std::string, CustomSourceData)));
+    QObject::connect(&config, SIGNAL(retCustomSourceData(MultiSourceData)),
+                     &window, SLOT(retCustomSourceData(MultiSourceData)));
+    QObject::connect(&window, SIGNAL(editCustomSource(std::string, MultiSourceData)),
+                     &config, SLOT(editCustomSource(std::string, MultiSourceData)));
     QObject::connect(&window, SIGNAL(removeCustomSource(std::string)),
                      &config, SLOT(removeCustomSource(std::string)));
     QObject::connect(&window, SIGNAL(setActiveCustomSource(std::string)),
                      &config, SLOT(setActiveCustomSource(std::string)));
-
     QObject::connect(&config, SIGNAL(retActiveSource(std::string)),
                      &window, SLOT(retActiveSource(std::string)));
-    */
+
 
 
     window.show();

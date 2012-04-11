@@ -9,57 +9,55 @@
 #include "sinussource.h"
 #include "noisesource.h"
 #include "squaresource.h"
+#include "sourcedata.h"
 
 #include <vector>
 
 /**
  * @brief Klasa MultiSource pozwala na sumowanie wybranych źródeł prostych
- * TODO: Klasa jest prawdopodobnie do przeróbki!!
  *
  */
 class MultiSource : public Source
 {
 public:
-/**
- * @brief
- *
- */
+    /**
+     * @brief Konstruktor
+     *
+     */
     MultiSource();
+    /**
+     * @brief Konstruktor
+     *
+     */
+    MultiSource(std::vector<SourceData>);
+    /**
+     * @brief Destruktor
+     *
+     */
+    ~MultiSource();
 
     /**
-     * @brief
+     * @brief nieuzywana funkcjia...
      *
      * @param std::string
      * @param double
      */
     void setParameter(std::string, double);
     /**
-     * @brief
+     * @brief funkcja zwraca sygnał wyjsciowy
      *
      */
     double getSample();
 
-    /**
-     * @brief
-     *
-     * @param std::string
-     */
-    void addSource(std::string);
-    /**
-     * @brief
-     *
-     */
-    void removeLastSource();
-    /**
-     * @brief
-     *
-     * @param std::string
-     * @param double
-     */
-    void setLastSourceParameter(std::string, double);
-
 private:
-    std::vector<Source*> sources; /**< TODO */
+    /**
+     * @brief funkcja tworzy źródło określonego typu i je zwraca
+     *
+     * @param type
+     */
+    Source* createSource(std::string type);
+
+    std::vector<Source*> sources; /**< vektor źródeł podstawowych */
 };
 
 #endif // MULTISOURCE_H

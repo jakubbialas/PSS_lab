@@ -3,7 +3,26 @@
 MultiSource::MultiSource(){
 }
 
-void MultiSource::addSource(std::string type){
+MultiSource::MultiSource(std::vector<SourceData> vsd){
+    std::vector<SourceData>::iterator it;
+    for(it = vsd.begin(); it != vsd.end(); it++){
+        Source* source = createSource((*it).getType());
+        if(source){
+            std::map<std::string, double>::iterator it2;
+            std::map<std::string, double> param = (*it).getParameters();
+            for(it2 = param.begin(); it2 != param.end(); it2++){
+                source->setParameter((*it2).first, (*it2).second);
+            }
+            sources.push_back(source);
+        }
+    }
+}
+
+MultiSource::~MultiSource(){
+
+}
+
+Source* MultiSource::createSource(std::string type){
     Source *source = NULL;
     if(type.compare("step") == 0){
         source = new StepSource();
@@ -23,20 +42,7 @@ void MultiSource::addSource(std::string type){
     if(type.compare("noise") == 0){
         source = new NoiseSource();
     }
-    if(source){
-        sources.push_back(source);
-    }
-}
-
-void MultiSource::removeLastSource(){
-    if(sources.size()>0){
-        sources.pop_back();
-    }
-}
-
-void MultiSource::setLastSourceParameter(std::string name, double value){
-    Source *a = sources.at(sources.size()-1);
-    a->setParameter(name, value);
+    return source;
 }
 
 void MultiSource::setParameter(std::string name, double value){

@@ -24,6 +24,7 @@ void Configuration::newConfig(){
     object = new NonStationaryDiscreteObject();
     objects.clear();
     adjustments.clear();
+    sources.clear();
 
 }
 
@@ -35,6 +36,7 @@ void Configuration::openConfig(std::string n_filename){
 
     objects.clear();
     adjustments.clear();
+    sources.clear();
 
     filename = n_filename;
     std::ifstream file(filename.c_str());
@@ -50,14 +52,11 @@ void Configuration::openConfig(std::string n_filename){
         objects[objectData.getName()] = objectData;
     }
     node["adjustments"] >> adjustments;
-    /*for(unsigned int i=0;i<node["controllers"].size();i++) {
-        ControllerData controllerData = ControllerData();
-        node["controllers"][i] >> controllerData;
-        controllers[controllerData.getType()] = controllerData;
-    }*/
+    node["sources"] >> sources;
 
     emit retObjectsList(getObjectsKeys());
     emit retAdjustmentsList(getAdjustments());
+    emit retCustomSourcesList(getSourcesNames());
 }
 
 void Configuration::saveConfig(std::string n_filename){
@@ -80,6 +79,8 @@ void Configuration::saveConfig(std::string n_filename){
 
     emitter << YAML::Key << "adjustments" << YAML::Value << adjustments;
 
+    emitter << YAML::Key << "sources" << YAML::Value << sources;
+
     emitter << YAML::EndMap;
 
     std::ofstream file(filename.c_str());
@@ -98,15 +99,17 @@ std::vector<std::string> Configuration::getObjectsKeys(){
 }
 
 std::vector<AdjustmentData> Configuration::getAdjustments(){
-    /*std::map<std::string, std::vector<std::string> > keys;
-    std::map<std::string, ControllerData>::iterator it;
-    for(it = controllers.begin(); it != controllers.end(); it++){
-        keys[(*it).first] = (*it).second.getAdjustmentsNames();
-    }*/
     return adjustments;
 }
 
-
+std::vector<std::string> Configuration::getSourcesNames(){
+    std::vector<std::string> keys;
+    std::vector<MultiSourceData>::iterator it;
+    for(it = sources.begin(); it != sources.end(); it++){
+        keys.push_back((*it).getName());
+    }
+    return keys;
+}
 
 
 
@@ -219,5 +222,53 @@ void Configuration::setActiveSimpleSource(std::string type, std::map<std::string
         }
     }
     emit setSource(source);
-   // emit setActiveSimpleSource();
+    emit retActiveSource(type);
+}
+
+
+
+
+std::vector<MultiSourceData>::iterator Configuration::findSource(std::string name){
+    std::vector<MultiSourceData>::iterator it, it_r = sources.end();
+    for(it = sources.begin(); it!=sources.end(); it++){
+        if((*it).getName().compare(name) == 0){
+            it_r = it;
+        }
+    }
+    return it_r;
+}
+
+void Configuration::getCustomSourcesList(){
+    emit retCustomSourcesList(getSourcesNames());
+}
+
+void Configuration::getCustomSourceData(std::string name){
+    std::vector<MultiSourceData>::iterator it = findSource(name);
+    if(it != sources.end()){
+        MultiSourceData msd = (*it);
+        emit retCustomSourceData(msd);
+    }
+}
+
+void Configuration::editCustomSource(std::string name, MultiSourceData msd){
+    if(findSource(name) != sources.end()){
+        removeCustomSource(name);
+    }
+    sources.push_back(msd);
+
+    emit retCustomSourcesList(getSourcesNames());
+}
+
+void Configuration::removeCustomSource(std::string name){
+    std::vector<MultiSourceData>::iterator it = findSource(name);
+    sources.erase(it);
+    emit retCustomSourcesList(getSourcesNames());
+
+}
+
+void Configuration::setActiveCustomSource(std::string name){
+    delete source;
+    source = new MultiSource(findSource(name)->getSources());
+    emit setSource(source);
+    emit retActiveSource(name);
 }

@@ -121,7 +121,32 @@ void MainWindow::retActiveAdjustment(std::string type, std::string adj){
 }
 
 
+void MainWindow::retCustomSourcesList(std::vector<std::string> names){
+    ui->listWidget_customSources->clear();
+    std::vector<std::string>::iterator it;
+    for(it = names.begin(); it < names.end(); it++){
+        ui->listWidget_customSources->addItem(QString((*it).c_str()));
+    }
+}
 
+void MainWindow::retCustomSourceData(MultiSourceData msd){
+    EditCustomSourceDialog *ecsd = new EditCustomSourceDialog();
+    ecsd->setCustomSourceData(msd);
+    int status = ecsd->exec();
+    if(status == QDialog::Accepted){
+        emit this->editCustomSource(msd.getName(), ecsd->getCustomSourceData());
+    }
+    delete ecsd;
+}
+
+void MainWindow::retActiveSource(std::string name){
+    std::ostringstream msg;
+    msg << "Simulation source: " << name << ".";
+    ui->statusBar->showMessage(msg.str().c_str(), 5000);
+}
+
+
+//////////////////////////////////// CONFIG \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 void MainWindow::on_actionNew_activated(){
     emit newConfig();
@@ -156,8 +181,6 @@ void MainWindow::on_actionSave_As_activated(){
 void MainWindow::on_actionExit_activated(){
     close();
 }
-
-
 
 //////////////////////////////////// OBJECTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -268,7 +291,7 @@ void MainWindow::on_pushButton_saveAdjustment_clicked(){
 
 
 
-//////////////////////////////////// SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////////////////////////////////// SIMPLE SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 void MainWindow::on_listWidget_simpleSources_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous){
     QString arg1 = current->text();
@@ -326,6 +349,28 @@ void MainWindow::on_pushButton_setSimpleSource_clicked(){
 }
 
 
+//////////////////////////////////// CUSTOM SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+void MainWindow::on_pushButton_addCustomSource_clicked(){
+    EditCustomSourceDialog *ecsd = new EditCustomSourceDialog();
+    int status = ecsd->exec();
+    if(status == QDialog::Accepted){
+        emit editCustomSource(ecsd->getCustomSourceData().getName(), ecsd->getCustomSourceData());
+    }
+    delete ecsd;
+}
+
+void MainWindow::on_pushButton_removeCustomSource_clicked(){
+    emit removeCustomSource(ui->listWidget_customSources->currentItem()->text().toStdString());
+}
+
+void MainWindow::on_pushButton_editCustomSource_clicked(){
+    emit getCustomSourceData(ui->listWidget_customSources->currentItem()->text().toStdString());
+}
+
+void MainWindow::on_pushButton_setCustomSource_clicked(){
+    emit setActiveCustomSource(ui->listWidget_customSources->currentItem()->text().toStdString());
+}
 
 
 //////////////////////////////////// OTHERS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -356,3 +401,4 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
 {
     emit setFeedback(checked);
 }
+

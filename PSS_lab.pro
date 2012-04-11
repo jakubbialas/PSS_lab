@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     gui/saveadjustmentdialog.cpp \
     gui/editobjectdialog.cpp \
     simulation/source/multisourcedata.cpp \
-    simulation/source/sourcedata.cpp
+    simulation/source/sourcedata.cpp \
+    gui/editcustomsourcedialog.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -62,11 +63,13 @@ HEADERS  += gui/mainwindow.h \
     gui/saveadjustmentdialog.h \
     gui/editobjectdialog.h \
     simulation/source/multisourcedata.h \
-    simulation/source/sourcedata.h
+    simulation/source/sourcedata.h \
+    gui/editcustomsourcedialog.h
 
 FORMS    += gui/mainwindow.ui \
     gui/saveadjustmentdialog.ui \
-    gui/editobjectdialog.ui
+    gui/editobjectdialog.ui \
+    gui/editcustomsourcedialog.ui
 
 
 unix: LIBS += -L$$PWD/../../../../usr/local/qwt-6.0.2-svn/lib/ -lqwt

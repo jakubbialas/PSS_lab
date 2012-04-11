@@ -42,3 +42,18 @@ adjustments:
       D: 1.4
       I: 5.5
       P: 1
+sources:
+  - name: defined source 1
+    sources:
+      - type: step
+        parameters:
+          amplitude: 1
+      - type: sinus
+        parameters:
+          amplitude: 0.1
+          frequency: 0.01
+  - name: defined source 2
+    sources:
+      - type: impuls
+        parameters:
+          amplitude: 2

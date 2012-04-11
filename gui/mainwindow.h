@@ -11,11 +11,12 @@
 #include <iostream>
 #include <sstream>
 #include "simulation/object/objectdata.h"
-
 #include "simulation/controller/adjustmentdata.h"
+#include "simulation/source/multisourcedata.h"
 
 #include "saveadjustmentdialog.h"
 #include "editobjectdialog.h"
+#include "editcustomsourcedialog.h"
 
 using namespace std;
 namespace Ui {
@@ -55,6 +56,7 @@ signals:
     void setSamplingTime(int);
     void setFeedback(bool);
 
+
     void setActiveObject(std::string);
     void getObjectData(std::string);
     void getObjectsList();
@@ -70,9 +72,11 @@ signals:
 
     void setActiveSimpleSource(std::string, std::map<std::string, double>);
 
-    //void addSource(std::string type);
-    //void setLastSourceParameter(std::string name, double value);
-    //void removeLastSource();
+    void getCustomSourcesList();
+    void editCustomSource(std::string, MultiSourceData);
+    void removeCustomSource(std::string);
+    void getCustomSourceData(std::string);
+    void setActiveCustomSource(std::string);
 
 private slots:
     /**
@@ -107,6 +111,9 @@ private slots:
     void retAdjustmentsList(std::vector<AdjustmentData>);
     void retActiveAdjustment(std::string, std::string);
 
+    void retCustomSourcesList(std::vector<std::string>);
+    void retCustomSourceData(MultiSourceData);
+    void retActiveSource(std::string);
 
 //buttons:
     /**
@@ -144,13 +151,16 @@ private slots:
     void on_stepSimRadio_toggled(bool checked);
 
 
-//object set:
     void on_checkBox_feedback_toggled(bool checked);
 
     void on_actionNew_activated();
+
     void on_actionOpen_activated();
+
     void on_actionSave_activated();
+
     void on_actionSave_As_activated();
+
     void on_actionExit_activated();
 
     void on_pushButton_setObject_clicked();
@@ -174,6 +184,14 @@ private slots:
     void on_listWidget_simpleSources_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_pushButton_setSimpleSource_clicked();
+
+    void on_pushButton_addCustomSource_clicked();
+
+    void on_pushButton_removeCustomSource_clicked();
+
+    void on_pushButton_editCustomSource_clicked();
+
+    void on_pushButton_setCustomSource_clicked();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */

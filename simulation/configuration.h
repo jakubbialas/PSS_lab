@@ -4,7 +4,6 @@
 #include <QObject>
 #include "tool.h"
 
-#include "controller/adjustmentdata.h"
 #include <yaml-cpp/yaml.h>
 #include <string>
 #include <iostream>
@@ -14,8 +13,12 @@
 #include "controller/controllerp.h"
 #include "controller/controllerpid.h"
 #include "source/multisource.h"
+
+#include "controller/adjustmentdata.h"
 #include "object/objectdata.h"
 #include "object/modeldata.h"
+#include "source/multisourcedata.h"
+
 #include <string>
 
 
@@ -109,6 +112,28 @@ signals:
      */
     void retActiveAdjustment(std::string, std::string);
 
+    /**
+     * @brief sygnał wysyłany do gui
+     * zawiera liste z nazwami zdefiniowanych źródeł
+     *
+     * @param std::vector<std::string>
+     */
+    void retCustomSourcesList(std::vector<std::string>);
+    /**
+     * @brief sygnał wysyłany do gui
+     * wysyłane w odpowiedzi na sygnal getCustomSourceData(name)
+     * przesyła dane dotyczące konkretnego źródła
+     *
+     * @param MultiSourceData
+     */
+    void retCustomSourceData(MultiSourceData);
+    /**
+     * @brief sygnał wysyłany do gui
+     * wysyła nazwe ustawionego źródła które zostało wysłane do symulacji
+     *
+     * @param std::string
+     */
+    void retActiveSource(std::string);
 public slots:
     /**
      * @brief tworzy pustą konfigurację
@@ -192,6 +217,37 @@ public slots:
      */
     void setActiveSimpleSource(std::string, std::map<std::string, double>);
 
+    /**
+     * @brief zwraca sygnał z lista źródeł
+     *
+     */
+    void getCustomSourcesList();
+    /**
+     * @brief zwraca sygnał ze szczegółamy źródła
+     *
+     * @param std::string
+     */
+    void getCustomSourceData(std::string);
+    /**
+     * @brief edytuje zródło o podanej nazwie
+     *
+     * @param std::string nazwa
+     * @param MultiSourceData parametry
+     */
+    void editCustomSource(std::string, MultiSourceData);
+    /**
+     * @brief usówa źródło o podanej nazwie
+     *
+     * @param std::string nazwa
+     */
+    void removeCustomSource(std::string);
+    /**
+     * @brief wysyła źródło o podanej nazwie do klasy symulacji
+     *
+     * @param std::string nazwa
+     */
+    void setActiveCustomSource(std::string);
+
 private:
     /**
      * @brief funkcja zwraca vektor z nazwami zapisanych obiektów
@@ -212,10 +268,24 @@ private:
      */
     std::vector<AdjustmentData>::iterator findAdjustment(std::string, std::string);
 
+    /**
+     * @brief funkcja zwraca wektor z nazwami zapisanych źródeł
+     *
+     */
+    std::vector<std::string> getSourcesNames();
+
+    /**
+     * @brief funkcja zwraca iterator na źródło o zadanej nazwie
+     * w przypadku braku szukanaj nazwy zwraca iterator wskazujący na koniec wektora źródeł
+     *
+     * @param name nazwa źródła
+     */
+    std::vector<MultiSourceData>::iterator findSource(std::string name);
+
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty gdzie kluczem sa ich nazwy */
     std::vector<AdjustmentData> adjustments; /**< vektor przechowujacy zdefiniowane nastawy */
-    //std::map<std::string, MultiSourceData> sources; /**< TODO mapa z zdefiniowanymi źródłami */
+    std::vector<MultiSourceData> sources; /**< mapa z zdefiniowanymi źródłami */
 
     std::string filename; /**< scierzka do aktualnie wszytanego pliku (wykrzystywana przy funkcji saveConfig() */
 

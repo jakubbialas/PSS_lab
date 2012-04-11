@@ -3,21 +3,67 @@
 
 #include <string>
 #include <map>
+#include "tool.h"
+#include <iostream>
+#include <yaml-cpp/yaml.h>
+#include <yaml-cpp/emitter.h>
+#include <yaml-cpp/stlemitter.h>
+#include <yaml-cpp/stlnode.h>
 
+/**
+ * @brief Klasa SourceData zawiera dane potrzebne do utworzenia źródła podstawowego (sinus, step, impuls itd...)
+ *
+ */
 class SourceData
 {
 public:
+    /**
+     * @brief Konstruktor
+     *
+     */
     SourceData();
 
+    /**
+     * @brief Konstruktor
+     *
+     * @param std::string typ źródła
+     * @param std::map<std::string, double> mapa parametrów źródła
+     */
+    SourceData(std::string, std::map<std::string, double>);
+
+    /**
+     * @brief funkcja ustawiajaca typ źródła
+     *
+     * @param std::string
+     */
     void setType(std::string);
-    std::string getType();
+    /**
+     * @brief funkcja zwracająca typ źródła
+     *
+     */
+    std::string getType() const;
+    /**
+     * @brief funkcja ustawiająca parametry źródła
+     *
+     * @param std::map<std::string, double>
+     */
     void setParameters(std::map<std::string, double>);
-    std::map<std::string, double> getParameters();
+    /**
+     * @brief funkcja zwracająca parametry źródła
+     *
+     */
+    std::map<std::string, double> getParameters() const;
 
 private:
-    std::string type;
-    std::map<std::string, double> parameters;
+    std::string type; /**< typ źródła */
+    std::map<std::string, double> parameters; /**< parametry źródła */
 
+    /**
+     * @brief deklaracja przyjaźni dla operatora strumienia
+     *
+     * @param node format parsera yaml
+     * @param ad obiekt do którego sa zapisywane dane
+     */
     friend void operator >> (const YAML::Node& node, SourceData &sd);
 };
 
