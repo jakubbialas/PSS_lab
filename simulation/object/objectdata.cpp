@@ -32,18 +32,18 @@ void ObjectData::addModel(ModelData model){
     models.push_back(model);
 }
 
-YAML::Emitter& operator << (YAML::Emitter &emitter, const ObjectData &md ){
+YAML::Emitter& operator << (YAML::Emitter &emitter, const ObjectData &od ){
     emitter << YAML::BeginMap;
-    emitter << YAML::Key << "name"   << YAML::Value << md.getName();
-    emitter << YAML::Key << "models" << YAML::Value << md.getModels();
+    emitter << YAML::Key << "name"   << YAML::Value << od.getName();
+    emitter << YAML::Key << "models" << YAML::Value << od.getModels();
     emitter << YAML::EndMap;
     return emitter;
 }
 
-std::ostream& operator << (std::ostream &stream, const ObjectData &md){
+std::ostream& operator << (std::ostream &stream, const ObjectData &od){
     stream << "[ ";
-    stream << "name: " << md.getName() << ", ";
-    stream << "models: " << md.getModels() << "";
+    stream << "name: " << od.getName() << ", ";
+    stream << "models: " << od.getModels() << "";
     stream << " ]";
     return stream;
 }

@@ -28,7 +28,7 @@ void Configuration::openConfig(std::string n_filename){
     emit setSource(source);
 
     objects.clear();
-    controllers.clear();
+    adjustments.clear();
 
     filename = n_filename;
     std::ifstream file(filename.c_str());
@@ -43,12 +43,12 @@ void Configuration::openConfig(std::string n_filename){
         node["objects"][i] >> objectData;
         objects[objectData.getName()] = objectData;
     }
-    //node["controllers"] >> controllers; //nie mozna, bo w pliku yaml jest wektor ktory jest parsowany do mapy
-    for(unsigned int i=0;i<node["controllers"].size();i++) {
+    node["adjustments"] >> adjustments;
+    /*for(unsigned int i=0;i<node["controllers"].size();i++) {
         ControllerData controllerData = ControllerData();
         node["controllers"][i] >> controllerData;
         controllers[controllerData.getType()] = controllerData;
-    }
+    }*/
 
     emit retObjectsList(getObjectsKeys());
     emit retAdjustmentsList(getAdjustments());
@@ -72,17 +72,9 @@ void Configuration::saveConfig(std::string n_filename){
     }
     emitter << YAML::EndSeq;
 
-    // emitter << controllers; //nie mozna, bo mapa musi byc zapisana jak wektor a nie jak mapa.
-    emitter << YAML::Key << "controllers" << YAML::Value;
-    emitter << YAML::BeginSeq;
-    std::map<std::string, ControllerData>::iterator it2;
-    for(it2 = controllers.begin(); it2 != controllers.end(); it2++){
-        emitter << (*it2).second;
-    }
-    emitter << YAML::EndSeq;
+    emitter << YAML::Key << "adjustments" << YAML::Value << adjustments;
 
     emitter << YAML::EndMap;
-
 
     std::ofstream file(filename.c_str());
     file << emitter.c_str();
@@ -99,13 +91,13 @@ std::vector<std::string> Configuration::getObjectsKeys(){
     return keys;
 }
 
-std::map<std::string, ControllerData> Configuration::getAdjustments(){
+std::vector<AdjustmentData> Configuration::getAdjustments(){
     /*std::map<std::string, std::vector<std::string> > keys;
     std::map<std::string, ControllerData>::iterator it;
     for(it = controllers.begin(); it != controllers.end(); it++){
         keys[(*it).first] = (*it).second.getAdjustmentsNames();
     }*/
-    return controllers;
+    return adjustments;
 }
 
 
@@ -143,34 +135,49 @@ void Configuration::setActiveObject(std::string name){
 }
 
 
+
+std::vector<AdjustmentData>::iterator Configuration::findAdjustment(std::string ctype, std::string name){
+    std::vector<AdjustmentData>::iterator it, it_r = adjustments.end();
+    for(it = adjustments.begin(); it!=adjustments.end(); it++){
+        if((*it).getName().compare(name) == 0 && (*it).getType().compare(ctype) == 0){
+            it_r = it;
+        }
+    }
+    return it_r;
+}
+
 void Configuration::getAdjustmentsList(){
     emit retAdjustmentsList(getAdjustments());
 }
 
 void Configuration::removeAdjustment(std::string ctype, std::string name){
-    this->controllers[ctype].removeAdjustment(name);
+    adjustments.erase(findAdjustment(ctype, name));
     emit retAdjustmentsList(getAdjustments());
 }
 
-void Configuration::saveAdjustment(std::string ctype, AdjustmentData ad){
-    this->controllers[ctype].addAdjustment(ad);
+void Configuration::saveAdjustment(AdjustmentData ad){
+    std::vector<AdjustmentData>::iterator it = findAdjustment(ad.getType(), ad.getName());
+    if(it != adjustments.end()){
+        (*it) = ad;
+    }else{
+        adjustments.push_back(ad);
+    }
     emit retAdjustmentsList(getAdjustments());
 }
 
-void Configuration::setActiveController(std::string ctype, AdjustmentData ad){
-    if(currentControllerType.compare(ctype) != 0){
-        if(ctype.compare("P") == 0){
-            delete controller;
+void Configuration::setActiveAdjustment(AdjustmentData ad){
+    if(currentControllerType.compare(ad.getType()) != 0){
+        delete controller;
+        if(ad.getType().compare("P") == 0){
             controller = new ControllerP();
-            emit setController(controller);
             currentControllerType = "P";
-        }
-        if(ctype.compare("PID") == 0){
-            delete controller;
+        }else if(ad.getType().compare("PID") == 0){
             controller = new ControllerPID();
-            emit setController(controller);
             currentControllerType = "PID";
+        }else{
+            currentControllerType = "";
         }
+        emit setController(controller);
     }
     if(controller != NULL){
         std::ostringstream ret;
@@ -180,11 +187,9 @@ void Configuration::setActiveController(std::string ctype, AdjustmentData ad){
             controller->setParameter((*it).first, (*it).second);
             ret << " " << (*it).first << ": " << (*it).second;
         }
-        emit retActiveController(currentControllerType, ret.str());
+        emit retActiveAdjustment(currentControllerType, ret.str());
     }
 }
-
-
 
 void Configuration::setActiveSimpleSource(std::string type, std::map<std::string, double> param){
     delete source;
@@ -208,4 +213,5 @@ void Configuration::setActiveSimpleSource(std::string type, std::map<std::string
         }
     }
     emit setSource(source);
+   // emit setActiveSimpleSource();
 }

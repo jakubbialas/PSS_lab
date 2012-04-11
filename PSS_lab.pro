@@ -30,7 +30,6 @@ SOURCES += main.cpp\
     simulation/source/multisource.cpp \
     simulation/source/impulssource.cpp \
     simulation/simulation.cpp \
-    simulation/controller/controllerdata.cpp \
     simulation/controller/adjustmentdata.cpp \
     simulation/controller/controllerpid.cpp \
     gui/saveadjustmentdialog.cpp \
@@ -55,7 +54,6 @@ HEADERS  += gui/mainwindow.h \
     simulation/source/multisource.h \
     simulation/source/impulssource.h \
     simulation/simulation.h \
-    simulation/controller/controllerdata.h \
     simulation/controller/adjustmentdata.h \
     tool.h \
     simulation/controller/controllerpid.h \

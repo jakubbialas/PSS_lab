@@ -89,21 +89,23 @@ void MainWindow::retActiveObject(std::string name){
     ui->statusBar->showMessage(msg.str().c_str(), 5000);
 }
 
-void MainWindow::retAdjustmentsList(std::map<std::string, ControllerData> controllers){
-    controllersData = controllers;
+void MainWindow::retAdjustmentsList(std::vector<AdjustmentData> adjustments){
+    adjustmentsData = adjustments;
     updateAdjustmentsList();
 }
 
 void MainWindow::updateAdjustmentsList(){
     ui->listWidget_adjustments->clear();
     QString ctype = ui->comboBox_controllerType->currentText();
-    if(controllersData.find(ctype.toStdString()) != controllersData.end()){
-        std::vector<AdjustmentData> adjustments = controllersData[ctype.toStdString()].getAdjustments();
-        std::vector<AdjustmentData>::iterator it;
-        for(it = adjustments.begin(); it!= adjustments.end(); it++){
+
+    std::vector<AdjustmentData>::iterator it;
+
+    for(it = adjustmentsData.begin(); it!= adjustmentsData.end(); it++){
+        if((*it).getType().compare(ctype.toStdString()) == 0){
             ui->listWidget_adjustments->addItem(QString((*it).getName().c_str()));
         }
     }
+
     if(ctype.compare("P") == 0){
         ui->stackedWidget_controllerValues->setCurrentIndex(0);
     }
@@ -112,7 +114,7 @@ void MainWindow::updateAdjustmentsList(){
     }
 }
 
-void MainWindow::retActiveController(std::string type, std::string adj){
+void MainWindow::retActiveAdjustment(std::string type, std::string adj){
     std::ostringstream msg;
     msg << "Controller set to " << type << ", adjustments: " << adj << ".";
     ui->statusBar->showMessage(msg.str().c_str(), 5000);
@@ -194,10 +196,13 @@ void MainWindow::on_listWidget_adjustments_currentItemChanged(QListWidgetItem *c
     if(current){
         QString name = current->text();
         QString ctype = ui->comboBox_controllerType->currentText();
-        std::vector<AdjustmentData> ad = controllersData[ctype.toStdString()].getAdjustments();
         std::vector<AdjustmentData>::iterator it;
-        for(it = ad.begin(); it!= ad.end(); it++){
-            if((*it).getName().compare(name.toStdString()) == 0){
+
+        //std::vector<AdjustmentData> ad = controllersData[ctype.toStdString()].getAdjustments();
+        for(it = adjustmentsData.begin(); it!= adjustmentsData.end(); it++){
+            if((*it).getName().compare(name.toStdString()) == 0 &&
+                    (*it).getType().compare(ctype.toStdString()) == 0 ){
+
                 std::map<std::string, double> param = (*it).getParameters();
 
                 if(ctype.compare("P") == 0){
@@ -227,7 +232,8 @@ void MainWindow::on_pushButton_setAdjustment_clicked(){
         param["D"] = ui->doubleSpinBox_controllerPIDD->value();
     }
     ad.setParemeters(param);
-    emit setActiveController(ctype.toStdString(), ad);
+    ad.setType(ctype.toStdString());
+    emit setActiveAdjustment(ad);
 }
 
 void MainWindow::on_pushButton_removeAdjustment_clicked(){
@@ -254,7 +260,8 @@ void MainWindow::on_pushButton_saveAdjustment_clicked(){
         }
         ad.setParemeters(param);
         ad.setName(name);
-        emit saveAdjustment(ctype.toStdString(), ad);
+        ad.setType(ctype.toStdString());
+        emit saveAdjustment(ad);
     }
     delete sad;
 }

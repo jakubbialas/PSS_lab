@@ -4,7 +4,7 @@
 #include <QObject>
 #include "tool.h"
 
-#include "controller/controllerdata.h"
+#include "controller/adjustmentdata.h"
 #include <yaml-cpp/yaml.h>
 #include <string>
 #include <iostream>
@@ -43,8 +43,8 @@ signals:
     void retObjectData(ObjectData);
     void retActiveObject(std::string);
 
-    void retAdjustmentsList(std::map<std::string, ControllerData>);
-    void retActiveController(std::string, std::string);
+    void retAdjustmentsList(std::vector<AdjustmentData>);
+    void retActiveAdjustment(std::string, std::string);
 
 public slots:
     void newConfig();
@@ -59,18 +59,19 @@ public slots:
 
     void getAdjustmentsList();
     void removeAdjustment(std::string, std::string);
-    void saveAdjustment(std::string, AdjustmentData);
-    void setActiveController(std::string, AdjustmentData);
+    void saveAdjustment(AdjustmentData);
+    void setActiveAdjustment(AdjustmentData);
 
     void setActiveSimpleSource(std::string, std::map<std::string, double>);
 
 private:
     std::vector<std::string> getObjectsKeys();
-    std::map<std::string, ControllerData> getAdjustments();
+    std::vector<AdjustmentData> getAdjustments();
+    std::vector<AdjustmentData>::iterator findAdjustment(std::string, std::string);
 
 private:
     std::map<std::string, ObjectData> objects; /**< Mapa zawierajaca obiekty wraz z ich nazwami */
-    std::map<std::string, ControllerData> controllers;
+    std::vector<AdjustmentData> adjustments;
     //std::map<std::string, MultiSourceData> sources;
 
     std::string filename;

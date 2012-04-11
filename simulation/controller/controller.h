@@ -5,13 +5,27 @@
 #include <string>
 #include <map>
 
+/**
+ * @brief Klasa podstawowa Regulatora, dziedziczy po klasie obiektu dyskretnego
+ *
+ */
 class Controller : public DiscreteObject
 {
 public:
+
+    /**
+     * @brief Konstruktor
+     *
+     */
     Controller();
 
-public:
+    /**
+     * @brief virtualna funkcja ustawiająca wybrany parametr regulatora
+     *
+     * @param std::string nazwa parametru
+     * @param double wartość parametru
+     */
     virtual void setParameter(std::string, double)=0;
-    virtual double simulate(double)=0;
+
 };
 #endif // CONTROLLER_H

@@ -64,9 +64,9 @@ signals:
 
 
     void getAdjustmentsList();
-    void setActiveController(std::string, AdjustmentData);
+    void setActiveAdjustment(AdjustmentData);
     void removeAdjustment(std::string, std::string);
-    void saveAdjustment(std::string, AdjustmentData);
+    void saveAdjustment(AdjustmentData);
 
 
     void setActiveSimpleSource(std::string, std::map<std::string, double>);
@@ -105,8 +105,8 @@ private slots:
     void retObjectData(ObjectData);
     void retActiveObject(std::string);
 
-    void retAdjustmentsList(std::map<std::string, ControllerData>);
-    void retActiveController(std::string, std::string);
+    void retAdjustmentsList(std::vector<AdjustmentData>);
+    void retActiveAdjustment(std::string, std::string);
 
 
 //buttons:
@@ -180,7 +180,7 @@ private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */
 
     bool isSimulationStarted; /**< Okresla czy symulacja jest aktulanie wykonywana */
-    std::map<std::string, ControllerData> controllersData;
+    std::vector<AdjustmentData> adjustmentsData;
 
     void updateAdjustmentsList();
 };

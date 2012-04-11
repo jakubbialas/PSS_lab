@@ -16,13 +16,13 @@
 class DiscreteObject : public ObjectSISO
 {
 private:
-    std::vector<double> B; /**< wielomian B - ten na gorze */
-    std::vector<double> A; /**< wielomian A - ten na dole... */
-    int k;                 /**< opoznienie wejscia */
-    std::deque<double> U;  /**< kolejka wymuszeń */
-    std::deque<double> Y;  /**< kolejka stanu (poprzednie wartości) */
+    std::vector<double> B; /** wielomian B - ten na gorze */
+    std::vector<double> A; /** wielomian A - ten na dole... */
+    int k;                 /** opoznienie wejscia */
+    std::deque<double> U;  /** kolejka wymuszeń */
+    std::deque<double> Y;  /** kolejka stanu (poprzednie wartości) */
 protected:
-    int counter;           /**< aktualny numer próbki */
+    int counter;           /** aktualny numer próbki */
 
 public:
     /**
@@ -106,6 +106,10 @@ public:
      */
     double simulate(double);
 
+    /**
+     * @brief Zwraca wartość wyjściową obiektu wyznaczaną po ostatnim wywołaniu funkcji simulate
+     *
+     */
     double getLastValue();
 
 };
