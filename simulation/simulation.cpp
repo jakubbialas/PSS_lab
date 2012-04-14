@@ -13,6 +13,9 @@ Simulation::Simulation(QObject *parent) :
 
     samplingTime = 10;
     feedback = false;
+
+    filePath = "";
+    toFile = false;
 }
 
 Simulation::~Simulation(){
@@ -28,10 +31,16 @@ void Simulation::setSamplingTime(int n_samplingTime){
 }
 
 void Simulation::startSimulation(){
+    if(toFile){
+        openFile();
+    }
     timer->start(samplingTime);
 }
 
 void Simulation::stopSimulation(){
+    if(toFile){
+        closeFile();
+    }
     timer->stop();
 }
 
@@ -42,8 +51,14 @@ void Simulation::resetSimulation(){
 }
 
 void Simulation::stepSimulation(int i){
+    if(toFile){
+        openFile();
+    }
     for(int k=0; k<i; k++){
         nextStep();
+    }
+    if(toFile){
+        closeFile();
     }
 }
 
@@ -61,6 +76,10 @@ void Simulation::nextStep(){
     emit drawError(e);
     emit drawControl(u);
     emit drawOutput(y);
+
+    if(toFile){
+        printFile(w, e, u, y);
+    }
 }
 
 void Simulation::setObject(ObjectSISO* n_object){
@@ -86,3 +105,20 @@ ObjectSISO* Simulation::getController(){
 Source* Simulation::getSource(){
     return source;
 }*/
+
+void Simulation::saveSignalsToFile(bool n_toFile, std::string n_filePath){
+    toFile = n_toFile;
+    filePath = n_filePath;
+}
+
+void Simulation::openFile(){
+    file.open(filePath.c_str(), std::ios::out|std::ios::app);
+}
+
+void Simulation::printFile(double w, double e, double u, double y){
+    file << w << ";" << e << ";" << u << ";" << y << ";\n";
+}
+
+void Simulation::closeFile(){
+    file.close();
+}

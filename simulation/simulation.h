@@ -6,6 +6,8 @@
 #include "object/objectsiso.h"
 #include "source/source.h"
 #include <vector>
+#include <fstream>
+#include <iostream>
 
 /**
  * @brief Klasa posredniczaca w komunikacji z GUI za pomoca gniazd i sygnalow, jest tez odpowedzialna za symulacje
@@ -120,6 +122,8 @@ public slots:
      */
     void setSource(Source*);
 
+    void saveSignalsToFile(bool, std::string);
+
 public:
     //ObjectSISO* getObject();
     //ObjectSISO* getController();
@@ -134,6 +138,15 @@ private:
 
     int samplingTime; /**< Czas probkowania wykresu */
     bool feedback; /**< sprzężenie zwrotne */
+
+    bool toFile; /**< Save signals to file */
+    std::string filePath; /**< File path */
+
+    void openFile();
+    void printFile(double, double, double, double);
+    void closeFile();
+
+    std::fstream file;
 };
 
 #endif // SIMULATION_H

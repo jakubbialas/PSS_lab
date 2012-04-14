@@ -44,7 +44,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab_simulation">
      <attribute name="title">
@@ -222,7 +222,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_simpleSources">
        <attribute name="title">
@@ -285,11 +285,14 @@
          <widget class="QDoubleSpinBox" name="doubleSpinBox_amplitude1">
           <property name="geometry">
            <rect>
-            <x>111</x>
+            <x>101</x>
             <y>10</y>
-            <width>71</width>
+            <width>81</width>
             <height>27</height>
            </rect>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
           </property>
          </widget>
          <widget class="QLabel" name="label_2">
@@ -306,13 +309,76 @@
           </property>
          </widget>
         </widget>
+        <widget class="QWidget" name="page_1b">
+         <widget class="QCheckBox" name="checkBox_coutinousUpdate1b">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>70</y>
+            <width>181</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>continous update</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>11</y>
+            <width>101</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Amplitude:</string>
+          </property>
+         </widget>
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_amplitude1b">
+          <property name="geometry">
+           <rect>
+            <x>101</x>
+            <y>10</y>
+            <width>81</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+         </widget>
+         <widget class="QSlider" name="horizontalSlider">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>40</y>
+            <width>181</width>
+            <height>29</height>
+           </rect>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </widget>
         <widget class="QWidget" name="page_2">
          <widget class="QDoubleSpinBox" name="doubleSpinBox_amplitude2">
           <property name="geometry">
            <rect>
-            <x>111</x>
+            <x>101</x>
             <y>10</y>
-            <width>71</width>
+            <width>81</width>
             <height>27</height>
            </rect>
           </property>
@@ -326,20 +392,20 @@
            <double>1.000000000000000</double>
           </property>
           <property name="value">
-           <double>1.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
          </widget>
          <widget class="QDoubleSpinBox" name="doubleSpinBox_frequency2">
           <property name="geometry">
            <rect>
-            <x>111</x>
+            <x>101</x>
             <y>40</y>
-            <width>71</width>
+            <width>81</width>
             <height>27</height>
            </rect>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>4</number>
           </property>
           <property name="maximum">
            <double>1.000000000000000</double>
@@ -382,24 +448,27 @@
          <widget class="QDoubleSpinBox" name="doubleSpinBox_amplitude3">
           <property name="geometry">
            <rect>
-            <x>111</x>
+            <x>101</x>
             <y>10</y>
-            <width>71</width>
+            <width>81</width>
             <height>27</height>
            </rect>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
           </property>
          </widget>
          <widget class="QDoubleSpinBox" name="doubleSpinBox_frequency3">
           <property name="geometry">
            <rect>
-            <x>111</x>
+            <x>101</x>
             <y>40</y>
-            <width>71</width>
+            <width>81</width>
             <height>27</height>
            </rect>
           </property>
           <property name="decimals">
-           <number>3</number>
+           <number>4</number>
           </property>
           <property name="maximum">
            <double>1.000000000000000</double>
@@ -411,9 +480,9 @@
          <widget class="QDoubleSpinBox" name="doubleSpinBox_dutycycle3">
           <property name="geometry">
            <rect>
-            <x>111</x>
+            <x>101</x>
             <y>70</y>
-            <width>71</width>
+            <width>81</width>
             <height>27</height>
            </rect>
           </property>
@@ -550,19 +619,53 @@
        <attribute name="title">
         <string>From File</string>
        </attribute>
-       <widget class="QLabel" name="label_4">
+       <widget class="QListWidget" name="listWidget_customSources_2">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>361</width>
-          <height>71</height>
+          <x>200</x>
+          <y>30</y>
+          <width>181</width>
+          <height>101</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_15">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>10</y>
+          <width>181</width>
+          <height>17</height>
          </rect>
         </property>
         <property name="text">
-         <string>Do zrobienia wczytywanie sygnalu z pliku
-Na przyklad kolejnych wartosci sygnalu 
-oddzielonych srednikami.</string>
+         <string>Avaiable signals:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_addCustomSource_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>181</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Open File</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_addCustomSource_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>100</y>
+          <width>181</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Set Signal as Source</string>
         </property>
        </widget>
       </widget>
@@ -899,14 +1002,160 @@ oddzielonych srednikami.</string>
      <widget class="QCheckBox" name="checkBox_feedback">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>10</x>
         <y>10</y>
-        <width>381</width>
+        <width>191</width>
         <height>22</height>
        </rect>
       </property>
       <property name="text">
        <string>Enable Feed Back</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frame_saveSignalsParam">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>40</y>
+        <width>191</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QCheckBox" name="checkBox_saveSource">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>81</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Source</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_saveError">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>81</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Error</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_saveControl">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>10</y>
+         <width>81</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Control</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_saveOutput">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>40</y>
+         <width>81</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Output</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pushButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>171</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set Output File</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_drawPlot">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>191</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Draw signals on plot</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_saveSignals">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>10</y>
+        <width>191</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save signals to file</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
     </widget>

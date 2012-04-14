@@ -297,15 +297,15 @@ void MainWindow::on_listWidget_simpleSources_currentItemChanged(QListWidgetItem 
     QString arg1 = current->text();
 
     if(arg1.compare(QString("Step")) == 0){
-        ui->stackedWidget_simpleSourceParam->setCurrentIndex(1);
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(2);
     }else if(arg1.compare(QString("Impuls")) == 0){
         ui->stackedWidget_simpleSourceParam->setCurrentIndex(1);
     }else if(arg1.compare(QString("Sinus")) == 0){
-        ui->stackedWidget_simpleSourceParam->setCurrentIndex(2);
-    }else if(arg1.compare(QString("Square")) == 0){
         ui->stackedWidget_simpleSourceParam->setCurrentIndex(3);
+    }else if(arg1.compare(QString("Square")) == 0){
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(4);
     }else if(arg1.compare(QString("Triangle")) == 0){
-        ui->stackedWidget_simpleSourceParam->setCurrentIndex(2);
+        ui->stackedWidget_simpleSourceParam->setCurrentIndex(3);
     }else if(arg1.compare(QString("Noise")) == 0){
         ui->stackedWidget_simpleSourceParam->setCurrentIndex(1);
     }else{
@@ -320,7 +320,7 @@ void MainWindow::on_pushButton_setSimpleSource_clicked(){
     std::string name;
 
     if(arg1.compare(QString("Step")) == 0){
-        param["amplitude"] = ui->doubleSpinBox_amplitude1->value();
+        param["amplitude"] = ui->doubleSpinBox_amplitude1b->value();
         name = "step";
     }else if(arg1.compare(QString("Impuls")) == 0){
         param["amplitude"] = ui->doubleSpinBox_amplitude1->value();
@@ -402,3 +402,27 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
     emit setFeedback(checked);
 }
 
+
+void MainWindow::on_checkBox_saveSignals_toggled(bool checked)
+{
+    ui->frame_saveSignalsParam->setEnabled(checked);
+    if(!checked){
+        emit saveSignalsToFile(false, "");
+    }
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter(tr("CSV File (*.csv);;All (*.*)"));
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+
+    QStringList fileNames;
+    if (dialog.exec())
+        fileNames = dialog.selectedFiles();
+
+    if(fileNames.size()>0){
+        emit saveSignalsToFile(true, fileNames.at(0).toStdString());
+    }
+}

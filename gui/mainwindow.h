@@ -55,6 +55,7 @@ signals:
     void stepSimulation(int);
     void setSamplingTime(int);
     void setFeedback(bool);
+    void saveSignalsToFile(bool, std::string);
 
 
     void setActiveObject(std::string);
@@ -192,6 +193,10 @@ private slots:
     void on_pushButton_editCustomSource_clicked();
 
     void on_pushButton_setCustomSource_clicked();
+
+    void on_checkBox_saveSignals_toggled(bool checked);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */

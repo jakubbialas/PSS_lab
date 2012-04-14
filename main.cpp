@@ -36,6 +36,9 @@ int main(int argc, char *argv[])
                      &simulation, SLOT(setFeedback(bool)));
     QObject::connect(&window, SIGNAL(setSamplingTime(int)),
                      &simulation, SLOT(setSamplingTime(int)));
+    QObject::connect(&window, SIGNAL(saveSignalsToFile(bool, std::string)),
+                     &simulation, SLOT(saveSignalsToFile(bool, std::string)));
+
 
     QObject::connect(&simulation, SIGNAL(drawInput(double)),
                      &window, SLOT(drawInput(double)));
