@@ -14,26 +14,34 @@ Configuration::~Configuration(){
     delete source;
     delete object;
     delete controller;
+    emit setSource(NULL);
+    emit setObject(NULL);
+    emit setController(NULL);
 }
 
 void Configuration::newConfig(){
     filename = "";
+    currentControllerType = "";
     delete source;
     delete object;
     delete controller;
+    controller = NULL;
+    source = NULL;
     object = new NonStationaryDiscreteObject();
+    emit setSource(source);
+    emit setObject(object);
+    emit setController(controller);
+
     objects.clear();
     adjustments.clear();
     sources.clear();
 
+    emit retObjectsList(getObjectsKeys());
+    emit retAdjustmentsList(getAdjustments());
+    emit retCustomSourcesList(getSourcesNames());
 }
 
 void Configuration::openConfig(std::string n_filename){
-//TOTO: przeniesc gdzies te emity.... gdziekolwiek ale nie tu! i nie w konstruktorze!
-    emit setController(controller);
-    emit setObject(object);
-    emit setSource(source);
-
     objects.clear();
     adjustments.clear();
     sources.clear();
@@ -139,7 +147,7 @@ void Configuration::editObject(std::string name, ObjectData od){
 
 void Configuration::setActiveObject(std::string name){
     object->setData(objects[name]);
-    //emit setObject(object);
+    emit setObject(object);
     emit retActiveObject(name);
 }
 
@@ -177,6 +185,7 @@ void Configuration::saveAdjustment(AdjustmentData ad){
 void Configuration::setActiveAdjustment(AdjustmentData ad){
     if(currentControllerType.compare(ad.getType()) != 0){
         delete controller;
+        controller = NULL;
         if(ad.getType().compare("P") == 0){
             controller = new ControllerP();
             currentControllerType = "P";
@@ -202,6 +211,7 @@ void Configuration::setActiveAdjustment(AdjustmentData ad){
 
 void Configuration::setActiveSimpleSource(std::string type, std::map<std::string, double> param){
     delete source;
+    source == NULL;
     if(type.compare("step") == 0){
         source = new StepSource();
     }else if(type.compare("impuls") == 0){

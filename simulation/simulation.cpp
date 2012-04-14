@@ -16,6 +16,10 @@ Simulation::Simulation(QObject *parent) :
 
     filePath = "";
     toFile = false;
+
+    source = NULL;
+    controller = NULL;
+    object = NULL;
 }
 
 Simulation::~Simulation(){
@@ -63,22 +67,26 @@ void Simulation::stepSimulation(int i){
 }
 
 void Simulation::nextStep(){
-    double w = source->getNextSample();
-    double y_last = 0;
-    if(feedback){
-        y_last = object->getLastValue();
-    }
-    double e = w - y_last;
-    double u = controller->simulate(e);
-    double y = object->simulate(u);
+    if(source && controller && object){
+        double w = source->getNextSample();
+        double y_last = 0;
+        if(feedback){
+            y_last = object->getLastValue();
+        }
+        double e = w - y_last;
+        double u = controller->simulate(e);
+        double y = object->simulate(u);
 
-    emit drawInput(w);
-    emit drawError(e);
-    emit drawControl(u);
-    emit drawOutput(y);
-
-    if(toFile){
-        printFile(w, e, u, y);
+        emit drawInput(w);
+        emit drawError(e);
+        emit drawControl(u);
+        emit drawOutput(y);
+        if(toFile){
+            printFile(w, e, u, y);
+        }
+    }else{
+        emit simulationStopped(std::string("First set object, controller and source!"));
+        timer->stop();
     }
 }
 

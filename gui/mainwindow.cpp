@@ -29,12 +29,11 @@ void MainWindow::on_simBtn_clicked()
         if(isSimulationStarted){
             emit stopSimulation();
             isSimulationStarted = false;
-            ui->simBtn->setText("Start simulation");
         }else{
             emit startSimulation();
             isSimulationStarted = true;
-            ui->simBtn->setText("Pause simulation");
         }
+        updateButtons();
     }
 }
 
@@ -45,6 +44,21 @@ void MainWindow::on_resetBtn_clicked()
     ui->plot1->resetPen("output");
     ui->plot2->resetPen("error");
     ui->plot2->resetPen("control");
+}
+
+void MainWindow::updateButtons(){
+    if(isSimulationStarted){
+        ui->simBtn->setText("Pause simulation");
+    }else{
+        ui->simBtn->setText("Start simulation");
+    }
+    ui->simFrame->setEnabled(!isSimulationStarted);
+}
+
+void MainWindow::simulationStopped(std::string msg){
+    isSimulationStarted = false;
+    updateButtons();
+    QMessageBox::warning(this, "Simulation Stoped", QString(msg.c_str()));
 }
 
 
@@ -146,16 +160,19 @@ void MainWindow::retActiveSource(std::string name){
 }
 
 
+
 //////////////////////////////////// CONFIG \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 void MainWindow::on_actionNew_activated(){
     emit newConfig();
+    ui->actionSave->setEnabled(false);
 }
 
 void MainWindow::on_actionOpen_activated(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), QDir::currentPath(), tr("Config File (*.yaml);;All (*.*)"), 0, QFileDialog::DontUseNativeDialog);
     if(!fileName.isEmpty()){
         emit openConfig(fileName.toStdString());
+        ui->actionSave->setEnabled(true);
     }
 }
 
@@ -416,7 +433,7 @@ void MainWindow::on_pushButton_clicked()
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
     dialog.setNameFilter(tr("CSV File (*.csv);;All (*.*)"));
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     QStringList fileNames;
     if (dialog.exec())

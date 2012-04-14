@@ -59,6 +59,12 @@ signals:
      */
     void setObjectsList(std::vector<std::string>);
 
+    /**
+     * @brief Sygnał emitowane gdy symulacja zostala z jakiegos powodu zatrzymana
+     *
+     * @param std::string
+     */
+    void simulationStopped(std::string);
 public slots:
 
     /**

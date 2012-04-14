@@ -40,6 +40,8 @@ int main(int argc, char *argv[])
                      &simulation, SLOT(saveSignalsToFile(bool, std::string)));
 
 
+    QObject::connect(&simulation, SIGNAL(simulationStopped(std::string)),
+                     &window, SLOT(simulationStopped(std::string)));
     QObject::connect(&simulation, SIGNAL(drawInput(double)),
                      &window, SLOT(drawInput(double)));
     QObject::connect(&simulation, SIGNAL(drawOutput(double)),

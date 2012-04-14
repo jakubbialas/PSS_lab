@@ -80,6 +80,7 @@ signals:
     void setActiveCustomSource(std::string);
 
 private slots:
+    void simulationStopped(std::string);
     /**
      * @brief Gniazdo odbierajace sygnal rysowania wejscia
      *
@@ -205,6 +206,7 @@ private:
     std::vector<AdjustmentData> adjustmentsData;
 
     void updateAdjustmentsList();
+    void updateButtons();
 };
 
 #endif // MAINWINDOW_H
