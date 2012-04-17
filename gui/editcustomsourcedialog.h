@@ -8,15 +8,37 @@ namespace Ui {
     class EditCustomSourceDialog;
 }
 
+/**
+ * @brief Okno dialogowe do edycji zdefiniowanych źródeł
+ *
+ */
 class EditCustomSourceDialog : public QDialog
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Konstruktor
+     *
+     * @param parent
+     */
     explicit EditCustomSourceDialog(QWidget *parent = 0);
+    /**
+     * @brief Destruktor
+     *
+     */
     ~EditCustomSourceDialog();
 
+    /**
+     * @brief Funkcja ustawia bierzące dane modyfikowanego źródła
+     *
+     * @param MultiSourceData
+     */
     void setCustomSourceData(MultiSourceData);
+    /**
+     * @brief funkcja zwraca dane źródła
+     *
+     */
     MultiSourceData getCustomSourceData();
 
 private slots:
