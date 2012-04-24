@@ -115,8 +115,6 @@ int main(int argc, char *argv[])
     QObject::connect(&config, SIGNAL(retActiveSource(std::string)),
                      &window, SLOT(retActiveSource(std::string)));
 
-
-
     window.show();
 
 

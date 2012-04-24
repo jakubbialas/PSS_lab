@@ -89,7 +89,7 @@ void MainWindow::retObjectsList(std::vector<std::string> names){
 
 void MainWindow::retObjectData(ObjectData od){
     EditObjectDialog *eod = new EditObjectDialog();
-    eod->setObjectData(od);
+    eod->setObjectData(&od);
     int status = eod->exec();
     if(status == QDialog::Accepted){
         emit this->editObject(od.getName(), eod->getObjectData());
@@ -215,8 +215,11 @@ void MainWindow::on_pushButton_editObject_clicked(){
 
 void MainWindow::on_pushButton_newObject_clicked(){
     EditObjectDialog *eod = new EditObjectDialog();
+
     int status = eod->exec();
     if(status == QDialog::Accepted){
+        ObjectData ob = eod->getObjectData();
+        ob;
         emit this->editObject(eod->getObjectData().getName(), eod->getObjectData());
     }
     delete eod;

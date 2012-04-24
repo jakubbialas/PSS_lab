@@ -3,6 +3,15 @@
 
 #include <QDialog>
 #include "simulation/object/objectdata.h"
+#include <QScrollArea>
+#include <QLineEdit>
+#include <QGridLayout>
+#include <QFrame>
+#include <iostream>
+#include <vector>
+#include <iterator>
+#include <QLineEdit>
+#include "gui/modelcomponent.h"
 
 namespace Ui {
     class EditObjectDialog;
@@ -34,15 +43,24 @@ public:
      *
      * @param ObjectData
      */
-    void setObjectData(ObjectData);
+    void setObjectData(ObjectData*);
     /**
      * @brief Funkcja zwracająca parametry obiektu
      *
      */
     ObjectData getObjectData();
 
+private slots:
+    void on_objectBox_valueChanged(int arg1);
+
+
+    void on_buttonBox_accepted();
+
 private:
     Ui::EditObjectDialog *ui;
+    QFrame *frame;
+    QGridLayout *layout;
+    std::vector<ModelComponent*> mcVector;
 };
 
 #endif // EDITOBJECTDIALOG_H

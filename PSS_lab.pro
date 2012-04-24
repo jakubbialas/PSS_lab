@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     gui/editobjectdialog.cpp \
     simulation/source/multisourcedata.cpp \
     simulation/source/sourcedata.cpp \
-    gui/editcustomsourcedialog.cpp
+    gui/editcustomsourcedialog.cpp \
+    gui/modelcomponent.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -64,7 +65,8 @@ HEADERS  += gui/mainwindow.h \
     gui/editobjectdialog.h \
     simulation/source/multisourcedata.h \
     simulation/source/sourcedata.h \
-    gui/editcustomsourcedialog.h
+    gui/editcustomsourcedialog.h \
+    gui/modelcomponent.h
 
 FORMS    += gui/mainwindow.ui \
     gui/saveadjustmentdialog.ui \

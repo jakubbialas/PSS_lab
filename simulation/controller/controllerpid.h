@@ -20,7 +20,9 @@ public:
     ControllerPID(double, double, double);
 
     void setParameter(std::string, double);
-    double simulate(double);
+
+private:
+    void actualize();
 };
 
 #endif // CONTROLLERPID_H

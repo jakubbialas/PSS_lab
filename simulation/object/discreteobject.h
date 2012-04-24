@@ -21,6 +21,7 @@ private:
     int k;                 /** opoznienie wejscia */
     std::deque<double> U;  /** kolejka wymuszeń */
     std::deque<double> Y;  /** kolejka stanu (poprzednie wartości) */
+    double noiseRatio;
 protected:
     int counter;           /** aktualny numer próbki */
 
@@ -111,6 +112,8 @@ public:
      *
      */
     double getLastValue();
+
+    void setNoiseRatio(double);
 
 };
 
