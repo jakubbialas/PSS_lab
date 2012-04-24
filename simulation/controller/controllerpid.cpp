@@ -32,9 +32,14 @@ void ControllerPID::setParameter(std::string name, double value){
 void ControllerPID::actualize(){
     std::vector<double> A;
     std::vector<double> B;
-    //B.push_back(P+D); B.push_back(-P+I+2*D); B.push_back(D); // (P*D)*z^2 + (-P+I+2*D)*z + D
-    B.push_back(P+D+I); B.push_back(-P-2*D); B.push_back(D); // (P*D)*z^2 + (-P+I+2*D)*z + D
 
-    A.push_back(1); A.push_back(-1); // z^2 - z
-    this->setBAk(B,A,1);
+    double Kp, Kd, Ki;
+    Kp = P;
+    Kd = P*D;
+    Ki = P/I;
+
+    B.push_back(Kp+Kd+Ki); B.push_back(-Kp-2*Kd); B.push_back(Kd); // (Kp*Kd*Ki) + (-Kp-2*Kd)*z^-1 + Kd*z^-2
+    A.push_back(1); A.push_back(-1); // 1 - z^-1
+
+    this->setBAk(B,A,0);
 }

@@ -61,16 +61,20 @@ double DiscreteObject::simulate(double input){
         out = -std::inner_product(Y.begin(), Y.end(), A.begin() + 1, 0.0);
     }
 
-    if(U.size()+k >= B.size()){
-        out = std::inner_product(B.begin(), B.end(), U.begin()+k, out);
+    std::deque<double>::iterator it = U.begin();
+    it += k;
+    if(U.size() >= B.size()+k){
+        out = std::inner_product(B.begin(), B.end(), it, out);
+    }else if(U.size() > k){
+        out = std::inner_product(it, U.end(), B.begin(), out);
     }else{
-        out = std::inner_product(U.begin()+k, U.end(), B.begin(), out);
+        //do nothing
     }
 
     int r = std::rand();
     double e = r%32767; //0-32767
-    e = ((e/32767)*2 - 1)*noiseRatio; //(-1) - 1
-    e = e*0.005*out; //+-5 promili outa;
+    e = ((e/32767)*2 - 1); //(-1) - 1
+    e = e*out*noiseRatio; //+-5 promili outa;
     out += e;
 
     out /= A[0]; //dzielimy y przez A[0] gdyby bylo rozne od 1
