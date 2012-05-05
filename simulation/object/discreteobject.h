@@ -19,10 +19,10 @@ private:
     std::vector<double> B; /** wielomian B - ten na gorze */
     std::vector<double> A; /** wielomian A - ten na dole... */
     int k;                 /** opoznienie wejscia */
-    std::deque<double> U;  /** kolejka wymuszeń */
-    std::deque<double> Y;  /** kolejka stanu (poprzednie wartości) */
     double noiseRatio;
 protected:
+    std::deque<double> U;  /** kolejka wymuszeń */
+    std::deque<double> Y;  /** kolejka stanu (poprzednie wartości) */
     int counter;           /** aktualny numer próbki */
 
 public:

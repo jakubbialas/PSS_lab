@@ -14,6 +14,8 @@ protected:
     double P;
     double I;
     double D;
+
+    double lastI, lastD;
 public:
     ControllerPID();
     ~ControllerPID();
@@ -21,8 +23,15 @@ public:
 
     void setParameter(std::string, double);
 
+    double simulate(double);
+    void reset();
+
 private:
     void actualize();
+
+    double simulateP();
+    double simulateI();
+    double simulateD();
 };
 
 #endif // CONTROLLERPID_H

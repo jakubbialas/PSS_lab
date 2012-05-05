@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     simulation/source/multisourcedata.cpp \
     simulation/source/sourcedata.cpp \
     gui/editcustomsourcedialog.cpp \
-    gui/modelcomponent.cpp
+    gui/modelcomponent.cpp \
+    simulation/identification/arxidentification.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -66,7 +67,8 @@ HEADERS  += gui/mainwindow.h \
     simulation/source/multisourcedata.h \
     simulation/source/sourcedata.h \
     gui/editcustomsourcedialog.h \
-    gui/modelcomponent.h
+    gui/modelcomponent.h \
+    simulation/identification/arxidentification.h
 
 FORMS    += gui/mainwindow.ui \
     gui/saveadjustmentdialog.ui \

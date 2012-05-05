@@ -78,7 +78,7 @@ void Simulation::nextStep(){
         double y = object->simulate(u);
 
         emit drawInput(w);
-        emit drawError(e);
+ //       emit drawError(e);
         emit drawControl(u);
         emit drawOutput(y);
         if(toFile){

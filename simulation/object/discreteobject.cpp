@@ -1,13 +1,13 @@
 #include "discreteobject.h"
 
-DiscreteObject::DiscreteObject():noiseRatio(0), counter(0){
+DiscreteObject::DiscreteObject():noiseRatio(0.01), counter(0){
     std::srand ( time(NULL) );
 }
 
 DiscreteObject::~DiscreteObject(){
 }
 
-DiscreteObject::DiscreteObject(std::vector<double> n_B, std::vector<double> n_A, int n_k):noiseRatio(0){
+DiscreteObject::DiscreteObject(std::vector<double> n_B, std::vector<double> n_A, int n_k):noiseRatio(0.01){
     B = n_B;
     A = n_A;
     k = n_k;
@@ -95,7 +95,11 @@ double DiscreteObject::simulate(double input){
 
 
 double DiscreteObject::getLastValue(){
-    return Y[0];
+    if(Y.size() > 0){
+        return Y[0];
+    }else{
+        return 0;
+    }
 }
 
 void DiscreteObject::setNoiseRatio(double noise){
