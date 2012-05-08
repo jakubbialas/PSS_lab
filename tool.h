@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <deque>
 #include <map>
 
     template < class T >
@@ -10,6 +11,18 @@
     {
         os << "[ ";
         for (typename std::vector<T>::const_iterator ii = v.begin(); ii != v.end(); ++ii)
+        {
+            os << *ii << " ";
+        }
+        os << "]";
+        return os;
+    }
+
+    template < class T >
+    std::ostream& operator << (std::ostream& os, const std::deque<T>& v)
+    {
+        os << "[ ";
+        for (typename std::deque<T>::const_iterator ii = v.begin(); ii != v.end(); ++ii)
         {
             os << *ii << " ";
         }

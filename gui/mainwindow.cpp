@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->plot1->addPen("input", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
     ui->plot1->addPen("output", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ) );
-    ui->plot2->addPen("error", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::cyan ), QSize( 4, 4 ) ) );
     ui->plot2->addPen("control", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::green ), QSize( 3, 3 ) ) );
 
     isSimulationStarted = false;
@@ -42,7 +41,6 @@ void MainWindow::on_resetBtn_clicked()
     emit resetSimulation();
     ui->plot1->resetPen("input");
     ui->plot1->resetPen("output");
-    ui->plot2->resetPen("error");
     ui->plot2->resetPen("control");
 }
 
@@ -125,6 +123,9 @@ void MainWindow::updateAdjustmentsList(){
     }
     if(ctype.compare("PID") == 0){
         ui->stackedWidget_controllerValues->setCurrentIndex(1);
+    }
+    if(ctype.compare("GPC") == 0){
+        ui->stackedWidget_controllerValues->setCurrentIndex(2);
     }
 }
 
@@ -232,7 +233,6 @@ void MainWindow::on_pushButton_newObject_clicked(){
 
 void MainWindow::on_comboBox_controllerType_currentIndexChanged(const QString &arg1){
     updateAdjustmentsList();
-
 }
 
 void MainWindow::on_listWidget_adjustments_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous){
@@ -256,6 +256,16 @@ void MainWindow::on_listWidget_adjustments_currentItemChanged(QListWidgetItem *c
                     ui->doubleSpinBox_controllerPIDI->setValue(param["I"]);
                     ui->doubleSpinBox_controllerPIDD->setValue(param["D"]);
                 }
+                if(ctype.compare("GPC") == 0){
+                    ui->doubleSpinBox_controllerGPCH->setValue(param["H"]);
+                    ui->doubleSpinBox_controllerGPCL->setValue(param["L"]);
+                    ui->doubleSpinBox_controllerGPCa->setValue(param["a"]);
+                    ui->doubleSpinBox_controllerGPCp->setValue(param["p"]);
+                    ui->doubleSpinBox_controllerGPCdB->setValue(param["dB"]);
+                    ui->doubleSpinBox_controllerGPCdA->setValue(param["dA"]);
+                    ui->doubleSpinBox_controllerGPCk->setValue(param["k"]);
+                    ui->doubleSpinBox_controllerGPCl->setValue(param["l"]);
+                }
             }
         }
     }
@@ -273,6 +283,16 @@ void MainWindow::on_pushButton_setAdjustment_clicked(){
         param["P"] = ui->doubleSpinBox_controllerPIDP->value();
         param["I"] = ui->doubleSpinBox_controllerPIDI->value();
         param["D"] = ui->doubleSpinBox_controllerPIDD->value();
+    }
+    if(ctype.compare("GPC") == 0){
+        param["H"] = ui->doubleSpinBox_controllerGPCH->value();
+        param["L"] = ui->doubleSpinBox_controllerGPCL->value();
+        param["a"] = ui->doubleSpinBox_controllerGPCa->value();
+        param["p"] = ui->doubleSpinBox_controllerGPCp->value();
+        param["dB"] = ui->doubleSpinBox_controllerGPCdB->value();
+        param["dA"] = ui->doubleSpinBox_controllerGPCdA->value();
+        param["k"] = ui->doubleSpinBox_controllerGPCk->value();
+        param["l"] = ui->doubleSpinBox_controllerGPCl->value();
     }
     ad.setParemeters(param);
     ad.setType(ctype.toStdString());
@@ -300,6 +320,16 @@ void MainWindow::on_pushButton_saveAdjustment_clicked(){
             param["P"] = ui->doubleSpinBox_controllerPIDP->value();
             param["I"] = ui->doubleSpinBox_controllerPIDI->value();
             param["D"] = ui->doubleSpinBox_controllerPIDD->value();
+        }
+        if(ctype.compare("GPC") == 0){
+            param["H"] = ui->doubleSpinBox_controllerGPCH->value();
+            param["L"] = ui->doubleSpinBox_controllerGPCL->value();
+            param["a"] = ui->doubleSpinBox_controllerGPCa->value();
+            param["p"] = ui->doubleSpinBox_controllerGPCp->value();
+            param["dB"] = ui->doubleSpinBox_controllerGPCdB->value();
+            param["dA"] = ui->doubleSpinBox_controllerGPCdA->value();
+            param["k"] = ui->doubleSpinBox_controllerGPCk->value();
+            param["l"] = ui->doubleSpinBox_controllerGPCl->value();
         }
         ad.setParemeters(param);
         ad.setName(name);

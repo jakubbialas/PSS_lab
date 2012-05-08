@@ -121,12 +121,6 @@ public slots:
      * @param wskaźnik na obiektSISO w najprostrzej postaci
      */
     void setController(ObjectSISO*);
-    /**
-     * @brief Gniazdo odbierajace sygnal ustawiający symulowane źródło
-     *
-     * @param wskaźnik na Źródło w najprostrzej postaci
-     */
-    void setSource(Source*);
 
     void saveSignalsToFile(bool, std::string);
 
@@ -138,7 +132,6 @@ public:
 private:
     ObjectSISO *object; /**< wskaźnik na symulowany obiekt dyskretny */
     ObjectSISO *controller; /**< wskaxnik na symulowany regulator */
-    Source *source; /**< wskaźnik na symulowane źródło */
 
     QTimer * timer; /**< Timer odpowiedzialny za wygenerowanie kolejnych wartości symulacji */
 
@@ -149,7 +142,7 @@ private:
     std::string filePath; /**< File path */
 
     void openFile();
-    void printFile(double, double, double, double);
+    void printFile(double, double, double);
     void closeFile();
 
     std::fstream file;

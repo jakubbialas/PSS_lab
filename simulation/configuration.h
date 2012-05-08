@@ -12,6 +12,7 @@
 #include "object/nonstationarydiscreteobject.h"
 #include "controller/controllerp.h"
 #include "controller/controllerpid.h"
+#include "controller/controllergpc.h"
 #include "source/multisource.h"
 
 #include "controller/adjustmentdata.h"
@@ -64,12 +65,6 @@ signals:
      * @param wskaźnik na obiektSISO w najprostrzej postaci
      */
     void setController(ObjectSISO*);
-    /**
-     * @brief sygnał ze źródłem wysyłany do obiektu klasy symulacji
-     *
-     * @param wskaźnik na Źródło w najprostrzej postaci
-     */
-    void setSource(Source*);
 
     /**
      * @brief sygnał z listą zdefiniowanych obiektów dyskretnych (tylko z nazwami tych obiektów) wysyłany do gui

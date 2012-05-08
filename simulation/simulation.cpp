@@ -12,12 +12,11 @@ Simulation::Simulation(QObject *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
 
     samplingTime = 10;
-    feedback = false;
+    feedback = true;
 
     filePath = "";
     toFile = false;
 
-    source = NULL;
     controller = NULL;
     object = NULL;
 }
@@ -49,7 +48,6 @@ void Simulation::stopSimulation(){
 }
 
 void Simulation::resetSimulation(){
-    source->reset();
     object->reset();
     controller->reset();
 }
@@ -67,22 +65,21 @@ void Simulation::stepSimulation(int i){
 }
 
 void Simulation::nextStep(){
-    if(source && controller && object){
-        double w = source->getNextSample();
+    if(controller && object){
+        double w = ((Controller*) controller)->getSP();
         double y_last = 0;
         if(feedback){
             y_last = object->getLastValue();
         }
-        double e = w - y_last;
-        double u = controller->simulate(e);
+
+        double u = controller->simulate(y_last);
         double y = object->simulate(u);
 
         emit drawInput(w);
- //       emit drawError(e);
         emit drawControl(u);
         emit drawOutput(y);
         if(toFile){
-            printFile(w, e, u, y);
+            printFile(w, u, y);
         }
     }else{
         emit simulationStopped(std::string("First set object, controller and source!"));
@@ -98,9 +95,9 @@ void Simulation::setController(ObjectSISO* n_controller){
     controller = n_controller;
 }
 
-void Simulation::setSource(Source* n_source){
+/*void Simulation::setSource(Source* n_source){
     source = n_source;
-}
+}*/
 
 /*ObjectSISO* Simulation::getObject(){
     return object;
@@ -123,8 +120,8 @@ void Simulation::openFile(){
     file.open(filePath.c_str(), std::ios::out|std::ios::app);
 }
 
-void Simulation::printFile(double w, double e, double u, double y){
-    file << w << ";" << e << ";" << u << ";" << y << ";\n";
+void Simulation::printFile(double w, double u, double y){
+    file << w << ";" << u << ";" << y << "\n";
 }
 
 void Simulation::closeFile(){

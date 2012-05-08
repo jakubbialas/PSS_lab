@@ -18,6 +18,7 @@ void ControllerP::setParameter(std::string name, double value){
     }
 }
 
-double ControllerP::simulate(double e){
+double ControllerP::simulate(double y){
+    double e = source->getNextSample() - y;
     return e*P;
 }

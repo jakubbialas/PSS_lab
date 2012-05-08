@@ -11,7 +11,6 @@ ControllerPID::ControllerPID(double n_P, double n_I, double n_D){
     I = n_I;
     D = n_D;
     setNoiseRatio(0);
-    //actualize();
 
     lastI = 0;
     lastD = 0;
@@ -54,8 +53,9 @@ double ControllerPID::simulateD(){
     return lastD;
 }
 
-double ControllerPID::simulate(double input){
-    U.push_front(input);
+double ControllerPID::simulate(double y){
+    double e = source->getNextSample() - y;
+    U.push_front(e);
     if(U.size() > 2){
         U.pop_back();
     }
@@ -68,18 +68,3 @@ void ControllerPID::reset(){
     DiscreteObject::reset();
 }
 
-
-/*void ControllerPID::actualize(){
-    std::vector<double> A;
-    std::vector<double> B;
-
-    double Kp, Kd, Ki;
-    Kp = P;
-    Kd = P*D;
-    Ki = P/I;
-
-    B.push_back(Kp+Kd+Ki); B.push_back(-Kp-2*Kd); B.push_back(Kd); // (Kp*Kd*Ki) + (-Kp-2*Kd)*z^-1 + Kd*z^-2
-    A.push_back(1); A.push_back(-1); // 1 - z^-1
-
-    this->setBAk(B,A,0);
-}*/

@@ -7,7 +7,7 @@
 #include "simulation/simulation.h"
 
 #include "simulation/configuration.h"
-
+#include "simulation/identification/arxidentification.h"
 
 int main(int argc, char *argv[])
 {
@@ -56,8 +56,8 @@ int main(int argc, char *argv[])
                      &simulation, SLOT(setObject(ObjectSISO*)));
     QObject::connect(&config, SIGNAL(setController(ObjectSISO*)),
                      &simulation, SLOT(setController(ObjectSISO*)));
-    QObject::connect(&config, SIGNAL(setSource(Source*)),
-                     &simulation, SLOT(setSource(Source*)));
+//    QObject::connect(&config, SIGNAL(setSource(Source*)),
+//                     &simulation, SLOT(setSource(Source*)));
 
 
     QObject::connect(&window, SIGNAL(getObjectsList()),
@@ -115,13 +115,24 @@ int main(int argc, char *argv[])
     QObject::connect(&config, SIGNAL(retActiveSource(std::string)),
                      &window, SLOT(retActiveSource(std::string)));
 
-    window.show();
+   window.show();
+  /*  std::vector<double> B;
+    std::vector<double> A;
 
+    B.push_back(0.05);
+    A.push_back(1);
+    A.push_back(-1.95);
+    A.push_back(0.95);
 
-
-    //YamlConfigParser ycp;
-    //ycp.parseFile("model.yaml");
-    //ycp.saveFile("model.yaml");
-
+    DiscreteObject o(B, A, 2);
+    ModelData d;
+    ARXIdentification ident(0, 2, 2, 1);
+double y, w = 1;
+    for(int i=0; i<100; i++){
+        y = o.simulate(w);
+        d = ident.identify(w, y);
+    }
+    cout << d;
+*/
     return a.exec();
 }

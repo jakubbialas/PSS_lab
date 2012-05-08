@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     simulation/source/sourcedata.cpp \
     gui/editcustomsourcedialog.cpp \
     gui/modelcomponent.cpp \
-    simulation/identification/arxidentification.cpp
+    simulation/identification/arxidentification.cpp \
+    simulation/controller/controllergpc.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -68,7 +69,8 @@ HEADERS  += gui/mainwindow.h \
     simulation/source/sourcedata.h \
     gui/editcustomsourcedialog.h \
     gui/modelcomponent.h \
-    simulation/identification/arxidentification.h
+    simulation/identification/arxidentification.h \
+    simulation/controller/controllergpc.h
 
 FORMS    += gui/mainwindow.ui \
     gui/saveadjustmentdialog.ui \
@@ -87,3 +89,5 @@ INCLUDEPATH += $$PWD/../../../../usr/local/include
 DEPENDPATH += $$PWD/../../../../usr/local/include
 
 unix:!macx:!symbian: PRE_TARGETDEPS += $$PWD/../../../../usr/local/lib/libyaml-cpp.a
+
+LIBS += -lumfpack -lamd -lblas

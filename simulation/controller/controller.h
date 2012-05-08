@@ -4,6 +4,7 @@
 #include "../object/discreteobject.h"
 #include <string>
 #include <map>
+#include "simulation/source/source.h"
 
 /**
  * @brief Klasa podstawowa Regulatora, dziedziczy po klasie obiektu dyskretnego
@@ -26,6 +27,12 @@ public:
      * @param double wartość parametru
      */
     virtual void setParameter(std::string, double)=0;
+
+    Source *source;
+
+    void setSource(Source*);
+    double getSP();
+    void reset();
 
 };
 #endif // CONTROLLER_H

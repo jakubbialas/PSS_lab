@@ -5,16 +5,14 @@ Configuration::Configuration(QObject *parent) :
 {
     controller = NULL;
     currentControllerType = "";
-    source = NULL;
+    //source = NULL;
     object = new NonStationaryDiscreteObject();
 
 }
 
 Configuration::~Configuration(){
-    delete source;
     delete object;
     delete controller;
-    emit setSource(NULL);
     emit setObject(NULL);
     emit setController(NULL);
 }
@@ -26,9 +24,9 @@ void Configuration::newConfig(){
     delete object;
     delete controller;
     controller = NULL;
-    source = NULL;
+    //source = NULL;
     object = new NonStationaryDiscreteObject();
-    emit setSource(source);
+    //emit setSource(source);
     emit setObject(object);
     emit setController(controller);
 
@@ -192,6 +190,9 @@ void Configuration::setActiveAdjustment(AdjustmentData ad){
         }else if(ad.getType().compare("PID") == 0){
             controller = new ControllerPID();
             currentControllerType = "PID";
+        }else if(ad.getType().compare("GPC") == 0){
+            controller = new ControllerGPC();
+            currentControllerType = "GPC";
         }else{
             currentControllerType = "";
         }
@@ -210,8 +211,9 @@ void Configuration::setActiveAdjustment(AdjustmentData ad){
 }
 
 void Configuration::setActiveSimpleSource(std::string type, std::map<std::string, double> param){
-    delete source;
-    source == NULL;
+    //delete source;
+    //source == NULL;
+    Source *source = NULL;
     if(type.compare("step") == 0){
         source = new StepSource();
     }else if(type.compare("impuls") == 0){
@@ -231,7 +233,9 @@ void Configuration::setActiveSimpleSource(std::string type, std::map<std::string
             source->setParameter((*it).first, (*it).second);
         }
     }
-    emit setSource(source);
+    controller->setSource(source);
+   // emit setSource(source);
+    emit setController(controller);
     emit retActiveSource(type);
 }
 
@@ -277,8 +281,11 @@ void Configuration::removeCustomSource(std::string name){
 }
 
 void Configuration::setActiveCustomSource(std::string name){
-    delete source;
-    source = new MultiSource(findSource(name)->getSources());
-    emit setSource(source);
+//    delete source;
+//    source = new MultiSource(findSource(name)->getSources());
+    Source *source = new MultiSource(findSource(name)->getSources());
+    controller->setSource(source);
+   // emit setSource(source);
+    emit setController(controller);
     emit retActiveSource(name);
 }

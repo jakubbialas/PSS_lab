@@ -29,7 +29,6 @@ public:
      *
      */
     virtual void reset(void)=0;
-
 };
 
 #endif // OBIECTSISO_H

@@ -115,6 +115,8 @@ public:
 
     void setNoiseRatio(double);
 
+    void setU(std::deque<double>);
+    void setY(std::deque<double>);
 };
 
 #endif // DISCRETEOBJECT_H
