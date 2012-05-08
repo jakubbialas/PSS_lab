@@ -6,39 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>865</width>
-    <height>685</height>
+    <width>926</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="LivePlot" name="plot1" native="true">
+   <widget class="AdvencedPlot" name="plot1" native="true">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>421</width>
-      <height>301</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="LivePlot" name="plot2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>310</y>
-      <width>421</width>
-      <height>301</height>
+      <width>481</width>
+      <height>521</height>
      </rect>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>0</y>
+      <x>500</x>
+      <y>10</y>
       <width>416</width>
       <height>241</height>
      </rect>
@@ -1441,8 +1431,8 @@
    <widget class="QPushButton" name="simBtn">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>250</y>
+      <x>510</x>
+      <y>260</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -1454,8 +1444,8 @@
    <widget class="QPushButton" name="resetBtn">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>250</y>
+      <x>710</x>
+      <y>260</y>
       <width>191</width>
       <height>41</height>
      </rect>
@@ -1470,7 +1460,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>865</width>
+     <width>926</width>
      <height>25</height>
     </rect>
    </property>
@@ -1528,9 +1518,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>LivePlot</class>
+   <class>AdvencedPlot</class>
    <extends>QWidget</extends>
-   <header>gui/liveplot.h</header>
+   <header>gui/advencedplot.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

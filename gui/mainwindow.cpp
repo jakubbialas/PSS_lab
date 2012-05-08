@@ -7,9 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->plot1->addPen("input", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ) );
-    ui->plot1->addPen("output", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ) );
-    ui->plot2->addPen("control", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::green ), QSize( 3, 3 ) ) );
+    ui->plot1->addPen("input", new QwtSymbol( QwtSymbol::XCross, Qt::NoBrush, QPen( Qt::red ), QSize( 4, 4 ) ), 1 );
+    ui->plot1->addPen("output", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::blue ), QSize( 3, 3 ) ), 1 );
+    ui->plot1->addPen("control", new QwtSymbol( QwtSymbol::Ellipse, Qt::NoBrush, QPen( Qt::green ), QSize( 3, 3 ) ), 2 );
 
     isSimulationStarted = false;
 }
@@ -39,9 +39,10 @@ void MainWindow::on_simBtn_clicked()
 void MainWindow::on_resetBtn_clicked()
 {
     emit resetSimulation();
-    ui->plot1->resetPen("input");
+    /*ui->plot1->resetPen("input");
     ui->plot1->resetPen("output");
-    ui->plot2->resetPen("control");
+    ui->plot1->resetPen("control");*/
+    ui->plot1->reset();
 }
 
 void MainWindow::updateButtons(){
@@ -69,11 +70,11 @@ void MainWindow::drawOutput(double y){
 }
 
 void MainWindow::drawError(double y){
-    ui->plot2->drawPoint(y, "error");
+   //ui->plot1->drawPoint(y, "error");
 }
 
 void MainWindow::drawControl(double y){
-    ui->plot2->drawPoint(y, "control");
+    ui->plot1->drawPoint(y, "control");
 }
 
 void MainWindow::retObjectsList(std::vector<std::string> names){

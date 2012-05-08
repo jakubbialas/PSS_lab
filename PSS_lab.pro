@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     gui/editcustomsourcedialog.cpp \
     gui/modelcomponent.cpp \
     simulation/identification/arxidentification.cpp \
-    simulation/controller/controllergpc.cpp
+    simulation/controller/controllergpc.cpp \
+    gui/advencedplot.cpp
 
 HEADERS  += gui/mainwindow.h \
     gui/liveplot.h \
@@ -70,12 +71,14 @@ HEADERS  += gui/mainwindow.h \
     gui/editcustomsourcedialog.h \
     gui/modelcomponent.h \
     simulation/identification/arxidentification.h \
-    simulation/controller/controllergpc.h
+    simulation/controller/controllergpc.h \
+    gui/advencedplot.h
 
 FORMS    += gui/mainwindow.ui \
     gui/saveadjustmentdialog.ui \
     gui/editobjectdialog.ui \
-    gui/editcustomsourcedialog.ui
+    gui/editcustomsourcedialog.ui \
+    gui/advencedplot.ui
 
 
 unix: LIBS += -L$$PWD/../../../../usr/local/qwt-6.0.2-svn/lib/ -lqwt
