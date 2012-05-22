@@ -5,7 +5,7 @@ Configuration::Configuration(QObject *parent) :
 {
     controller = NULL;
     currentControllerType = "";
-    //source = NULL;
+    source = NULL;
     object = new NonStationaryDiscreteObject();
 
 }
@@ -13,22 +13,13 @@ Configuration::Configuration(QObject *parent) :
 Configuration::~Configuration(){
     delete object;
     delete controller;
+    delete source;
     emit setObject(NULL);
     emit setController(NULL);
 }
 
 void Configuration::newConfig(){
     filename = "";
-    currentControllerType = "";
-    delete source;
-    delete object;
-    delete controller;
-    controller = NULL;
-    //source = NULL;
-    object = new NonStationaryDiscreteObject();
-    //emit setSource(source);
-    emit setObject(object);
-    emit setController(controller);
 
     objects.clear();
     adjustments.clear();
@@ -72,7 +63,6 @@ void Configuration::saveConfig(std::string n_filename){
 
     YAML::Emitter emitter;
 
-    // emitter << objects; //nie mozna, bo mapa musi byc zapisana jak wektor a nie jak mapa.
     emitter << YAML::BeginMap;
 
     emitter << YAML::Key << "objects" << YAML::Value;
@@ -117,8 +107,6 @@ std::vector<std::string> Configuration::getSourcesNames(){
     return keys;
 }
 
-
-
 void Configuration::getObjectsList(){
     emit retObjectsList(getObjectsKeys());
 }
@@ -148,8 +136,6 @@ void Configuration::setActiveObject(std::string name){
     emit setObject(object);
     emit retActiveObject(name);
 }
-
-
 
 std::vector<AdjustmentData>::iterator Configuration::findAdjustment(std::string ctype, std::string name){
     std::vector<AdjustmentData>::iterator it, it_r = adjustments.end();
@@ -202,6 +188,7 @@ void Configuration::setActiveAdjustment(AdjustmentData ad){
         std::ostringstream ret;
         std::map<std::string, double>::iterator it;
         std::map<std::string, double> param = ad.getParameters();
+        controller->setSource(source);
         for(it = param.begin(); it!=param.end(); it++){
             controller->setParameter((*it).first, (*it).second);
             ret << " " << (*it).first << ": " << (*it).second;
@@ -211,9 +198,8 @@ void Configuration::setActiveAdjustment(AdjustmentData ad){
 }
 
 void Configuration::setActiveSimpleSource(std::string type, std::map<std::string, double> param){
-    //delete source;
-    //source == NULL;
-    Source *source = NULL;
+    delete source;
+    source = NULL;
     if(type.compare("step") == 0){
         source = new StepSource();
     }else if(type.compare("impuls") == 0){
@@ -233,14 +219,12 @@ void Configuration::setActiveSimpleSource(std::string type, std::map<std::string
             source->setParameter((*it).first, (*it).second);
         }
     }
-    controller->setSource(source);
-   // emit setSource(source);
-    emit setController(controller);
+    if(controller != NULL){
+        controller->setSource(source);
+        emit setController(controller);
+    }
     emit retActiveSource(type);
 }
-
-
-
 
 std::vector<MultiSourceData>::iterator Configuration::findSource(std::string name){
     std::vector<MultiSourceData>::iterator it, it_r = sources.end();
@@ -281,11 +265,11 @@ void Configuration::removeCustomSource(std::string name){
 }
 
 void Configuration::setActiveCustomSource(std::string name){
-//    delete source;
-//    source = new MultiSource(findSource(name)->getSources());
-    Source *source = new MultiSource(findSource(name)->getSources());
-    controller->setSource(source);
-   // emit setSource(source);
-    emit setController(controller);
+    delete source;
+    source = new MultiSource(findSource(name)->getSources());
+    if(controller != NULL){
+        controller->setSource(source);
+        emit setController(controller);
+    }
     emit retActiveSource(name);
 }

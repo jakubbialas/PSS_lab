@@ -104,7 +104,6 @@ signals:
      */
     void saveSignalsToFile(bool, std::string);
 
-
     /**
      * @brief Sygnał emitowany w celu wysłania obiektu o podajen nazwie do klasy symulacji
      *
@@ -213,12 +212,6 @@ private slots:
      * @param y Wartosc wyjscia
      */
     void drawOutput(double y);
-    /**
-     * @brief Gniazdo odbierajace sygnal rysowania uchybu
-     *
-     * @param y Wartosc bledu
-     */
-    void drawError(double y);
     /**
      * @brief Gniazdo odbierajace sygnal rysowania sterowania
      *
@@ -335,7 +328,7 @@ private slots:
 
     void on_checkBox_saveSignals_toggled(bool checked);
 
-    void on_pushButton_clicked();
+    void on_pushButton_setOutputFile_clicked();
 
 private:
     Ui::MainWindow *ui; /**< UI zawierajace informacje o oknie programu */

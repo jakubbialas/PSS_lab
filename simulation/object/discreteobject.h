@@ -3,11 +3,10 @@
 
 #include "objectsiso.h"
 #include "modeldata.h"
-#include <vector>
-#include <deque>
-#include <iostream>
 #include <cstdlib>
 #include <numeric>
+#include "exceptions/pss_discreteobject_exceptions.h"
+
 
 /**
  * @brief Klasa dziedziczaca po ObjectSISO, implementuje obiekt typu ARX
@@ -16,10 +15,11 @@
 class DiscreteObject : public ObjectSISO
 {
 private:
-    std::vector<double> B; /** wielomian B - ten na gorze */
-    std::vector<double> A; /** wielomian A - ten na dole... */
+    std::vector<double> B; /** wielomian B */
+    std::vector<double> A; /** wielomian A */
     int k;                 /** opoznienie wejscia */
-    double noiseRatio;
+    double noiseRatio;     /** współczynnik szumu */
+
 protected:
     std::deque<double> U;  /** kolejka wymuszeń */
     std::deque<double> Y;  /** kolejka stanu (poprzednie wartości) */
@@ -27,7 +27,7 @@ protected:
 
 public:
     /**
-     * @brief Konstruktor bez parametrowy, parametry obiektu nie sa ustawione
+     * @brief Konstruktor domyślny, parametry obiektu nie sa ustawione
      *
      */
     DiscreteObject();
@@ -41,23 +41,24 @@ public:
     /**
      * @brief Konstruktor tworzący obiekt
      *
-     * @param vector<double> Wielomian B
-     * @param vector<double> Wielomian A
-     * @param int Parametr k
+     * @param vector<double> B Wielomian B
+     * @param vector<double> A Wielomian A
+     * @param unsigned int k Opóźnienie obiektu
+     * @param double noiseRatio Współczynnik szumu domyślnie 0
      */
-    DiscreteObject(std::vector<double>, std::vector<double>, int);
+    DiscreteObject(std::vector<double> B, std::vector<double> A, unsigned int k, double noiseRatio);
 
     /**
      * @brief Konstruktor tworzący obiekt
      *
-     * @param ModelData parametry obiektu
+     * @param ModelData md obiekt zawierający parametry obiektu
      */
-    DiscreteObject(ModelData);
+    DiscreteObject(ModelData md);
 
     /**
-     * @brief Ustawia wielomiany B i A, oraz parametr k
+     * @brief Ustawia parametry obiektu
      *
-     * @param ModelData
+     * @param ModelData md obiekt zawierający parametry obiektu
      */
     void setModel(ModelData);
 
@@ -70,29 +71,45 @@ public:
     /**
      * @brief Ustawia wielomiany B i A, oraz parametr k
      *
-     * @param vector<double> Wielomian B
-     * @param vector<double> Wielomian A
-     * @param int Parametr k
+     * @param vector<double> B Wielomian B
+     * @param vector<double> A Wielomian A
+     * @param unsigned int k Opóźnienie obiektu
      */
-    void setBAk(std::vector<double>, std::vector<double>, int);
+    void setParameters(std::vector<double> B, std::vector<double> A, unsigned int k);
 
     /**
-     * @brief Zwraca vector B
+     * @brief Ustawia wielomiany B i A, oraz parametr k
+     *
+     * @param vector<double> B Wielomian B
+     * @param vector<double> A Wielomian A
+     * @param unsigned int k Opóźnienie obiektu
+     * @param double noiseRatio Współczynnik szumu
+     */
+    void setParameters(std::vector<double> B, std::vector<double> A, unsigned int k, double noiseRatio);
+
+    /**
+     * @brief Zwraca wielomian B
      *
      */
     std::vector<double> getB();
 
     /**
-     * @brief Zwraca vector A
+     * @brief Zwraca wielomian A
      *
      */
     std::vector<double> getA();
 
     /**
-     * @brief Zwraca parametr k
+     * @brief Zwraca opóźnienie obiektu
      *
      */
-    int getk();
+    unsigned int getk();
+
+    /**
+     * @brief Zwraca współczynnik szumu
+     *
+     */
+    double getNoiseRatio();
 
     /**
      * @brief Resetuje obiekt i jego wielomiany, ustawia probke czasu na 0
@@ -101,11 +118,13 @@ public:
     void reset();
 
     /**
-     * @brief Okresla wartosc wyjsciowa symulowanego obiektu
+     * @brief Symuluje kolejną iterację obiektu
      *
-     * @param double Wartosc wejscia
+     * @param double input Wartosc wejscia
+     *
+     * @return double wartość wyjściowa
      */
-    double simulate(double);
+    double simulate(double input);
 
     /**
      * @brief Zwraca wartość wyjściową obiektu wyznaczaną po ostatnim wywołaniu funkcji simulate
@@ -113,9 +132,23 @@ public:
      */
     double getLastValue();
 
+    /**
+     * @brief Funkcja ustawia współczynnik szumu obiektu
+     *
+     * @param double
+     */
     void setNoiseRatio(double);
 
+    /**
+     * @brief Funkcja ustawia wektor wymuszeń obiektu
+     *
+     */
     void setU(std::deque<double>);
+
+    /**
+     * @brief Funkcja ustawia wektor stanu obiektu
+     *
+     */
     void setY(std::deque<double>);
 };
 

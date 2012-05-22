@@ -29,7 +29,7 @@ public:
  * @param n_k
  * @param n_l
  */
-    ARXIdentification(int n_dB, int n_dA, int n_k, double n_l);
+    ARXIdentification(int n_dB, int n_dA, unsigned int n_k, double n_l);
     /**
      * @brief kolejny krok identyfikacji
      *
@@ -61,6 +61,8 @@ public:
      */
     void setLambda(double);
 
+    void reset();
+
 private:
     int dB; /**< stopien wielomianu B */
     int dA; /**< stopien wielomianu A */
@@ -72,6 +74,17 @@ private:
 
     std::deque<double> inQueue; /**< wartosci wejsciowe */
     std::deque<double> outQueue; /**< wartosci wyjsciowe */
+
+
+    boost::numeric::ublas::matrix<double> theta;
+    boost::numeric::ublas::matrix<double> phi;
+    std::vector<double> l_B;
+    std::vector<double> l_A;
+    boost::numeric::ublas::matrix<double> temp1;
+    boost::numeric::ublas::matrix<double> temp3;
+    boost::numeric::ublas::matrix<double> v_K;
+    std::vector<double> n_B;
+    std::vector<double> n_A;
 };
 
 #endif // ARXIDENTIFICATION_H

@@ -2,12 +2,6 @@
 #define OBJECTDATA_H
 
 #include "modeldata.h"
-#include "tool.h"
-
-#include <vector>
-#include <yaml-cpp/yaml.h>
-#include <yaml-cpp/emitter.h>
-#include <yaml-cpp/stlemitter.h>
 
 /**
  * @brief Klasa przechowujaca zbior parametrow obiektu i jego nazwe

@@ -1,35 +1,44 @@
 #include "discreteobject.h"
 
-DiscreteObject::DiscreteObject():noiseRatio(0.0), counter(0){
-    std::srand ( time(NULL) );
-}
 
 DiscreteObject::~DiscreteObject(){
 }
 
-DiscreteObject::DiscreteObject(std::vector<double> n_B, std::vector<double> n_A, int n_k):noiseRatio(0.0){
-    B = n_B;
-    A = n_A;
-    k = n_k;
-    DiscreteObject();
+DiscreteObject::DiscreteObject(std::vector<double> n_B, std::vector<double> n_A, unsigned int n_k, double n_noiseRatio = 0.0):
+    B(n_B),
+    A(n_A),
+    k(n_k),
+    noiseRatio(n_noiseRatio),
+    counter(0)
+{
+    std::srand ( time(NULL) );
+}
+
+DiscreteObject::DiscreteObject(){
+    DiscreteObject(std::vector<double>(0), std::vector<double>(0), 0);
 }
 
 DiscreteObject::DiscreteObject(ModelData md){
-    DiscreteObject(md.getB(), md.getA(), md.getK());
+    DiscreteObject(md.getB(), md.getA(), md.getK(), md.getNoiseRatio());
 }
 
 void DiscreteObject::setModel(ModelData md){
-    setBAk(md.getB(), md.getA(), md.getK());
+    setParameters(md.getB(), md.getA(), md.getK(), md.getNoiseRatio());
 }
 
 ModelData DiscreteObject::getModel(){
-    return ModelData(B, A, k);
+    return ModelData(B, A, k, noiseRatio);
 }
 
-void DiscreteObject::setBAk(std::vector<double> n_B, std::vector<double> n_A, int n_k){
+void DiscreteObject::setParameters(std::vector<double> n_B, std::vector<double> n_A, unsigned int n_k){
     B = n_B;
     A = n_A;
     k = n_k;
+}
+
+void DiscreteObject::setParameters(std::vector<double> n_B, std::vector<double> n_A, unsigned int n_k, double n_noiseRatio){
+    DiscreteObject::setParameters(n_B, n_A, n_k);
+    noiseRatio = n_noiseRatio;
 }
 
 std::vector<double> DiscreteObject::getB(){
@@ -40,8 +49,12 @@ std::vector<double> DiscreteObject::getA(){
     return A;
 }
 
-int DiscreteObject::getk(){
+unsigned int DiscreteObject::getk(){
     return k;
+}
+
+double DiscreteObject::getNoiseRatio(){
+    return noiseRatio;
 }
 
 void DiscreteObject::reset(){
@@ -51,14 +64,18 @@ void DiscreteObject::reset(){
 }
 
 double DiscreteObject::simulate(double input){
-    double out;
+    if(B.size() == 0 || A.size() == 0){
+        throw PSSDiscreteObjectParameterNotSetException();
+    }
+
+    double out = 0.0;
 
     U.push_front(input);
 
     if(Y.size() >= A.size()-1){
-        out = -std::inner_product(A.begin() + 1, A.end(), Y.begin(), 0.0);
+        out = - std::inner_product(A.begin() + 1, A.end(), Y.begin(), 0.0);
     }else{
-        out = -std::inner_product(Y.begin(), Y.end(), A.begin() + 1, 0.0);
+        out = - std::inner_product(Y.begin(), Y.end(), A.begin() + 1, 0.0);
     }
 
     std::deque<double>::iterator it = U.begin();
@@ -72,27 +89,27 @@ double DiscreteObject::simulate(double input){
     }
 
     int r = std::rand();
-    double e = r%32767; //0-32767
-    e = ((e/32767)*2 - 1); //(-1) - 1
-    e = e*out*noiseRatio; //+-5 promili outa;
+    double e = r%32767; //<0;-32767>
+    e = ((e/32767)*2 - 1); //<-1;1>
+    e = e*out*noiseRatio; //
     out += e;
 
     out /= A[0]; //dzielimy y przez A[0] gdyby bylo rozne od 1
 
     Y.push_front(out);
 
-    if(Y.size() > A.size()-1){
+    //usuwamy niepotrzebną historię (pozostawiamy jednek lekki zapas)
+    int b = 5;
+    if(Y.size() > A.size()-1 + b){
         Y.pop_back();
     }
-    if(U.size() > B.size()+k-1){
+    if(U.size() > B.size()+k-1 + b){
         U.pop_back();
     }
-
     counter++;
 
     return out;
 }
-
 
 double DiscreteObject::getLastValue(){
     if(Y.size() > 0){
@@ -102,8 +119,8 @@ double DiscreteObject::getLastValue(){
     }
 }
 
-void DiscreteObject::setNoiseRatio(double noise){
-    noiseRatio = noise;
+void DiscreteObject::setNoiseRatio(double n_noiseRatio){
+    noiseRatio = n_noiseRatio;
 }
 
 void DiscreteObject::setU(std::deque<double> n_U){

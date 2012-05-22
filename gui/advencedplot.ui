@@ -6,55 +6,86 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>498</height>
+    <width>335</width>
+    <height>300</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QwtPlot" name="qwtPlot_1">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>461</width>
-     <height>221</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QScrollBar" name="horizontalScrollBarXPos">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>470</y>
-     <width>421</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="minimum">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
     <number>0</number>
    </property>
-   <property name="maximum">
-    <number>0</number>
-   </property>
-   <property name="singleStep">
-    <number>0</number>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QwtPlot" name="qwtPlot_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>240</y>
-     <width>461</width>
-     <height>221</height>
-    </rect>
-   </property>
-  </widget>
+   <item>
+    <widget class="QwtPlot" name="qwtPlot_1"/>
+   </item>
+   <item>
+    <widget class="QwtPlot" name="qwtPlot_2"/>
+   </item>
+   <item>
+    <widget class="QScrollBar" name="horizontalScrollBarXPos">
+     <property name="minimum">
+      <number>0</number>
+     </property>
+     <property name="maximum">
+      <number>0</number>
+     </property>
+     <property name="singleStep">
+      <number>0</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_saveCurrent">
+       <property name="text">
+        <string>save current view</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_savAll">
+       <property name="text">
+        <string>save all data</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>reset plot</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

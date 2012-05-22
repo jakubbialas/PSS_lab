@@ -1,6 +1,8 @@
 #include "advencedplot.h"
 #include "ui_advencedplot.h"
 
+const unsigned int AdvencedPlot::maxMemory = 64000;
+
 AdvencedPlot::AdvencedPlot(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdvencedPlot)
@@ -66,6 +68,8 @@ void AdvencedPlot::reset(){
         QVector<double> *dY = new QVector<double>(sizeX);
         d_X[(*it).first] = dX;
         d_Y[(*it).first] = dY;
+        //d_X[(*it).first]->clear();
+        //d_Y[(*it).first]->clear();
 
         m_curves[(*it).first]->setSamples(*d_X[(*it).first], *d_Y[(*it).first]);
     }
@@ -81,6 +85,10 @@ void AdvencedPlot::reset(){
 void AdvencedPlot::drawPoint(double x, double y, std::string pen){
     m_X[pen]->push_back(x);
     m_Y[pen]->push_back(y);
+    if(m_X[pen]->size() > maxMemory){
+        m_X[pen]->pop_front();
+        m_Y[pen]->pop_front();
+    }
 
     if(m_X[pen]->size() > howX){
         howX = m_X[pen]->size();
@@ -134,5 +142,64 @@ void AdvencedPlot::on_horizontalScrollBarXPos_valueChanged(int value)
         }
         ui->qwtPlot_1->replot();
         ui->qwtPlot_2->replot();
+    }
+}
+
+void AdvencedPlot::on_pushButton_3_clicked()
+{
+    this->reset();
+}
+
+void AdvencedPlot::on_pushButton_savAll_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter(tr("CSV File (*.csv);;All (*.*)"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    QStringList fileNames;
+    if (dialog.exec()){
+        fileNames = dialog.selectedFiles();
+        if(fileNames.size()>0){
+            std::fstream file(fileNames.at(0).toStdString().c_str());
+
+            std::map<std::string, QVector<double>*>::iterator it;
+
+            int size = m_Y[(*(m_Y.begin())).first]->size();
+            for(int i=0; i<size; i++){
+                for(it = m_Y.begin(); it!=m_Y.end(); it++){
+                    file << m_Y[(*it).first]->at(i) << ";";
+                }
+                file << "\n";
+            }
+            file.close();
+        }
+    }
+}
+
+void AdvencedPlot::on_pushButton_saveCurrent_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter(tr("CSV File (*.csv);;All (*.*)"));
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+
+    QStringList fileNames;
+    if (dialog.exec()){
+        fileNames = dialog.selectedFiles();
+        if(fileNames.size()>0){
+            std::ofstream file(fileNames.at(0).toStdString().c_str());
+
+            std::map<std::string, QVector<double>*>::iterator it;
+
+            int size = d_Y[(*(d_Y.begin())).first]->size();
+            for(int i=0; i<size; i++){
+                for(it = d_Y.begin(); it!=d_Y.end(); it++){
+                    file << d_Y[(*it).first]->at(i) << ";";
+                }
+                file << "\n";
+            }
+            file.close();
+        }
     }
 }

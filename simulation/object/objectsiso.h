@@ -12,7 +12,6 @@ public:
      *
      */
     ObjectSISO();
-
     /**
      * @brief Funkcja odpowiedzialna za jeden krok symulacji
      *

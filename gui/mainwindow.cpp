@@ -39,9 +39,6 @@ void MainWindow::on_simBtn_clicked()
 void MainWindow::on_resetBtn_clicked()
 {
     emit resetSimulation();
-    /*ui->plot1->resetPen("input");
-    ui->plot1->resetPen("output");
-    ui->plot1->resetPen("control");*/
     ui->plot1->reset();
 }
 
@@ -60,17 +57,12 @@ void MainWindow::simulationStopped(std::string msg){
     QMessageBox::warning(this, "Simulation Stoped", QString(msg.c_str()));
 }
 
-
 void MainWindow::drawInput(double y){
     ui->plot1->drawPoint(y, "input");
 }
 
 void MainWindow::drawOutput(double y){
     ui->plot1->drawPoint(y, "output");
-}
-
-void MainWindow::drawError(double y){
-   //ui->plot1->drawPoint(y, "error");
 }
 
 void MainWindow::drawControl(double y){
@@ -136,7 +128,6 @@ void MainWindow::retActiveAdjustment(std::string type, std::string adj){
     ui->statusBar->showMessage(msg.str().c_str(), 5000);
 }
 
-
 void MainWindow::retCustomSourcesList(std::vector<std::string> names){
     ui->listWidget_customSources->clear();
     std::vector<std::string>::iterator it;
@@ -161,9 +152,7 @@ void MainWindow::retActiveSource(std::string name){
     ui->statusBar->showMessage(msg.str().c_str(), 5000);
 }
 
-
-
-//////////////////////////////////// CONFIG \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/*//////////////////////////////////// CONFIG \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 void MainWindow::on_actionNew_activated(){
     emit newConfig();
@@ -201,10 +190,14 @@ void MainWindow::on_actionExit_activated(){
     close();
 }
 
-//////////////////////////////////// OBJECTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/*//////////////////////////////////// OBJECTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 void MainWindow::on_pushButton_setObject_clicked(){
-    emit setActiveObject(ui->listWidget_Objects->currentItem()->text().toStdString());
+    QListWidgetItem *item = ui->listWidget_Objects->currentItem();
+    if(!item){
+        return;
+    }
+    emit setActiveObject(item->text().toStdString());
 }
 
 void MainWindow::on_pushButton_removeObject_clicked(){
@@ -221,16 +214,12 @@ void MainWindow::on_pushButton_newObject_clicked(){
     int status = eod->exec();
     if(status == QDialog::Accepted){
         ObjectData ob = eod->getObjectData();
-        ob;
         emit this->editObject(eod->getObjectData().getName(), eod->getObjectData());
     }
     delete eod;
 }
 
-
-
-
-//////////////////////////////////// ADJUSTMENTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/*//////////////////////////////////// ADJUSTMENTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 void MainWindow::on_comboBox_controllerType_currentIndexChanged(const QString &arg1){
     updateAdjustmentsList();
@@ -274,6 +263,7 @@ void MainWindow::on_listWidget_adjustments_currentItemChanged(QListWidgetItem *c
 
 void MainWindow::on_pushButton_setAdjustment_clicked(){
     QString ctype = ui->comboBox_controllerType->currentText();
+
     AdjustmentData ad = AdjustmentData();
     std::map<std::string, double> param;
 
@@ -340,9 +330,7 @@ void MainWindow::on_pushButton_saveAdjustment_clicked(){
     delete sad;
 }
 
-
-
-//////////////////////////////////// SIMPLE SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/*//////////////////////////////////// SIMPLE SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 void MainWindow::on_listWidget_simpleSources_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous){
     QString arg1 = current->text();
@@ -365,7 +353,11 @@ void MainWindow::on_listWidget_simpleSources_currentItemChanged(QListWidgetItem 
 }
 
 void MainWindow::on_pushButton_setSimpleSource_clicked(){
-    QString arg1 = ui->listWidget_simpleSources->currentItem()->text();
+    QListWidgetItem *item = ui->listWidget_simpleSources->currentItem();
+    if(!item){
+        return;
+    }
+    QString arg1 = item->text();
 
     std::map<std::string, double> param;
     std::string name;
@@ -399,8 +391,7 @@ void MainWindow::on_pushButton_setSimpleSource_clicked(){
     }
 }
 
-
-//////////////////////////////////// CUSTOM SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/*//////////////////////////////////// CUSTOM SOURCES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 void MainWindow::on_pushButton_addCustomSource_clicked(){
     EditCustomSourceDialog *ecsd = new EditCustomSourceDialog();
@@ -420,24 +411,27 @@ void MainWindow::on_pushButton_editCustomSource_clicked(){
 }
 
 void MainWindow::on_pushButton_setCustomSource_clicked(){
-    emit setActiveCustomSource(ui->listWidget_customSources->currentItem()->text().toStdString());
+    QListWidgetItem *item = ui->listWidget_customSources->currentItem();
+    if(!item){
+        return;
+    }
+    emit setActiveCustomSource(item->text().toStdString());
 }
 
-
-//////////////////////////////////// OTHERS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/*//////////////////////////////////// OTHERS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 void MainWindow::on_samplingSlider_valueChanged(int value)
 {
     std::stringstream convert;
     convert << value;
-    ui->samplingLabel->setText((convert.str().c_str()));
+    ui->label_sampling->setText((convert.str().c_str()));
 
     emit setSamplingTime(value);
 }
 
 void MainWindow::on_contSimRadio_toggled(bool checked)
 {
-    ui->samplingFrame->setEnabled(checked);
+    ui->samplingSlider->setEnabled(checked);
 }
 
 void MainWindow::on_stepSimRadio_toggled(bool checked)
@@ -453,16 +447,14 @@ void MainWindow::on_checkBox_feedback_toggled(bool checked)
     emit setFeedback(checked);
 }
 
-
 void MainWindow::on_checkBox_saveSignals_toggled(bool checked)
 {
-    ui->frame_saveSignalsParam->setEnabled(checked);
     if(!checked){
         emit saveSignalsToFile(false, "");
     }
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_setOutputFile_clicked()
 {
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::AnyFile);
@@ -470,8 +462,9 @@ void MainWindow::on_pushButton_clicked()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     QStringList fileNames;
-    if (dialog.exec())
+    if (dialog.exec()){
         fileNames = dialog.selectedFiles();
+    }
 
     if(fileNames.size()>0){
         emit saveSignalsToFile(true, fileNames.at(0).toStdString());

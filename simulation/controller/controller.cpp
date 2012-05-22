@@ -4,8 +4,10 @@ Controller::Controller(){
     source = NULL;
 }
 
+Controller::~Controller(){
+}
+
 void Controller::setSource(Source* n_source){
-    delete source;
     source = n_source;
 }
 
@@ -14,6 +16,12 @@ double Controller::getSP(){
 }
 
 void Controller::reset(){
+    if(source){
+        source->reset();
+    }
     DiscreteObject::reset();
-    source->reset();
+}
+
+Source* Controller::getSource(){
+    return source;
 }

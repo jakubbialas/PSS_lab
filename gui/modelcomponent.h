@@ -19,7 +19,7 @@ public:
     ~ModelComponent();
 
 private:
-    char elements[4];
+    char elements[5];
     std::map<char, std::vector<double> > data;
     std::map<char, QLineEdit* > components;
     QHBoxLayout *layout;

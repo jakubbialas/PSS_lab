@@ -8,8 +8,9 @@ NonStationaryDiscreteObject::~NonStationaryDiscreteObject()
 {
 }
 
-NonStationaryDiscreteObject::NonStationaryDiscreteObject(ObjectData n_data){
-    data = n_data;
+NonStationaryDiscreteObject::NonStationaryDiscreteObject(ObjectData n_data):
+    data(n_data)
+{
     setModel(data.getModels().at(0));
 }
 
@@ -20,12 +21,10 @@ void NonStationaryDiscreteObject::setData(ObjectData n_data){
 
 void NonStationaryDiscreteObject::updateModel(){
     if(data.getModels().size()>1){
-        ModelData model;
         for(int i=0; i<data.getModels().size(); i++){
-             model = data.getModels().at(i);
-             if(model.getT() == counter){
-                 setModel(model);
-             }
+            if(data.getModels().at(i).getT() == counter){
+                setModel(data.getModels().at(i));
+            }
         }
     }
 }

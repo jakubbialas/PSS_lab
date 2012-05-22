@@ -46,8 +46,6 @@ int main(int argc, char *argv[])
                      &window, SLOT(drawInput(double)));
     QObject::connect(&simulation, SIGNAL(drawOutput(double)),
                      &window, SLOT(drawOutput(double)));
-    QObject::connect(&simulation, SIGNAL(drawError(double)),
-                     &window, SLOT(drawError(double)));
     QObject::connect(&simulation, SIGNAL(drawControl(double)),
                      &window, SLOT(drawControl(double)));
 
@@ -115,24 +113,7 @@ int main(int argc, char *argv[])
     QObject::connect(&config, SIGNAL(retActiveSource(std::string)),
                      &window, SLOT(retActiveSource(std::string)));
 
-   window.show();
-  /*  std::vector<double> B;
-    std::vector<double> A;
+    window.show();
 
-    B.push_back(0.05);
-    A.push_back(1);
-    A.push_back(-1.95);
-    A.push_back(0.95);
-
-    DiscreteObject o(B, A, 2);
-    ModelData d;
-    ARXIdentification ident(0, 2, 2, 1);
-double y, w = 1;
-    for(int i=0; i<100; i++){
-        y = o.simulate(w);
-        d = ident.identify(w, y);
-    }
-    cout << d;
-*/
     return a.exec();
 }

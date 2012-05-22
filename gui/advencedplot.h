@@ -2,6 +2,7 @@
 #define ADVENCEDPLOT_H
 
 #include <QWidget>
+#include <QFileDialog>
 
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
@@ -9,6 +10,8 @@
 #include <qvector.h>
 #include <map>
 #include <string>
+#include <iostream>
+#include <fstream>
 
 namespace Ui {
     class AdvencedPlot;
@@ -62,6 +65,12 @@ public slots:
 private slots:
     void on_horizontalScrollBarXPos_valueChanged(int value);
 
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_savAll_clicked();
+
+    void on_pushButton_saveCurrent_clicked();
+
 private:
     std::map<std::string, QVector<double>*> m_X; /**< Mapa przechowująca wartosci X, dla Pena będacego kluczem */
     std::map<std::string, QVector<double>*> m_Y; /**< Mapa przechowująca wartosci Y, dla Pena będacego kluczem */
@@ -75,6 +84,8 @@ private:
     int posX;
     int sizeX;
     int howX;
+
+    const static unsigned int maxMemory;
 };
 
 #endif // ADVENCEDPLOT_H

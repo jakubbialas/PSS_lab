@@ -72,7 +72,10 @@ HEADERS  += gui/mainwindow.h \
     gui/modelcomponent.h \
     simulation/identification/arxidentification.h \
     simulation/controller/controllergpc.h \
-    gui/advencedplot.h
+    gui/advencedplot.h \
+    exceptions/pss_discreteobject_exceptions.h \
+    exceptions/pss_yamlparser_exceptions.h \
+    exceptions/pss_exception.h
 
 FORMS    += gui/mainwindow.ui \
     gui/saveadjustmentdialog.ui \

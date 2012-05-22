@@ -48,8 +48,12 @@ void Simulation::stopSimulation(){
 }
 
 void Simulation::resetSimulation(){
-    object->reset();
-    controller->reset();
+    if(object){
+        object->reset();
+    }
+    if(controller){
+        controller->reset();
+    }
 }
 
 void Simulation::stepSimulation(int i){
@@ -65,8 +69,12 @@ void Simulation::stepSimulation(int i){
 }
 
 void Simulation::nextStep(){
-    if(controller && object){
-        double w = ((Controller*) controller)->getSP();
+    if(!controller || !object){
+        emit simulationStopped(std::string("First set object and controller"));
+        timer->stop();
+        return;
+    }
+    try{
         double y_last = 0;
         if(feedback){
             y_last = object->getLastValue();
@@ -74,6 +82,7 @@ void Simulation::nextStep(){
 
         double u = controller->simulate(y_last);
         double y = object->simulate(u);
+        double w = ((Controller*) controller)->getSP();
 
         emit drawInput(w);
         emit drawControl(u);
@@ -81,9 +90,10 @@ void Simulation::nextStep(){
         if(toFile){
             printFile(w, u, y);
         }
-    }else{
-        emit simulationStopped(std::string("First set object, controller and source!"));
+    }catch(PSSException e){
+        emit simulationStopped(std::string(e.what()));
         timer->stop();
+        return;
     }
 }
 
@@ -94,22 +104,6 @@ void Simulation::setObject(ObjectSISO* n_object){
 void Simulation::setController(ObjectSISO* n_controller){
     controller = n_controller;
 }
-
-/*void Simulation::setSource(Source* n_source){
-    source = n_source;
-}*/
-
-/*ObjectSISO* Simulation::getObject(){
-    return object;
-}
-
-ObjectSISO* Simulation::getController(){
-    return controller;
-}
-
-Source* Simulation::getSource(){
-    return source;
-}*/
 
 void Simulation::saveSignalsToFile(bool n_toFile, std::string n_filePath){
     toFile = n_toFile;

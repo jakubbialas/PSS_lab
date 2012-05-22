@@ -2,15 +2,8 @@
 #define MODELDATA_H
 
 #include "tool.h"
-
-#include <string>
-#include <vector>
 #include <yaml-cpp/yaml.h>
-#include <yaml-cpp/emitter.h>
-#include <yaml-cpp/node.h>
-#include <yaml-cpp/stlemitter.h>
-#include <yaml-cpp/stlnode.h>
-#include <iostream>
+#include "exceptions/pss_yamlparser_exceptions.h"
 
 /**
  * @brief Klasa przechowujaca parametru obiektu dyskretnego
@@ -18,14 +11,14 @@
  */
 class ModelData
 {
+private:
+    std::vector<double> B;  /**< Wielomian B */
+    std::vector<double> A;  /**< Wielomian A */
+    unsigned int k;         /**< Parametr k */
+    unsigned int t;         /**< Czas przełączenia parametrow(nie stacjonarnść) */
+    double noiseRatio;              /**< Współczynnik szumu */
 
- private:
-    std::vector<double> B;  /** Wielomian B */
-    std::vector<double> A;  /** Wielomian A */
-    int k;                  /** Parametr k */
-    int t;                  /** Czas przełączenia parametrow(nie stacjonarnść) */
-
- public:
+public:
     /**
      * @brief Konstruktor
      *
@@ -35,12 +28,14 @@ class ModelData
     /**
      * @brief
      *
-     * @param std::vector<double>
-     * @param std::vector<double>
-     * @param int
-     * @param n_t
+     * @param std::vector<double> B
+     * @param std::vector<double> A
+     * @param unsigned int k
+     * @param unsigned int t
+     * @param double noiseRatio
      */
-    ModelData(std::vector<double>, std::vector<double>, int, int n_t=0);
+    ModelData(std::vector<double> B, std::vector<double> A, unsigned int k, unsigned int t=0, double noiseRatio=0);
+
     /**
      * @brief Destruktor;
      *
@@ -53,44 +48,64 @@ class ModelData
      * @param std::vector<double> wielomian B
      */
     void setB(std::vector<double>);
+
     /**
      * @brief funkcja zwraca wielomian B
      *
      */
     std::vector<double> getB() const;
+
     /**
      * @brief funkcja ustawia wielomian A
      *
      * @param std::vector<double> wielomian A
      */
     void setA(std::vector<double>);
+
     /**
      * @brief funkcja zwraca wielomian A
      *
      */
     std::vector<double> getA() const;
+
     /**
      * @brief funkcja ustawia parametr k
      *
      * @param int parametr k
      */
-    void setK(int);
+    void setK(unsigned int);
+
     /**
      * @brief funkcja zwraca parametr k
      *
      */
-    int getK() const;
+    unsigned int getK() const;
+
     /**
      * @brief funkcja ustawia czas przełaczenia t
      *
      * @param int czas przełączenia t
      */
-    void setT(int);
+    void setT(unsigned int);
+
     /**
      * @brief funkcja zwraca czas przełaczenia t
      *
      */
-    int getT() const;
+    unsigned int getT() const;
+
+    /**
+     * @brief funkcja ustawia współczynnik szumu
+     *
+     * @param int czas przełączenia t
+     */
+    void setNoiseRatio(double);
+
+    /**
+     * @brief funkcja zwraca współczynnik szumu
+     *
+     */
+    double getNoiseRatio() const;
 
     /**
      * @brief deklaracja przyjaźni dla operatora strumienia

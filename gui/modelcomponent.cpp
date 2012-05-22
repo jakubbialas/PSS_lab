@@ -5,7 +5,7 @@ ModelComponent::ModelComponent(QWidget *parent): QWidget(parent){
     layout = new QHBoxLayout(this);
     std::vector<char> elements;
 
-    elements.push_back('t'); elements.push_back('B');  elements.push_back('A');  elements.push_back('k');
+    elements.push_back('t'); elements.push_back('B');  elements.push_back('A');  elements.push_back('k');  elements.push_back('nr');
 
 
     for(std::vector<char>::iterator i = elements.begin(); i != elements.end(); i++){
@@ -70,6 +70,8 @@ ModelData* ModelComponent::getModelData(){
     std::vector<QString>* t = numbers.at('t');
     md->setT(t->at(0).toDouble());
 
+    std::vector<QString>* nr = numbers.at('nr');
+    md->setNoiseRatio(nr->at(0).toDouble());
     return md;
 }
 
@@ -89,6 +91,7 @@ void ModelComponent::setModelData( ModelData* md) const{
 
     components.at('k')->setText( no.setNum(md->getK()));
     components.at('t')->setText( no.setNum(md->getT()));
+    components.at('nr')->setText( no.setNum(md->getNoiseRatio()));
 
 }
 

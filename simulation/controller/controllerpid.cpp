@@ -1,19 +1,17 @@
 #include "controllerpid.h"
 
 ControllerPID::ControllerPID(){
-    setNoiseRatio(0);
-    lastI = 0;
-    lastD = 0;
+    ControllerPID(0,0,0);
 }
 
-ControllerPID::ControllerPID(double n_P, double n_I, double n_D){
-    P = n_P;
-    I = n_I;
-    D = n_D;
+ControllerPID::ControllerPID(double n_P, double n_I, double n_D):
+    P(n_P),
+    I(n_I),
+    D(n_D),
+    lastI(0),
+    lastD(0)
+{
     setNoiseRatio(0);
-
-    lastI = 0;
-    lastD = 0;
 }
 
 ControllerPID::~ControllerPID(){
@@ -27,9 +25,8 @@ void ControllerPID::setParameter(std::string name, double value){
     }else if(name.compare("D") == 0){
         D = value;
     }else{
-        throw "Undefined parameter " + name + ".";
+        throw PSSDiscreteObjectUnknownParameterException();
     }
-    //actualize();
 }
 
 double ControllerPID::simulateP(){
@@ -37,8 +34,10 @@ double ControllerPID::simulateP(){
 }
 
 double ControllerPID::simulateI(){
-    if(U.size() > 1){
-        lastI = lastI + P/I*U[1];
+    if(U.size() > 1 && I != 0){
+        lastI = lastI + (P/I)*U[1];
+    }else{
+        lastI = 0;
     }
     return lastI;
 }
@@ -54,7 +53,11 @@ double ControllerPID::simulateD(){
 }
 
 double ControllerPID::simulate(double y){
+    if(source == NULL){
+        throw PSSDiscreteObjectSorceNotDefinedException();
+    }
     double e = source->getNextSample() - y;
+
     U.push_front(e);
     if(U.size() > 2){
         U.pop_back();

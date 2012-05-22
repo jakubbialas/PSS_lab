@@ -1,12 +1,13 @@
 #include "objectdata.h"
 
 ObjectData::ObjectData(){
+    ObjectData(std::string(), std::vector<ModelData>(0));
 }
 
-ObjectData::ObjectData(std::string n_name, std::vector<ModelData> n_models){
-    name = n_name;
-    models = n_models;
-}
+ObjectData::ObjectData(std::string n_name, std::vector<ModelData> n_models):
+    name(n_name),
+    models(n_models){}
+
 
 ObjectData::~ObjectData(){
 }
@@ -15,14 +16,13 @@ void ObjectData::setName(std::string n_name){
     name = n_name;
 }
 
-std::string  ObjectData::getName() const{
+std::string ObjectData::getName() const{
     return name;
 }
 
 void ObjectData::setModels(std::vector<ModelData> n_models){
     models = n_models;
 }
-
 
 std::vector<ModelData> ObjectData::getModels() const{
     return models;
@@ -49,6 +49,10 @@ std::ostream& operator << (std::ostream &stream, const ObjectData &od){
 }
 
 void operator >> (const YAML::Node& node, ObjectData &od) {
-    node["models"] >> od.models;
-    node["name"] >> od.name;
+    try{
+        node["models"] >> od.models;
+        node["name"] >> od.name;
+    }catch(std::exception& e){
+        throw PSSYAMLParserParameterNotFoundException();
+    }
 }

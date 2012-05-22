@@ -47,36 +47,34 @@ void ControllerGPC::setParameter(std::string name, double value){
 }
 
 double ControllerGPC::simulate(double y){
+    if(source == NULL){
+        throw PSSDiscreteObjectSorceNotDefinedException();
+    }
     double u = 0;
     double w = source->getNextSample();
 
     U.push_front(y);
 
-    ModelData md = arx.identify(Y.front(), y);
-/*
-    std::vector<double> Bb = md.getB();
-    std::vector<double> Ab = md.getA();
-    Ab[0] = 1;
-    Ab[1] = -0.95;
-    Bb[0] = 0.05;
-    md.setA(Ab);
-    md.setB(Bb);*/
+    //identyfi new model:
+    ModelData md;
+    if(Y.size()==0){
+        md = arx.identify(0, y);
+    }else{
+        md = arx.identify(Y.front(), y);
+    }
 
-    std::cout << "md: " << md << "\n";
-
-    DiscreteObject obj;
-    obj.setBAk(md.getB(), md.getA(), 0);
-    obj.setNoiseRatio(0);
+    //DiscreteObject obj;
+    obj1.reset();
+    obj1.setParameters(md.getB(), md.getA(), 0, 0);
 
     boost::numeric::ublas::matrix<double> h(H,1);
     for(int i=0; i<H; i++){
-        h(i,0) = (obj.simulate(1));
+        h(i,0) = (obj1.simulate(1));
     }
 
-    boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
-            boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> > Q(H,L,12);
+    Q = boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
+            boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> >(H,L,12);
 
-    //boost::numeric::ublas::matrix<double> Q(H,L);
     for(int i=0; i<H; i++){
         for(int j=0; j<L; j++){
             if(i-j<0){
@@ -90,7 +88,6 @@ double ControllerGPC::simulate(double y){
     boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
             boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> > temp(L,L);
 
-    //boost::numeric::ublas::matrix<double> temp(L,L);
     temp = prod(trans(Q), Q);
     temp = temp + boost::numeric::ublas::identity_matrix<double>(L)*p;
 
@@ -100,22 +97,26 @@ double ControllerGPC::simulate(double y){
     lu_factorize(temp,pm);
     lu_substitute(temp,pm,temp2);
 
-    boost::numeric::ublas::matrix<double> qs(L,H);
-    qs = prod(temp2, trans(Q));
-    qs.resize(1,H);
-    */
+    boost::numeric::ublas::matrix<double> q(L,H);
+    q = prod(temp2, trans(Q));
+    q.resize(1,H);
+*/
 
     //rozwiązywanie układu równań: (dziala dobrze)
-    boost::numeric::ublas::vector<double> B (L), X (L);
+    B = boost::numeric::ublas::vector<double> (L);
+    X = boost::numeric::ublas::vector<double> (L);
     for(int i=0; i<L; i++){ B(i) = 1; X(i) = 0; }
 
-    boost::numeric::bindings::umfpack::symbolic_type<double> Symbolic;
-    boost::numeric::bindings::umfpack::numeric_type<double> Numeric;
+    //boost::numeric::bindings::umfpack::symbolic_type<double> Symbolic;
+    //boost::numeric::bindings::umfpack::numeric_type<double> Numeric;
     boost::numeric::bindings::umfpack::symbolic (temp, Symbolic);
     boost::numeric::bindings::umfpack::numeric (temp, Symbolic, Numeric);
     boost::numeric::bindings::umfpack::solve (temp, X, B, Numeric);
 
-    boost::numeric::ublas::matrix<double> X2 (L, 1);
+    boost::numeric::bindings::umfpack::free(Symbolic);
+    boost::numeric::bindings::umfpack::free(Numeric);
+
+    boost::numeric::ublas::matrix<double> X2(L, 1);
     for(int i=0; i<L; i++) X2(i,0) = X(i);
     boost::numeric::ublas::matrix<double> q(1,H);
 
@@ -129,38 +130,40 @@ double ControllerGPC::simulate(double y){
     wB.push_back(1-a);
     wA.push_back(1);
     wA.push_back(-a);
-    DiscreteObject obj3;
-    obj3.setBAk(wB, wA, 0);
-    obj3.setNoiseRatio(0);
-
+    //DiscreteObject obj3;
+    obj3.reset();
+    obj3.setParameters(wB, wA, 0, 0);
     obj3.setU(Y);
     obj3.setY(U);
 
-    DiscreteObject obj2;
-    obj2.setBAk(md.getB(), md.getA(), 0);
-    obj2.setNoiseRatio(0);
-
+    //DiscreteObject obj2;
+    obj2.reset();
+    obj2.setParameters(md.getB(), md.getA(), 0, 0);
     obj2.setU(Y);
     obj2.setY(U);
-    obj2.simulate(Y.front());
+
+    if(Y.size() == 0){
+        obj2.simulate(0);
+    }else{
+        obj2.simulate(Y.front());
+    }
 
     for(int i=0; i<H; i++){
         W0(i,0) = obj3.simulate(w);
-        Y0(i,0) = obj2.simulate(Y.front());
+        if(Y.size() == 0){
+            Y0(i,0) = obj2.simulate(0);
+        }else{
+            Y0(i,0) = obj2.simulate(Y.front());
+        }
     }
-
-    std::cout << "h: " << h << "\n";
-    std::cout << "q: " << q << "\n";
-    std::cout << "W0: " << W0 << "\n";
-    std::cout << "Y0: " << Y0 << "\n";
-
     boost::numeric::ublas::matrix<double> temp4(1,1);
     temp4 = prod(q, W0-Y0);
 
-    u = Y.front() + temp4(0,0);
-
-    std::cout << "u: " << u << "\n";
-
+    if(Y.size() == 0){
+        u = temp4(0,0);
+    }else{
+        u = Y.front() + temp4(0,0);
+    }
     Y.push_front(u);
 
     return u;
@@ -168,6 +171,10 @@ double ControllerGPC::simulate(double y){
 
 void ControllerGPC::reset(){
     Controller::reset();
+    arx.reset();
+    obj1.reset();
+    obj2.reset();
+    obj3.reset();
+    obj2 = DiscreteObject();
 
-    arx = ARXIdentification(dB, dA, k, l);
 }

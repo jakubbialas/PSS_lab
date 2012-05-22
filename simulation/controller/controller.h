@@ -19,6 +19,11 @@ public:
      *
      */
     Controller();
+    /**
+     * @brief Destruktor
+     *
+     */
+    ~Controller();
 
     /**
      * @brief virtualna funkcja ustawiająca wybrany parametr regulatora
@@ -28,11 +33,29 @@ public:
      */
     virtual void setParameter(std::string, double)=0;
 
-    Source *source;
+    Source *source; /**< TODO */
 
+    /**
+     * @brief funkcja ustalajaca wymuszenie
+     *
+     * @param
+     */
     void setSource(Source*);
+    /**
+     * @brief funkcja zwracajaca wartosc zadana
+     *
+     */
     double getSP();
+    /**
+     * @brief funkcja resetujaca regulator
+     *
+     */
     void reset();
+    /**
+     * @brief funkcja zwracajaca wymuszenie
+     *
+     */
+    Source* getSource();
 
 };
 #endif // CONTROLLER_H
