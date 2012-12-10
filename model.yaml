@@ -5,28 +5,40 @@ objects:
         A: [1, -1]
         B: [1]
         k: 1
+        nr: 0.05
+  - name: inercja
+    models:
+      - t: 0
+        A: [1, -0.95]
+        B: [0.95]
+        k: 0
+        nr: 0
   - name: inercja z calka
     models:
       - t: 0
         A: [1, -1.95, 0.95]
         B: [0.05]
         k: 1
-  - name: niestacjonarny1
+        nr: 0.05
+  - name: test1
     models:
       - t: 0
         A: [1, -1.95, 0.95]
         B: [0.05]
         k: 1
-      - t: 20
-        A: [1, -0.95]
-        B: [0.95]
+        nr: 0
+      - t: 500
+        A: [1, -1.7, 0.7]
+        B: [0.3]
         k: 1
+        nr: 0
   - name: zinercja
     models:
       - t: 0
-        A: [1, -0.95]
-        B: [0.95]
+        A: [1, -0.6]
+        B: [0.4]
         k: 1
+        nr: 0
 adjustments:
   - type: P
     name: nastawa1
@@ -39,30 +51,36 @@ adjustments:
   - type: PID
     name: nastawa1
     parameters:
-      D: 1.4
-      I: 5.5
-      P: 1
+      D: 5
+      I: 20
+      P: 0.09
+  - type: GPC
+    name: test
+    parameters:
+      H: 5
+      L: 4
+      a: 0.95
+      dA: 2
+      dB: 0
+      k: 1
+      l: 0.95
+      p: 1
+  - type: GPC
+    name: test2
+    parameters:
+      H: 1
+      L: 1
+      a: 0
+      dA: 1
+      dB: 0
+      k: 1
+      l: 1
+      p: 0
 sources:
-  - name: sinus f=0.01 + noise
-    sources:
-      - type: sinus
-        parameters:
-          amplitude: 1
-          frequency: 0.01
-      - type: noise
-        parameters:
-          amplitude: 0.05
-  - name: square + triangle + noise
+  - name: square
     sources:
       - type: square
         parameters:
-          amplitude: 1
-          dutycycle: 50
-          frequency: 0.01
-      - type: triangle
-        parameters:
-          amplitude: 1
-          frequency: 0.01
-      - type: noise
-        parameters:
-          amplitude: 0.05
+          amplitude: 5
+          dutycycle: 60
+          frequency: 0.025

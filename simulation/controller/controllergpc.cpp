@@ -1,4 +1,4 @@
-#include "controllergpc.h"
+#include "controllergpc.h"\
 
 ControllerGPC::ControllerGPC()
 {
@@ -72,8 +72,10 @@ double ControllerGPC::simulate(double y){
         h(i,0) = (obj1.simulate(1));
     }
 
-    Q = boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
-            boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> >(H,L,12);
+//    Q = boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
+//            boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> >(H,L,12);
+
+    boost::numeric::ublas::matrix<double> Q(H,L);
 
     for(int i=0; i<H; i++){
         for(int j=0; j<L; j++){
@@ -85,42 +87,56 @@ double ControllerGPC::simulate(double y){
         }
     }
 
-    boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
-            boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> > temp(L,L);
+       //odwracanie macierzy: moze byc niestabilne, dziala w matlabie
+            boost::numeric::ublas::matrix<double> otemp(L,L);
 
-    temp = prod(trans(Q), Q);
-    temp = temp + boost::numeric::ublas::identity_matrix<double>(L)*p;
+            otemp = prod(trans(Q), Q);
+            otemp = otemp + boost::numeric::ublas::identity_matrix<double>(L)*p;
+            //otemp = trans(otemp);
 
-/*  //odwracanie macierzy: (niestabilne czasem po 200 probkach sie wykrzacza czasem po 1)
-    boost::numeric::ublas::matrix<double> temp2(L,L);
-    boost::numeric::ublas::permutation_matrix<> pm(temp.size1());
-    lu_factorize(temp,pm);
-    lu_substitute(temp,pm,temp2);
+            boost::numeric::ublas::matrix<double> otemp2(L,L);
+            otemp2.assign(boost::numeric::ublas::identity_matrix<double>(L));
+            boost::numeric::ublas::permutation_matrix<> pm(L);
+            lu_factorize(otemp,pm);
+            lu_substitute(otemp,pm,otemp2);
 
-    boost::numeric::ublas::matrix<double> q(L,H);
-    q = prod(temp2, trans(Q));
-    q.resize(1,H);
-*/
 
-    //rozwiązywanie układu równań: (dziala dobrze)
-    B = boost::numeric::ublas::vector<double> (L);
-    X = boost::numeric::ublas::vector<double> (L);
-    for(int i=0; i<L; i++){ B(i) = 1; X(i) = 0; }
+            boost::numeric::ublas::matrix<double> q(1,H);
+            boost::numeric::ublas::matrix<double> otemp3(1,L,1);
 
-    //boost::numeric::bindings::umfpack::symbolic_type<double> Symbolic;
-    //boost::numeric::bindings::umfpack::numeric_type<double> Numeric;
-    boost::numeric::bindings::umfpack::symbolic (temp, Symbolic);
-    boost::numeric::bindings::umfpack::numeric (temp, Symbolic, Numeric);
-    boost::numeric::bindings::umfpack::solve (temp, X, B, Numeric);
+            boost::numeric::ublas::matrix<double> otemp4(L,1);
+            otemp4 = prod(otemp3, otemp2);
 
-    boost::numeric::bindings::umfpack::free(Symbolic);
-    boost::numeric::bindings::umfpack::free(Numeric);
+            q = prod(otemp4, trans(Q));
+        //koniec odwracania macierzy
 
-    boost::numeric::ublas::matrix<double> X2(L, 1);
-    for(int i=0; i<L; i++) X2(i,0) = X(i);
-    boost::numeric::ublas::matrix<double> q(1,H);
 
-    q = prod(trans(X2), trans(Q));
+          //rozwiązywanie układu równań: (dziala dobrze) - nie dziala w matlabie.....
+    /*        boost::numeric::ublas::compressed_matrix<double, boost::numeric::ublas::column_major, 0,
+                    boost::numeric::ublas::unbounded_array<int>, boost::numeric::ublas::unbounded_array<double> > temp(L,L);
+
+            temp = prod(trans(Q), Q);
+            temp = temp + boost::numeric::ublas::identity_matrix<double>(L)*p;
+
+            B = boost::numeric::ublas::vector<double> (L);
+            X = boost::numeric::ublas::vector<double> (L);
+            for(int i=0; i<L; i++){ B(i) = 1; X(i) = 0; }
+
+            //boost::numeric::bindings::umfpack::symbolic_type<double> Symbolic;
+            //boost::numeric::bindings::umfpack::numeric_type<double> Numeric;
+            boost::numeric::bindings::umfpack::symbolic (temp, Symbolic);
+            boost::numeric::bindings::umfpack::numeric (temp, Symbolic, Numeric);
+            boost::numeric::bindings::umfpack::solve (temp, X, B, Numeric);
+
+            boost::numeric::bindings::umfpack::free(Symbolic);
+            boost::numeric::bindings::umfpack::free(Numeric);
+
+            boost::numeric::ublas::matrix<double> X2(L, 1);
+            for(int i=0; i<L; i++) X2(i,0) = X(i);
+            boost::numeric::ublas::matrix<double> q(1,H);
+
+            q = prod(trans(X2), trans(Q));*/
+          //koniec
 
     boost::numeric::ublas::matrix<double> W0(H,1);
     boost::numeric::ublas::matrix<double> Y0(H,1);
@@ -147,6 +163,8 @@ double ControllerGPC::simulate(double y){
     }else{
         obj2.simulate(Y.front());
     }
+
+    obj3.simulate(w);
 
     for(int i=0; i<H; i++){
         W0(i,0) = obj3.simulate(w);
@@ -176,5 +194,4 @@ void ControllerGPC::reset(){
     obj2.reset();
     obj3.reset();
     obj2 = DiscreteObject();
-
 }
